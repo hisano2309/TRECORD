@@ -10,7 +10,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/uploads/**")//アクセスするURLの指定
-				.addResourceLocations("file:///C:/Users/zd3M06/uploads/");//ソースの指定
+				.addResourceLocations("file:///C:/Users/uploads/");//ソースの指定
 	}
 
 }

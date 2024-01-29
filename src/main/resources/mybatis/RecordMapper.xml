@@ -32,8 +32,8 @@
 		UPDATE images SET
 		img_name = #{imgName},
 		memo = #{memo},
-		date = #{date}
-		WHERE img_id = #{id}
+		date = now()
+		WHERE img_id = #{imgId}
 	</update>
 
 </mapper>
