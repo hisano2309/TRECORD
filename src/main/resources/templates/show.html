@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>詳細内容閲覧</title>
+</head>
+<body>
+
+	<h1>トレーニング内容</h1>
+
+	<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+
+	<a th:href="@{/mypage/edit/{id}(id=*{id})}">編集</a>
+	<a th:href="@{/mypage/delete/{id}(id=*{id})}">削除</a>
+  <a th:href="@{/mypage/delete/{id}(id=*{id})}">削除</a>
+</body>
+</html>

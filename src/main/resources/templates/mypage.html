@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>My Page</title>
+</head>
+<body>
+
+	<h1>MY PAGE</h1>
+
+	<h2>All ALUBUM</h2>
+	<img th:each="image : ${imgList}"
+		th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+
+
+</body>
+</html>
