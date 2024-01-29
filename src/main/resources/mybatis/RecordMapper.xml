@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.RecordMapper">
+
+	<!-- ユーザーの画像一覧取得 -->
+	<select id="getImageByUserId" parameterType="integer" resultType="Image">
+		SELECT * FROM images
+		WHERE user_id = #{id}
+	</select>
+
+	<!-- 画像の個別取得 -->
+	<select id="getImageById" resultType="Image" parameterType="integer">
+		SELECT * FROM
+		images WHERE img_id = #{id}
+	</select>
+
+	<!-- 新規登録 -->
+	<insert id="add" parameterType="Image">
+		INSERT INTO images
+		VALUES(NULL, 1, #{imgName}, #{memo}, now())
+	</insert>
+
+	<!-- 削除 -->
+	<delete id="delete" parameterType="integer">
+		DELETE FROM images WHERE
+		img_id=#{id}
+	</delete>
+
+	<!-- 更新 -->
+	<update id="edit" parameterType="Image">
+		<!-- DBカラム名 = #{Javaフィールド名} -->
+		UPDATE images SET
+		img_name = #{imgName},
+		memo = #{memo},
+		date = #{date}
+		WHERE img_id = #{id}
+	</update>
+
+</mapper>
