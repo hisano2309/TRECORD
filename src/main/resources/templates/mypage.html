@@ -7,10 +7,17 @@
 <body>
 
 	<h1>MY PAGE</h1>
+	
+	<h2>記録をする</h2>
+	
+	
+	<h2>記録を見る</h2>
 
-	<h2>All ALUBUM</h2>
-	<img th:each="image : ${imgList}"
-		th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+	<h3>All ALUBUM</h3>
+	<a th:href="@{/mypage/show/{id}(id=${image.imgId})}" th:each="image : ${imgList}" >
+		<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+		<p >[[${image.date}]]</p>
+	</a>
 
 
 </body>
