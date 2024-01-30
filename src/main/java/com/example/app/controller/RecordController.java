@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,18 +16,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.app.domain.Image;
 import com.example.app.mapper.RecordMapper;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping
+@RequestMapping("/mypage")
 public class RecordController {
 
 	private final RecordMapper mapper;
 
 	// ユーザーの画像一覧取得
-	@GetMapping("/mypage")
+	@GetMapping
 	public String list(Model model) {
 		List<Image> imgList = mapper.getImageByUserId(1);
 		model.addAttribute("imgList", imgList);
@@ -63,7 +61,7 @@ public class RecordController {
 			throws IllegalStateException, IOException {
 		if (upload.isEmpty()) {
 			model.addAttribute("msg", "画像が選択されていません");
-			return "record";
+			return "redirect:/record";
 
 		} else {
 			// ファイルサイズ
@@ -75,7 +73,7 @@ public class RecordController {
 			// ファイル名取得
 			String imgName = upload.getOriginalFilename();
 			// 格納場所取得(各々のフォルダ名に変更して下さい)
-			File dest = new File("C:/Users/zd3M06/uploads/" + imgName);
+			File dest = new File("C:/Users/uploads/" + imgName);
 			// File dest = new File("C:/uploads/" + imgName);
 			Image image = new Image();
 			image.setImgName(imgName);
@@ -85,8 +83,8 @@ public class RecordController {
 
 			// TODO ここにレベルアップ機能を実装
 
+			return "redirect:/mypage";
 		}
-		return "redirect:/mypage";
 	}
 
 	// トレーニング内容個別編集
@@ -98,12 +96,18 @@ public class RecordController {
 	}
 
 	@PostMapping("/edit/{id}")
-	public String edit(@PathVariable Integer id, @Valid Image image, Errors errors, Model model) {
-		if (errors.hasErrors()) {
-			model.addAttribute("image", image);
-			return "record";
-		}
+	public String edit(@RequestParam MultipartFile upload, Image image,@PathVariable Integer id, Model model) throws IllegalStateException, IOException {
+//		if (errors.hasErrors()) {
+//			System.out.println("errors");
+//			model.addAttribute("image", image);
+//			return "record";
+//		}
+		
+		String imgName = upload.getOriginalFilename();
 		image.setImgId(id);
+		image.setImgName(imgName);
+		File dest = new File("C:/Users/uploads/" + imgName);
+		upload.transferTo(dest);
 		mapper.edit(image);
 		return "redirect:/mypage";
 
