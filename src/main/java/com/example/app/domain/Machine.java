@@ -7,4 +7,5 @@ public class Machine {
 
 	private Integer machineId;
 	private String machineName;
+
 }

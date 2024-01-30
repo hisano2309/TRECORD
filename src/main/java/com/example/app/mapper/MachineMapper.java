@@ -14,16 +14,16 @@ public interface MachineMapper {
 	List<Machine> selectAll() throws Exception;
 
 //登録//
-	//筋トレ（マシンあり）記録登録
+	//筋トレ記録登録
 	void insert(Machine machineRecord) throws Exception;
 
 	
 //編集//
-	//筋トレ（マシンあり）記録編集
+	//筋トレ記録編集
 	void update(Machine machineRecord) throws Exception;
 	
 //削除//
-	//筋トレ（マシンあり）記録削除
+	//筋トレ記録削除
 	void delete(Machine machineRecord) throws Exception;
 
 }

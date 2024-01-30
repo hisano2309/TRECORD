@@ -10,10 +10,11 @@ public class SetCount {
 	private int userId;
 	private LocalDateTime date;
 	
-	private Integer machineId;
-	private Integer bodyWeightId;
-	
+	private Integer machineId;	
 	private Integer machineCount;
-	private Integer bodyWeightCount;
+	
+	//private Integer bodyWeightId;
+	//private Integer bodyWeightCount;
+	
 	private int sets;
 }

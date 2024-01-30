@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.MachineMapper">
+
+<!-- 筋トレ記録登録 -->
+	<insert id="insert" parameterType="SetCount">
+		INSERT INTO machine_set_count(user_id, date, machine_id, machine_count, sets)
+			VALUES(#{userId},#{date},#{machineId},#{machineCount},#{sets})
+	</insert>
+
+<!-- 筋トレ記録編集 -->
+	<update id="update" parameterType="SetCount">
+		UPDATE machine_set_count SET
+			user_id = #{userId},
+			date = #{date},
+			machine_id = #{machineId},
+			machine_count = #{machineCount},
+			sets = #{sets}
+		WHERE id = #{date}
+	</update>
+
+</mapper>
