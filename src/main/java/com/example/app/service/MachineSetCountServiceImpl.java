@@ -1,5 +1,6 @@
 package com.example.app.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class MachineSetCountServiceImpl implements MachineSetCountService{
 
 	private final MachineMapper machineMapper;
-	
+
 	@Override
 	public List<Machine> getSelectMachine() throws Exception {
 		return machineMapper.selectMachine();
@@ -30,8 +31,8 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 	}
 
 	@Override
-	public List<MachineSetCount> getMachineSetCountDay(MachineSetCount day) throws Exception {
-		return machineMapper.selectDay();
+	public List<MachineSetCount> getMachineSetCountDay(LocalDate day) throws Exception {
+		return machineMapper.selectDay(day);
 	}
 
 	@Override
@@ -52,6 +53,6 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 
 	}
 
-	
+
 
 }

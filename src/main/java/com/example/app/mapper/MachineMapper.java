@@ -1,5 +1,6 @@
 package com.example.app.mapper;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,12 +15,12 @@ public interface MachineMapper {
 //表示//
 	//筋トレマシン一覧表示
 	List<Machine> selectMachine() throws Exception;
-	
+
 	//筋トレ記録全表示
 	List<MachineSetCount> selectAll() throws Exception;
 
 	//カレンダーから特定の日の筋トレ記録表示
-	List<MachineSetCount> selectDay() throws Exception;
+	List<MachineSetCount> selectDay(LocalDate day) throws Exception;
 
 //登録//
 	//筋トレ記録登録

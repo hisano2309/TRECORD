@@ -13,7 +13,7 @@
 	</select>
 
 <!-- カレンダーから特定の日の筋トレ記録表示 -->
-	<select id="selectDay" resultType="MachineSetCount" parameterType="MachineSetCount">
+	<select id="selectDay" resultType="MachineSetCount" parameterType="LocalDate">
 		SELECT * FROM machine_set_count WHERE date = #{date}
 	</select>
 
