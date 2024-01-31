@@ -27,6 +27,12 @@
 		SELECT min(machineWeight) FROM machine_set_count WHERE machine_id = #{machineId}
 	</select>
 
+<!-- 体重の登録 -->
+
+
+<!-- BMIの登録 -->
+
+
 <!-- 筋トレ記録登録 -->
 	<insert id="insert" parameterType="MachineSetCount">
 		INSERT INTO machine_set_count(user_id, date, machine_id, machine_count, sets)

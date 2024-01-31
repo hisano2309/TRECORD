@@ -23,15 +23,21 @@ public interface MachineMapper {
 	List<MachineSetCount> selectDay(LocalDate day) throws Exception;
 
 	//Max値を取得
-	int selectMax(MachineSetCount machineId);
+	int selectMax(MachineSetCount machineId) throws Exception;
 
 	//Min値を取得
-	int selectMin(MachineSetCount machineId);
+	int selectMin(MachineSetCount machineId) throws Exception;
 
 //登録//
-	//筋トレ記録登録
-	void insert(MachineSetCount machineRecord) throws Exception;
 
+	//体重の登録
+	void insertWeight(Record userWeight) throws Exception;
+
+	//BMIの登録
+	void insertBmi(Record bmi) throws Exception;
+
+	//筋トレ記録の登録
+	void insert(MachineSetCount machineRecord) throws Exception;
 
 //編集//
 	//筋トレ記録編集
