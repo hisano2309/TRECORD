@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>記録表示</title>
+</head>
+<body>
+	<div th:fragment="machineSetCount">
+		<form action="" method="post" th:object="${machineSetCount}">
+			
+<!-- ユーザーID： -->
+			
+			<p>日付：
+				<input type="date" th:field="*{date}" />
+			</p>
+		
+			<p>筋トレマシン名：
+				<select th:field="*{machineId}" >
+					<option th:each="machine : ${machine}" th:value="${machine.machineId}">
+						[[${machine.machineName}]]
+					</option>
+				</select>
+			</p>
+			
+<!-- 時間があったら・・・input要素とdatalist要素で「テキスト入力」と「入力候補からの選択」の両方が可能なフォームを作成 -->
+			<p>1セットあたりの回数：
+				<select th:field="*{count}">
+<!-- #numbers.sequence　繰り返しの最初の数と最後の数を記載 -->
+					<option th:each="i : ${#numbers.sequence(1, numCount)}" th:value="${i}">
+						[[${i}]]
+					</option>
+				</select>
+				回
+			</p>
+
+			<p>セット数：
+				<select th:field="*{sets}">
+					<th:block  th:each="i : ${#numbers.sequence(1, numSet)}" th:value="${i}">
+						<option th:value="${i}">
+							[[${i}]]
+						</option>
+					</th:block>
+				</select>
+				セット
+			</p>
+
+			<p><input type="submit" th:value="記録する" /></p>
+			
+		</form>
+	</div>
+</body>
+</html>

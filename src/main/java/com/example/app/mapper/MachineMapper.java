@@ -5,12 +5,16 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 
 @Mapper
 public interface MachineMapper {
 
 //表示//
+	//筋トレマシン一覧表示
+	List<Machine> selectMachine() throws Exception;
+	
 	//筋トレ記録全表示
 	List<MachineSetCount> selectAll() throws Exception;
 

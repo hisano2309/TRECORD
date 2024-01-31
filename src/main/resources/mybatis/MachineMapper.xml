@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.mapper.MachineMapper">
 
+<!-- 筋トレマシン一覧表示 -->
+	<select id="selectMachine" resultType="Machine">
+		SELECT * FROM machine
+	</select>
+
 <!-- 筋トレ記録全表示 -->
 	<select id="selectAll" resultType="MachineSetCount">
 		SELECT * FROM machine_set_count
@@ -15,7 +20,7 @@
 <!-- 筋トレ記録登録 -->
 	<insert id="insert" parameterType="MachineSetCount">
 		INSERT INTO machine_set_count(user_id, date, machine_id, machine_count, sets)
-			VALUES(#{userId},#{date},#{machineId},#{machineCount},#{sets})
+			VALUES(#{userId},#{date},#{machineId},#{count},#{sets})
 	</insert>
 
 <!-- 筋トレ記録編集 カレンダーから日付で取得-->
@@ -24,7 +29,7 @@
 			user_id = #{userId},
 			date = #{date},
 			machine_id = #{machineId},
-			machine_count = #{machineCount},
+			machine_count = #{count},
 			sets = #{sets}
 		WHERE id = #{date}
 	</update>

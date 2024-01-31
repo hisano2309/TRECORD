@@ -1,6 +1,8 @@
 package com.example.app.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -8,10 +10,13 @@ import lombok.Data;
 public class MachineSetCount {
 
 	private int userId;
-	private LocalDateTime date;
+	
+	//再表示用にHTMLのtype="date"の型に合わせる
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate date;
 
 	private Integer machineId;
-	private Integer machineCount;
+	private Integer count;
 
 	//private Integer bodyWeightId;
 	//private Integer bodyWeightCount;
