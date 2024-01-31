@@ -36,6 +36,16 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 	}
 
 	@Override
+	public int getMax(MachineSetCount machineId) {
+		return machineMapper.selectMax(machineId);
+	}
+
+	@Override
+	public int getMin(MachineSetCount machineId) {
+		return machineMapper.selectMin(machineId);
+	}
+
+	@Override
 	public void addMachineSetCount(MachineSetCount machineRecord) throws Exception {
 		machineMapper.insert(machineRecord);
 
@@ -52,6 +62,8 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 		machineMapper.delete(date);
 
 	}
+
+
 
 
 

@@ -22,6 +22,12 @@ public interface MachineMapper {
 	//カレンダーから特定の日の筋トレ記録表示
 	List<MachineSetCount> selectDay(LocalDate day) throws Exception;
 
+	//Max値を取得
+	int selectMax(MachineSetCount machineId);
+
+	//Min値を取得
+	int selectMin(MachineSetCount machineId);
+
 //登録//
 	//筋トレ記録登録
 	void insert(MachineSetCount machineRecord) throws Exception;

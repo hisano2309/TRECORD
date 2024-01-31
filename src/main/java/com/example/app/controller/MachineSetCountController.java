@@ -48,6 +48,9 @@ public class MachineSetCountController {
 		List<Machine> machine = service.getSelectMachine();
 		model.addAttribute("machine", machine);
 
+		//重量
+		model.addAttribute("weight", 100);
+
 		//回数
 		model.addAttribute("numCount", 30);
 		machineSetCount.setCount(10);

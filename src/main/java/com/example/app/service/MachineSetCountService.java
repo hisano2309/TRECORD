@@ -20,6 +20,12 @@ public interface MachineSetCountService {
 	//カレンダーから特定の日の筋トレ記録表示
 	List<MachineSetCount> getMachineSetCountDay(LocalDate day) throws Exception;
 
+	//Max値を取得
+	int getMax(MachineSetCount machineId);
+
+	//Min値を取得
+	int getMin(MachineSetCount machineId);
+
 //登録//
 	//筋トレ記録登録
 	void addMachineSetCount(MachineSetCount machineRecord) throws Exception;

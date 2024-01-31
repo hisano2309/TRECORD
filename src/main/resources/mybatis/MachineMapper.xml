@@ -17,6 +17,16 @@
 		SELECT * FROM machine_set_count WHERE date = #{date}
 	</select>
 
+<!-- Max値を取得 -->
+	<select id="selectMax" resultType="int" parameterType="integer">
+		SELECT max(machineWeight) FROM machine_set_count WHERE machine_id = #{machineId}
+	</select>
+
+<!-- Min値を取得 -->
+	<select id="selectMax" resultType="int" parameterType="integer">
+		SELECT min(machineWeight) FROM machine_set_count WHERE machine_id = #{machineId}
+	</select>
+
 <!-- 筋トレ記録登録 -->
 	<insert id="insert" parameterType="MachineSetCount">
 		INSERT INTO machine_set_count(user_id, date, machine_id, machine_count, sets)
