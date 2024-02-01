@@ -1,7 +1,6 @@
 package com.example.app.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.app.domain.Machine;
@@ -18,13 +17,13 @@ public interface MachineSetCountService {
 	List<MachineSetCount> getSelectAll() throws Exception;
 
 	//カレンダーから特定の日の筋トレ記録表示
-	List<MachineSetCount> getMachineSetCountDay(LocalDate day) throws Exception;
+	List<MachineSetCount> getMachineSetCountDay(LocalDate day, int userId) throws Exception;
 
 	//Max値を取得
-	int getMax(Integer machineId) throws Exception;
+//	int getMax(Integer machineId) throws Exception;
 
 	//Min値を取得
-	int getMin(Integer machineId) throws Exception;
+//	int getMin(Integer machineId) throws Exception;
 
 //登録//
 	//筋トレ記録登録
@@ -32,9 +31,9 @@ public interface MachineSetCountService {
 
 //編集//
 	//筋トレ記録編集
-	void editMachineSetCount(MachineSetCount machineRecord) throws Exception;
+//	void editMachineSetCount(MachineSetCount machineRecord) throws Exception;
 
 //削除//
 	//筋トレ記録削除
-	void deleteMachineSetCount(LocalDateTime date) throws Exception;
+//	void deleteMachineSetCount(LocalDateTime date) throws Exception;
 }
