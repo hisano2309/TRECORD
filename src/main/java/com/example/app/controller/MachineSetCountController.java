@@ -1,17 +1,16 @@
 package com.example.app.controller;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.app.domain.Machine;
-import com.example.app.domain.MachineMaxMin;
 import com.example.app.domain.MachineSetCount;
 import com.example.app.service.MachineSetCountService;
 
@@ -38,7 +37,7 @@ public class MachineSetCountController {
 		//ユーザーID
 //		HttpSession session = request.getSession();
 //		User userId = session.getAttribute(user.userId);
-//		machineSetCount.setUserId(userId);
+		machineSetCount.setUserId(1);
 
 		//日付
 		LocalDate now = LocalDate.now();
@@ -73,14 +72,15 @@ public class MachineSetCountController {
 			Errors errors,
 			Model model) throws Exception{
 
-		if(errors.hasErrors()) {
-			model.addAttribute("machine", machineSetCount);
-			return "charge/record_aramaki";
-		}
+//		if(errors.hasErrors()) {
+//			model.addAttribute("machine", machineSetCount);
+//			return "charge/record_aramaki";
+//		}
 
+		System.out.println(machineSetCount);
 		service.addMachineSetCount(machineSetCount);
 
-		return "charge/show_aramaki";
+		return "recordDone";
 	}
 
 
@@ -88,43 +88,47 @@ public class MachineSetCountController {
 	@GetMapping("/show_aramaki")
 	public String showDay(
 			HttpServletRequest request,
-			Model model) {
+			Model model) throws Exception {
 
-		//カレンダーから特定の日の筋トレ記録表示 day
-//		List<MachineSetCount> machineSetCount = service.getMachineSetCountDay(day);
-//		model.addAttribute("machineSetCount", machineSetCount);
+		//カレンダーから特定の日の筋トレ記録表示 
+		LocalDate date = DateTimeFormatter.ofPattern("yyyy/MM/dd").parse("2024-02-01", LocalDate::from);
+		MachineSetCount machineSetCount = new MachineSetCount();
+		machineSetCount.setUserId(1);
+		List<MachineSetCount> getDayData = service.getMachineSetCountDay(date, machineSetCount.getUserId());
+		
+		model.addAttribute("machineSetCount", getDayData);
 		return "charge/show_aramaki";
 	}
 
 //筋トレ記録編集
-	@GetMapping("/show_aramaki/{day}")
-	public String updateDay(
-			@PathVariable LocalDate day,
-			Model model) {
-//		MachineSetCount selectDay = service.getMachineSetCountDay(day);
+//	@GetMapping("/show_aramaki/{day}")
+//	public String updateDay(
+//			@PathVariable LocalDate day,
+//			Model model) {
+////		MachineSetCount selectDay = service.getMachineSetCountDay(day);
 //		service.editMachineSetCount(selectDay);
-		return "";
-	}
+//		return "";
+//	}
 
 
 
 //筋トレマシンのMax値、Min値を表示
-	@GetMapping("/mypage_aramaki")
-	public String showMax(
-			MachineMaxMin machineMaxMin,
-			Model model) throws Exception {
-		//Max値を表示
-		int MaxWeight = service.getMax(machineMaxMin.getMachineId());
-
-		//Min値を表示
-		int MinWeight = service.getMin(machineMaxMin.getMachineId());
-
-		machineMaxMin.setMaxWeight(MaxWeight);
-		machineMaxMin.setMinWeight(MinWeight);
-		model.addAttribute("machineMaxMin", machineMaxMin);
-
-		return "charge/mypage_aramaki";
-	}
+//	@GetMapping("/mypage_aramaki")
+//	public String showMax(
+//			MachineMaxMin machineMaxMin,
+//			Model model) throws Exception {
+//		//Max値を表示
+//		int MaxWeight = service.getMax(machineMaxMin.getMachineId());
+//
+//		//Min値を表示
+//		int MinWeight = service.getMin(machineMaxMin.getMachineId());
+//
+//		machineMaxMin.setMaxWeight(MaxWeight);
+//		machineMaxMin.setMinWeight(MinWeight);
+//		model.addAttribute("machineMaxMin", machineMaxMin);
+//
+//		return "charge/mypage_aramaki";
+//	}
 
 
 
