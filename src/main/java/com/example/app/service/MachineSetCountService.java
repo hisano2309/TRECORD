@@ -21,10 +21,10 @@ public interface MachineSetCountService {
 	List<MachineSetCount> getMachineSetCountDay(LocalDate day) throws Exception;
 
 	//Max値を取得
-	int getMax(MachineSetCount machineId);
+	int getMax(Integer machineId) throws Exception;
 
 	//Min値を取得
-	int getMin(MachineSetCount machineId);
+	int getMin(Integer machineId) throws Exception;
 
 //登録//
 	//筋トレ記録登録

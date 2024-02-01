@@ -23,4 +23,6 @@ public class MachineSetCount {
 	//private Integer bodyWeightCount;
 
 	private int sets;
+
+
 }

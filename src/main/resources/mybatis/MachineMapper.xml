@@ -18,12 +18,12 @@
 	</select>
 
 <!-- Max値を取得 -->
-	<select id="selectMax" resultType="int" parameterType="integer">
+	<select id="selectMax" resultType="MachineMaxMin" parameterType="integer">
 		SELECT max(machineWeight) FROM machine_set_count WHERE machine_id = #{machineId}
 	</select>
 
 <!-- Min値を取得 -->
-	<select id="selectMax" resultType="int" parameterType="integer">
+	<select id="selectMax" resultType="MachineMaxMin" parameterType="integer">
 		SELECT min(machineWeight) FROM machine_set_count WHERE machine_id = #{machineId}
 	</select>
 

@@ -23,10 +23,10 @@ public interface MachineMapper {
 	List<MachineSetCount> selectDay(LocalDate day) throws Exception;
 
 	//Max値を取得
-	int selectMax(MachineSetCount machineId) throws Exception;
+	int selectMax(Integer machineId) throws Exception;
 
 	//Min値を取得
-	int selectMin(MachineSetCount machineId) throws Exception;
+	int selectMin(Integer machineId) throws Exception;
 
 //登録//
 

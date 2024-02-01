@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.app.domain.Machine;
+import com.example.app.domain.MachineMaxMin;
 import com.example.app.domain.MachineSetCount;
 import com.example.app.service.MachineSetCountService;
 
@@ -29,7 +30,7 @@ public class MachineSetCountController {
 	private final MachineSetCountService service;
 
 
-	//筋トレ記録の登録
+//筋トレ記録の登録
 	@GetMapping("/record_aramaki")
 	public String allList(Model model) throws Exception{
 		MachineSetCount machineSetCount = new MachineSetCount();
@@ -83,7 +84,7 @@ public class MachineSetCountController {
 	}
 
 
-	//筋トレ記録の表示
+//筋トレ記録の表示
 	@GetMapping("/show_aramaki")
 	public String showDay(
 			HttpServletRequest request,
@@ -95,17 +96,34 @@ public class MachineSetCountController {
 		return "charge/show_aramaki";
 	}
 
-	//筋トレ記録編集
+//筋トレ記録編集
 	@GetMapping("/show_aramaki/{day}")
 	public String updateDay(
 			@PathVariable LocalDate day,
-			Model model) throws Exception {
+			Model model) {
 //		MachineSetCount selectDay = service.getMachineSetCountDay(day);
 //		service.editMachineSetCount(selectDay);
 		return "";
 	}
 
 
+
+//筋トレマシンのMax値、Min値を表示
+	@GetMapping("/mypage_aramaki")
+	public String showMax(
+			MachineMaxMin machineMaxMin,
+			Model model) throws Exception {
+		//Max値を表示
+		int MaxWeight = service.getMax(machineMaxMin.getMachineId());
+
+		//Min値を表示
+		int MinWeight = service.getMin(machineMaxMin.getMachineId());
+
+		machineMaxMin.setMaxWeight(MaxWeight);
+		machineMaxMin.setMinWeight(MinWeight);
+
+		return "charge/mypage_aramaki";
+	}
 
 
 

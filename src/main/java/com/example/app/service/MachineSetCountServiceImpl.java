@@ -36,12 +36,12 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 	}
 
 	@Override
-	public int getMax(MachineSetCount machineId) {
+	public int getMax(Integer machineId) throws Exception {
 		return machineMapper.selectMax(machineId);
 	}
 
 	@Override
-	public int getMin(MachineSetCount machineId) {
+	public int getMin(Integer machineId) throws Exception {
 		return machineMapper.selectMin(machineId);
 	}
 
