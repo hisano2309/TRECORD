@@ -1,6 +1,7 @@
 package com.example.app.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -30,19 +31,19 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 	}
 
 	@Override
-	public List<MachineSetCount> getMachineSetCountDay(LocalDate day, int userId) throws Exception {
-		return machineMapper.selectDay(day, userId);
+	public List<MachineSetCount> getMachineSetCountDay(LocalDate day) throws Exception {
+		return machineMapper.selectDay(day);
 	}
 
-//	@Override
-//	public int getMax(Integer machineId) throws Exception {
-//		return machineMapper.selectMax(machineId);
-//	}
+	@Override
+	public int getMax(Integer machineId) throws Exception {
+		return machineMapper.selectMax(machineId);
+	}
 
-//	@Override
-//	public int getMin(Integer machineId) throws Exception {
-//		return machineMapper.selectMin(machineId);
-//	}
+	@Override
+	public int getMin(Integer machineId) throws Exception {
+		return machineMapper.selectMin(machineId);
+	}
 
 	@Override
 	public void addMachineSetCount(MachineSetCount machineRecord) throws Exception {
@@ -50,17 +51,17 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 
 	}
 
-//	@Override
-//	public void editMachineSetCount(MachineSetCount machineRecord) throws Exception {
-//		machineMapper.update(machineRecord);
-//
-//	}
+	@Override
+	public void editMachineSetCount(MachineSetCount machineRecord) throws Exception {
+		machineMapper.update(machineRecord);
 
-//	@Override
-//	public void deleteMachineSetCount(LocalDateTime date) throws Exception {
-//		machineMapper.delete(date);
-//
-//	}
+	}
+
+	@Override
+	public void deleteMachineSetCount(LocalDateTime date) throws Exception {
+		machineMapper.delete(date);
+
+	}
 
 
 

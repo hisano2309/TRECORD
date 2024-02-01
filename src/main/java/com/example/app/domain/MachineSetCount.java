@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 public class MachineSetCount {
 
-	private int trainingId;
 	private int userId;
 
 	//再表示用にHTMLのtype="date"の型に合わせる
@@ -17,7 +16,6 @@ public class MachineSetCount {
 	private LocalDate date;
 
 	private Integer machineId;
-	private String machineName;
 	private int machineWeight;
 	private Integer count;
 

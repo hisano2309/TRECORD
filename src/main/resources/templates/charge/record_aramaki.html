@@ -9,7 +9,6 @@
 		<form action="" method="post" th:object="${machineSetCount}">
 
 <!-- ユーザーID： -->
-			<input type="hidden" th:field="*{userId}" />
 
 			<p>日付：
 				<input type="date" th:field="*{date}" />
@@ -25,11 +24,10 @@
 
 			<p>重量：
 				<select th:field="*{machineWeight}">
-					<option th:each="i : ${#numbers.sequence(1, weight)}" th:value="${i}">
+					<option th:each="i : ${#number.sequence(1, weight)" th:value="${i}">
 						[[${i}]]
 					</option>
 				</select>
-				kg
 			</p>
 
 <!-- 時間があったら・・・input要素とdatalist要素で「テキスト入力」と「入力候補からの選択」の両方が可能なフォームを作成 -->
