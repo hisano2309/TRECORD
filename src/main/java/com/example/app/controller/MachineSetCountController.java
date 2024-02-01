@@ -121,6 +121,7 @@ public class MachineSetCountController {
 
 		machineMaxMin.setMaxWeight(MaxWeight);
 		machineMaxMin.setMinWeight(MinWeight);
+		model.addAttribute("machineMaxMin", machineMaxMin);
 
 		return "charge/mypage_aramaki";
 	}
