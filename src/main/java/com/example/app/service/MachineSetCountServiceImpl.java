@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 import com.example.app.mapper.MachineMapper;
 
@@ -19,15 +18,15 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 
 	private final MachineMapper machineMapper;
 	
-	@Override
-	public List<Machine> getSelectMachine() throws Exception {
-		return machineMapper.selectMachine();
-	}
+//	@Override
+//	public List<Machine> getSelectMachine() throws Exception {
+//		return machineMapper.selectMachine();
+//	}
 
-	@Override
-	public List<MachineSetCount> getSelectAll() throws Exception {
-		return machineMapper.selectAll();
-	}
+//	@Override
+//	public List<MachineSetCount> getSelectAll() throws Exception {
+//		return machineMapper.selectAll();
+//	}
 
 	@Override
 	public List<MachineSetCount> getMachineSetCountDay(MachineSetCount day) throws Exception {
