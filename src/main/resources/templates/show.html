@@ -9,9 +9,14 @@
 	<h1>トレーニング内容</h1>
 
 	<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+	<p th:text="${#temporals.format(image.date,'yyyy年MM月dd日(E)')}"></p>
 
-	<a th:href="@{/mypage/edit/{id}(id=*{id})}">編集</a>
-	<a th:href="@{/mypage/delete/{id}(id=*{id})}">削除</a>
+	<a th:href="@{/edit/{id}(id=*{id})}">編集</a>
+	<a th:href="@{/delete/{id}(id=*{id})}">削除</a>
+
+	<p>
+		<a th:href="@{/mypage}">My Pageへ</a>
+	</p>
   
 </body>
 </html>
