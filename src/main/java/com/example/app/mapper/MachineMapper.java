@@ -30,21 +30,17 @@ public interface MachineMapper {
 	//Min値を取得
 //	int selectMin(Integer machineId) throws Exception;
 
-//登録//
-
-	//体重の登録
-//	void insertWeight(Record userWeight) throws Exception;
-
-	//BMIの登録
-//	void insertBmi(Record bmi) throws Exception;
-
+	
+//登録/
 	//筋トレ記録の登録
 	void insert(MachineSetCount MachineSetCount) throws Exception;
 
+	
 //編集//
 	//筋トレ記録編集
 //	void update(MachineSetCount machineRecord) throws Exception;
 
+	
 //削除//
 	//筋トレ記録削除
 //	void delete(LocalDateTime date) throws Exception;
