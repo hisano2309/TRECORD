@@ -7,7 +7,8 @@
 <body>
 
 	<h1>MY PAGE</h1>
-	
+	<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定変更</a>
+	<a th:href="@{/user/logout}">ログアウト</a>
 	<h2>記録をする</h2>
 	
 	
@@ -16,7 +17,7 @@
 	<h3>All ALUBUM</h3>
 	<a th:href="@{/mypage/show/{id}(id=${image.imgId})}" th:each="image : ${imgList}" >
 		<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-		<p >[[${image.date}]]</p>
+		<p>[[${image.date}]]</p>
 	</a>
 
 
