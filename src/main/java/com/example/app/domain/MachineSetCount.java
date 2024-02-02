@@ -19,7 +19,7 @@ public class MachineSetCount {
 	private Integer machineId;
 	private String machineName;
 	private int machineWeight;
-	private Integer count;
+	private Integer machineCount;
 
 	//private Integer bodyWeightId;
 	//private Integer bodyWeightCount;

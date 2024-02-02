@@ -12,9 +12,15 @@
 		SELECT * FROM machine_set_count
 	</select>
 
-<!-- カレンダーから特定の日の筋トレ記録表示 -->
+<!-- 特定の日の筋トレ記録表示 -->
 	<select id="selectDay" resultType="MachineSetCount">
-		SELECT * FROM machine_set_count WHERE date = #{date} AND user_id = #{userId};
+		SELECT machine_set_count.training_id, machine_set_count.user_id, machine_set_count.date, 
+			machine_set_count.machine_id, machine.machine_name, machine_set_count.machine_weight,
+			machine_set_count.machine_count, machine_set_count.sets
+		FROM machine_set_count 
+		JOIN machine
+		ON machine_set_count.machine_id = machine.machine_id
+		WHERE date = #{date} AND user_id = #{userId};
 	</select>
 
 
@@ -28,8 +34,8 @@
 
 <!-- 筋トレ記録登録 -->
 	<insert id="insert" parameterType="MachineSetCount">
-		INSERT INTO machine_set_count(training_id, user_id, date, machine_id, machine_name, machine_weight, machine_count, sets)
-			VALUES(#{trainingId}, #{userId}, #{date}, #{machineId}, #{machineName}, #{machineWeight}, #{count}, #{sets})
+		INSERT INTO machine_set_count(training_id, user_id, date, machine_id, machine_weight, machine_count, sets)
+			VALUES(#{trainingId}, #{userId}, #{date}, #{machineId}, #{machineWeight}, #{count}, #{sets})
 	</insert>
 
 
