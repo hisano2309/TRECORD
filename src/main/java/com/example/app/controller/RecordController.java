@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.app.domain.Image;
+import com.example.app.domain.User;
 import com.example.app.mapper.RecordMapper;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -29,8 +31,9 @@ public class RecordController {
 
 	// ユーザーの画像一覧取得
 	@GetMapping("/mypage")
-	public String list(Model model) {
-		List<Image> imgList = mapper.getImageByUserId(1);
+	public String list(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		List<Image> imgList = mapper.getImageByUserId(user.getUserId());
 		System.out.println(imgList);
 		model.addAttribute("imgList", imgList);
 		return "mypage";
@@ -53,14 +56,16 @@ public class RecordController {
 
 	// 記録ページ
 	@GetMapping("/record")
-	public String add(Model model) {
+	public String add(Model model, HttpSession session) {
 		model.addAttribute("image", new Image());
+		User user = (User) session.getAttribute("user");
+		System.out.println("record->"+user);
 		return "record";
 	}
 
 	// 新規登録
 	@PostMapping("/record")
-	public String add(@RequestParam MultipartFile upload, @RequestParam String memo, Model model)
+	public String add(@RequestParam MultipartFile upload, @RequestParam String memo, Model model,HttpSession session)
 			throws IllegalStateException, IOException {
 		if (upload.isEmpty()) {
 			model.addAttribute("msg", "画像が選択されていません");
@@ -76,9 +81,11 @@ public class RecordController {
 			// ファイル名取得
 			String imgName = upload.getOriginalFilename();
 			// 格納場所取得(各々のフォルダ名に変更して下さい)
-			File dest = new File("C:/Users/zd3M06/uploads/" + imgName);
+			File dest = new File("C:/Users/uploads/" + imgName);
 			// File dest = new File("C:/uploads/" + imgName);
 			Image image = new Image();
+			User user = (User) session.getAttribute("user");
+			image.setUserId(user.getUserId());
 			image.setImgName(imgName);
 			image.setMemo(memo);
 			upload.transferTo(dest);// フォルダに保存
@@ -103,6 +110,7 @@ public class RecordController {
 	public String edit(
 			@RequestParam MultipartFile upload,
 			@Valid Image image, Errors errors, 
+			HttpSession session,
 			@PathVariable Integer id,
 			Model model) throws IllegalStateException, IOException {
 		if (errors.hasErrors()) {
@@ -111,6 +119,8 @@ public class RecordController {
 			return "record";
 		}
 		String imgName = upload.getOriginalFilename();
+		User user = (User) session.getAttribute("user");
+		image.setUserId(user.getUserId());
 		image.setImgId(id);
 		image.setImgName(imgName);
 		File dest = new File("C:/Users/uploads/" + imgName);
