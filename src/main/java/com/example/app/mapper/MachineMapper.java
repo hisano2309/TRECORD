@@ -16,7 +16,7 @@ public interface MachineMapper {
 	List<Machine> selectMachine() throws Exception;
 	
 	//筋トレ記録全表示
-	List<MachineSetCount> selectAll() throws Exception;
+//	List<MachineSetCount> selectAll() throws Exception;
 
 	//カレンダーから特定の日の筋トレ記録表示
 	List<MachineSetCount> selectDay() throws Exception;
