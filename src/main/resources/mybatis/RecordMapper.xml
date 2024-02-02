@@ -17,7 +17,7 @@
 	<!-- 新規登録 -->
 	<insert id="add" parameterType="Image">
 		INSERT INTO images
-		VALUES(NULL, 1, #{imgName}, #{memo}, now())
+		VALUES(NULL, #{userId}, #{imgName}, #{memo}, now())
 	</insert>
 
 	<!-- 削除 -->

@@ -9,6 +9,8 @@ public class Image {
 
 	private Integer imgId;
 	
+	private Integer userId;
+	
 	//@NotBlank
 	//@Size(max=300)
 	private String imgName;

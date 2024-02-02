@@ -72,12 +72,13 @@ public class MemberController {
 		}
 		// ログインIDからDBへ問い合わせ
 		User foundUser = mapper.findByLoginId(user.getLoginId());
+		System.out.println("foundUser->"+foundUser);
 		if(foundUser != null) {
 			//データが戻ってきたらログインIDが登録されているので次はパスワードチェック
 			if(foundUser.getLoginPass().equals(user.getLoginPass())) {
 				// ログイン成功時にセッションにユーザー情報を保存
 				session.setAttribute("user",  foundUser);
-				System.out.println(user);
+				System.out.println("user->"+session.getAttribute("user"));
 				
 				return "redirect:/mypage";
 				
