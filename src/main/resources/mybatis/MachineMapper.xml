@@ -8,9 +8,9 @@
 	</select>
 
 <!-- 筋トレ記録全表示 -->
-	<select id="selectAll" resultType="MachineSetCount">
-		SELECT * FROM machine_set_count
-	</select>
+<!-- 	<select id="selectAll" resultType="MachineSetCount"> -->
+<!-- 		SELECT * FROM machine_set_count -->
+<!-- 	</select> -->
 
 <!-- 特定の日の筋トレ記録表示 -->
 	<select id="selectDay" resultType="MachineSetCount">
