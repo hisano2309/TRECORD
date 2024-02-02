@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.UserMapper">
+
+<!-- ユーザー登録 -->
+<insert id="insert" parameterType="User">
+	INSERT INTO user
+		VALUES(NULL, #{loginId}, #{loginPass}, #{userHeight}, 0)
+</insert>
+	
+	<!-- ログイン認証 -->
+	<select id="findByLoginId" resultType="User">
+	SELECT * FROM user WHERE login_id = #{id}
+	AND deleted = 0
+	</select>
+	
+	<!-- ユーザー情報個別取得 -->
+	<select id="selectById" resultType="User">
+	SELECT * FROM user WHERE user_id = #{id}
+	</select>
+	
+	
+	<!--論理削除 -->
+	<update id="delete">
+	UPDATE user SET deleted = 1
+	 WHERE user_id = #{id};
+	</update>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="User">
+	UPDATE user SET
+		login_id = #{loginId},
+		login_pass = #{loginPass},
+		user_height = #{userHeight}
+		WHERE user_id = #{userId}
+	</update>
+	
+
+</mapper>
