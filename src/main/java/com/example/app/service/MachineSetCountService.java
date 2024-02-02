@@ -3,7 +3,6 @@ package com.example.app.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 
 
@@ -14,7 +13,7 @@ public interface MachineSetCountService {
 	List<Machine> getSelectMachine() throws Exception;
 
 	//筋トレ記録全表示
-	List<MachineSetCount> getSelectAll() throws Exception;
+//	List<MachineSetCount> getSelectAll() throws Exception;
 
 	//カレンダーから特定の日の筋トレ記録表示
 	List<MachineSetCount> getMachineSetCountDay(LocalDate day, int userId) throws Exception;
