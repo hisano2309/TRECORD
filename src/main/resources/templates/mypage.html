@@ -7,7 +7,7 @@
 <body>
 
 	<h1>MY PAGE</h1>
-	<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定変更</a>
+	<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
 	<a th:href="@{/user/logout}">ログアウト</a>
 	<h2>記録をする</h2>
 	
@@ -15,10 +15,14 @@
 	<h2>記録を見る</h2>
 
 	<h3>All ALUBUM</h3>
-	<a th:href="@{/mypage/show/{id}(id=${image.imgId})}" th:each="image : ${imgList}" >
-		<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-		<p>[[${image.date}]]</p>
-	</a>
+	<th:block th:each="image : ${imgList}">
+		<a th:href="@{/show/{id}(id=${image.imgId})}"> <img
+			th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+		</a>
+		<p th:text="${#temporals.format(image.date,'yyyy年MM月dd日(E)')}"></p>
+
+
+	</th:block>
 
 
 </body>
