@@ -8,7 +8,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 import com.example.app.service.MachineSetCountService;
 
@@ -43,8 +42,8 @@ public class MachineSetCountController {
 		System.out.println("今日の日付：" + machineSetCount.getDate());
 
 		//筋トレマシン一覧表示
-		List<Machine> machine = service.getSelectMachine();
-		model.addAttribute("machine", machine);
+//		List<Machine> machine = service.getSelectMachine();
+//		model.addAttribute("machine", machine);
 
 		//重量
 		model.addAttribute("weight", 100);
