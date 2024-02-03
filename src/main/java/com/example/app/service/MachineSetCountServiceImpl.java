@@ -19,15 +19,15 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 
 	private final MachineMapper machineMapper;
 
-	@Override
-	public List<Machine> getSelectMachine() throws Exception {
-		return machineMapper.selectMachine();
-	}
+//	@Override
+//	public List<Machine> getSelectMachine() throws Exception {
+//		return machineMapper.selectMachine();
+//	}
 
-	@Override
-	public List<MachineSetCount> getSelectAll() throws Exception {
-		return machineMapper.selectAll();
-	}
+//	@Override
+//	public List<MachineSetCount> getSelectAll() throws Exception {
+//		return machineMapper.selectAll();
+//	}
 
 	@Override
 	public List<MachineSetCount> getMachineSetCountDay(LocalDate day, int userId) throws Exception {
