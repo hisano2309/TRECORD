@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 import com.example.app.mapper.MachineMapper;
 

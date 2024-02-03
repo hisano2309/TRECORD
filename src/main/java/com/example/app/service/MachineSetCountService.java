@@ -3,7 +3,6 @@ package com.example.app.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 
 
