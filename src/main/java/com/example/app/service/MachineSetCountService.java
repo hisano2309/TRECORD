@@ -10,7 +10,7 @@ public interface MachineSetCountService {
 
 //表示//
 	//筋トレマシン一覧表示
-	List<Machine> getSelectMachine() throws Exception;
+//	List<Machine> getSelectMachine() throws Exception;
 
 	//筋トレ記録全表示
 //	List<MachineSetCount> getSelectAll() throws Exception;

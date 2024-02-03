@@ -8,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 import com.example.app.service.MachineSetCountService;
 
@@ -93,11 +94,11 @@ public class MachineSetCountController {
 		machineSetCount.setUserId(1);
 		List<MachineSetCount> getDayData = service.getMachineSetCountDay(date, machineSetCount.getUserId());
 		machineSetCount.setDate(date);
-		
+
 		System.out.println("getDayData：" + getDayData);
-		
+
 		model.addAttribute("machineSetCount", getDayData);
-		
+
 		return "charge/show_aramaki";
 	}
 
