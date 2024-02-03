@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.WeightMapper">
+	
+<!-- 体重表示 -->
+
+
+<!-- BMI表示 -->
+
+
+<!-- 体重の登録 -->
+	<insert id="insertWeight" parameterType="float">
+		INSERT INTO weight 
+		VALUES(NULL, #{userId}, #{userWeight}, #{date});
+	</insert>
+
+<!-- BMIの登録 -->
+	<insert id="insertBmi" parameterType="float">
+		INSERT INTO bmi 
+		VALUES(NULL, #{userId}, #{bmi}, #{date});
+	</insert>
+
+</mapper>
