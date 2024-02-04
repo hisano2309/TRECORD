@@ -15,13 +15,13 @@ public interface WeightMapper {
 	List<Weight> selectWeight(Weight userId, LocalDate date) throws Exception;
 	//BMI表示
 //	List<Weight> selectBmi(Weight userWeight, User height) throws Exception;
-	
+
 //登録
 	//体重の登録
 	void insertWeight(Weight userWeight) throws Exception;
 
 	//BMIの登録
 	void insertBmi(Weight bmi) throws Exception;
-	
-	
+
+
 }

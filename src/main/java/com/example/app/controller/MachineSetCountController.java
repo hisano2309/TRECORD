@@ -28,7 +28,7 @@ public class MachineSetCountController {
 
 //筋トレ記録の登録
 	@GetMapping("/record_aramaki")
-	public String allList(Model model) throws Exception{
+	public String register(Model model) throws Exception{
 		MachineSetCount machineSetCount = new MachineSetCount();
 
 		//ユーザーID
