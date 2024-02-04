@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/user")
-public class MemberController {
+public class UserController {
 	
 	private final UserMapper mapper;
 	

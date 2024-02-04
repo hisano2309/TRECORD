@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.app.domain.Image;
 import com.example.app.domain.User;
-import com.example.app.mapper.RecordMapper;
+import com.example.app.mapper.ImageMapper;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -25,9 +25,9 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping
-public class RecordController {
+public class ImageController {
 
-	private final RecordMapper mapper;
+	private final ImageMapper mapper;
 
 	// ユーザーの画像一覧取得
 	@GetMapping("/mypage")

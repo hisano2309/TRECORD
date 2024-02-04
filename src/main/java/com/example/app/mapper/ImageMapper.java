@@ -9,7 +9,7 @@ import com.example.app.domain.Image;
 
 @Mapper
 @Transactional
-public interface RecordMapper {
+public interface ImageMapper {
 
 	//ユーザーの画像一覧取得
 	List<Image> getImageByUserId(int id);
