@@ -25,6 +25,11 @@ public class UserController {
 	//@Autowired
     //private HttpSession session; // HttpSessionを注入
 	
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
+	
 	//ユーザー登録
 	@GetMapping("/register")
 	public String register(Model model) {
