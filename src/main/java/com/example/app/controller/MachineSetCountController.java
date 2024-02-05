@@ -10,7 +10,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 import com.example.app.service.MachineSetCountService;
 
@@ -31,7 +30,7 @@ public class MachineSetCountController {
 
 //筋トレ記録の登録
 	@GetMapping("/record_aramaki")
-	public String allList(Model model) throws Exception{
+	public String register(Model model) throws Exception{
 		MachineSetCount machineSetCount = new MachineSetCount();
 
 		//ユーザーID
@@ -45,8 +44,8 @@ public class MachineSetCountController {
 		System.out.println("今日の日付：" + machineSetCount.getDate());
 
 		//筋トレマシン一覧表示
-		List<Machine> machine = service.getSelectMachine();
-		model.addAttribute("machine", machine);
+//		List<Machine> machine = service.getSelectMachine();
+//		model.addAttribute("machine", machine);
 
 		//重量
 		model.addAttribute("weight", 100);
@@ -96,11 +95,11 @@ public class MachineSetCountController {
 		machineSetCount.setUserId(1);
 		List<MachineSetCount> getDayData = service.getMachineSetCountDay(date, machineSetCount.getUserId());
 		machineSetCount.setDate(date);
-		
+
 		System.out.println("getDayData：" + getDayData);
-		
+
 		model.addAttribute("machineSetCount", getDayData);
-		
+
 		return "charge/show_aramaki";
 	}
 
