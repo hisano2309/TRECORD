@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.app.mapper.RecordMapper">
+<mapper namespace="com.example.app.mapper.ImageMapper">
 
 	<!-- ユーザーの画像一覧取得 -->
-	<select id="getImageByUserId" parameterType="integer" resultType="Image">
+	<select id="getImageByUserId" parameterType="integer"
+		resultType="Image">
 		SELECT * FROM images
 		WHERE user_id = #{id}
 	</select>
 
 	<!-- 画像の個別取得 -->
-	<select id="getImageById" resultType="Image" parameterType="integer">
+	<select id="getImageById" resultType="Image"
+		parameterType="integer">
 		SELECT * FROM
 		images WHERE img_id = #{id}
 	</select>
@@ -17,7 +19,8 @@
 	<!-- 新規登録 -->
 	<insert id="add" parameterType="Image">
 		INSERT INTO images
-		VALUES(NULL, #{userId}, #{imgName}, #{memo}, now())
+		VALUES(NULL,
+		#{userId}, #{imgName}, #{memo}, now())
 	</insert>
 
 	<!-- 削除 -->
@@ -35,5 +38,15 @@
 		date = now()
 		WHERE img_id = #{imgId}
 	</update>
+
+	<!-- ページャー 全体数字カウント -->
+	<select id="count" resultType="long">
+		SELECT count(*) FROM image
+	</select>
+	<!-- ページ分割 -->
+	<select id="selectLimited">
+		SELECT * FROM image LIMIT #{offset}, #{limit}
+	</select>
+
 
 </mapper>
