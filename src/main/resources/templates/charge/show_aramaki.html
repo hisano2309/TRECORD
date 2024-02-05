@@ -6,14 +6,24 @@
 </head>
 <body>
 	<h1>トレーニング記録情報</h1>
-	<th:block th:object="${MachineSetCount}">
-		<p>日付：[[*{date}]]</p>
-		
-		<p>筋トレマシン名：[[${}]]</p>
-		
-		<p>重量：[[*{}]] kg</p>
-		<p>1セットあたりの回数：[[*{}]] 回</p>
-		<p>セット数：[[*{}]] セット</p>
-	</th:block>
+		<th:block th:each="machineSC, status : ${machineSetCount}" th:object="${machineSC}">
+		<p>------------- 本日[[${status.count}]]回目の記録 --------------</p>
+			<table border="1">
+<!-- 				<tr><th>本日[[${status.count}]]回目の記録</th></tr> -->
+				<tr><th>日付</th><td>[[*{date}]]</td></tr>
+				<tr><th>筋トレマシン名</th><td>[[*{machineName}]]</td></tr>
+				<tr><th>重量</th><td>[[*{machineWeight}]] kg</td></tr>
+				<tr><th>1セットあたりの回数</th><td>[[*{machineCount}]] 回</td></tr>
+				<tr><th>セット数</th><td>[[*{sets}]] セット</td></tr>
+			</table>
+			
+<!-- 			<p>日付：[[*{date}]]　[[${status.count}]]回目の記録</p> -->
+<!-- 			<p>筋トレマシン名：[[*{machineName}]]</p> -->
+			
+<!-- 			<p>重量：[[*{machineWeight}]] kg</p> -->
+<!-- 			<p>1セットあたりの回数：[[*{machineCount}]] 回</p> -->
+<!-- 			<p>セット数：[[*{sets}]] セット</p> -->
+		</th:block>
+			<p>----------------------------------------------</p>
 </body>
 </html>

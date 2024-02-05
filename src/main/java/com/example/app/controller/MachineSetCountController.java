@@ -10,7 +10,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 import com.example.app.service.MachineSetCountService;
 
@@ -45,16 +44,16 @@ public class MachineSetCountController {
 		System.out.println("今日の日付：" + machineSetCount.getDate());
 
 		//筋トレマシン一覧表示
-		List<Machine> machine = service.getSelectMachine();
-		model.addAttribute("machine", machine);
+//		List<Machine> machine = service.getSelectMachine();
+//		model.addAttribute("machine", machine);
 
 		//重量
 		model.addAttribute("weight", 100);
 
 		//回数
 		model.addAttribute("numCount", 30);
-		machineSetCount.setCount(10);
-		System.out.println(machineSetCount.getCount());
+		machineSetCount.setMachineCount(10);
+		System.out.println(machineSetCount.getMachineCount());
 
 		//セット数
 		model.addAttribute("numSet", 10);
@@ -90,13 +89,17 @@ public class MachineSetCountController {
 			HttpServletRequest request,
 			Model model) throws Exception {
 
-		//カレンダーから特定の日の筋トレ記録表示 
-		LocalDate date = DateTimeFormatter.ofPattern("yyyy/MM/dd").parse("2024-02-01", LocalDate::from);
+		//カレンダーから特定の日の筋トレ記録を取得
+		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-02", LocalDate::from);
 		MachineSetCount machineSetCount = new MachineSetCount();
 		machineSetCount.setUserId(1);
 		List<MachineSetCount> getDayData = service.getMachineSetCountDay(date, machineSetCount.getUserId());
-		
+		machineSetCount.setDate(date);
+
+		System.out.println("getDayData：" + getDayData);
+
 		model.addAttribute("machineSetCount", getDayData);
+
 		return "charge/show_aramaki";
 	}
 
