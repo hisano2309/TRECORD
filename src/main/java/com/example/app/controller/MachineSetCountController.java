@@ -34,6 +34,8 @@ public class MachineSetCountController {
 		//ユーザーID
 //		HttpSession session = request.getSession();
 //		User userId = session.getAttribute(user.userId);
+		
+//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
 		machineSetCount.setUserId(1);
 
 		//日付
@@ -88,7 +90,10 @@ public class MachineSetCountController {
 			Model model) throws Exception {
 
 		//カレンダーから特定の日の筋トレ記録を取得
+		
+//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
 		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-02", LocalDate::from);
+		
 		MachineSetCount machineSetCount = new MachineSetCount();
 		machineSetCount.setUserId(1);
 		List<MachineSetCount> getDayData = service.getMachineSetCountDay(date, machineSetCount.getUserId());
