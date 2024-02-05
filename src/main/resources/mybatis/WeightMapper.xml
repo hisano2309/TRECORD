@@ -2,24 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.mapper.WeightMapper">
 
-<!-- 体重表示 -->
-
-
-<!-- BMI表示 -->
-
-
-<!-- BMIの計算 -->
-<!-- 	<insert id="insertBmi"> -->
-<!-- 		INSERT INTO bmi -->
-<!-- 		VALUES(NULL, #{userId},  #{date}) -->
-<!-- 	</insert> -->
-
 <!-- 体重・BMIの登録 -->
 	<insert id="insertWeightBmi">
-<!-- 	(user_id, user_weight. bmi, healthy_weight, date) -->
 		INSERT INTO weight
 		VALUES(NULL, #{userId}, #{userWeight}, #{bmi}, #{healthyWeight}, #{date})
 	</insert>
 
+<!-- 前回の体重・BMI表示 -->
+	<select id="selectBeforeWeightBmi" resultType="WeightBmi">
+		SELECT * FROM weight
+		ORDER BY weight_id DESC
+		LIMIT 1;
+	</select>
+
+<!-- 全ての体重・BMI表示 -->
 
 </mapper>
