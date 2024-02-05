@@ -8,16 +8,18 @@
 <!-- BMI表示 -->
 
 
-<!-- 体重の登録 -->
-	<insert id="insertWeight">
+<!-- BMIの計算 -->
+<!-- 	<insert id="insertBmi"> -->
+<!-- 		INSERT INTO bmi -->
+<!-- 		VALUES(NULL, #{userId},  #{date}) -->
+<!-- 	</insert> -->
+
+<!-- 体重・BMIの登録 -->
+	<insert id="insertWeightBmi">
+<!-- 	(user_id, user_weight. bmi, healthy_weight, date) -->
 		INSERT INTO weight
-		VALUES(NULL, #{userId}, #{userWeight}, #{date})
+		VALUES(NULL, #{userId}, #{userWeight}, #{bmi}, #{healthyWeight}, #{date})
 	</insert>
 
-<!-- BMIの登録 -->
-	<insert id="insertBmi">
-		INSERT INTO bmi
-		VALUES(NULL, #{userId}, #{bmi}, #{date})
-	</insert>
 
 </mapper>
