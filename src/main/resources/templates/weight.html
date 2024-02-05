@@ -6,5 +6,16 @@
 </head>
 <body>
 	<h1>体重登録</h1>
+	<form action="" method="post" th:object="${weightBmi}">
+		<p>日付：
+			<input type="date" th:field="*{date}" />
+		</p>
+		<p>体重：
+			<input type="text" th:field="*{userWeight}" />
+			kg
+		</p>
+		
+		<p><input type="submit" th:value="BMIを計算する" /></p>
+	</form>
 </body>
 </html>
