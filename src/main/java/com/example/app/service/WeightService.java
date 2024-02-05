@@ -1,23 +1,19 @@
 package com.example.app.service;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
-import com.example.app.domain.Weight;
+import com.example.app.domain.WeightBmi;
 
 public interface WeightService {
 
 //表示
 	//体重表示
-	List<Weight> getSelectWeight(Weight userId, LocalDate date) throws Exception;
+//	List<Weight> getSelectWeight(Weight userId, LocalDate date) throws Exception;
 
 //登録
-	//体重の登録
-	void insertWeight(Weight userWeight) throws Exception;
+	//BMIの計算
+//	void insertBmi(WeightBmi bmi) throws Exception;
 
-	//BMIの登録
-	void insertBmi(Weight bmi) throws Exception;
+	//体重・BMIの登録
+	void insertWeightBmi(WeightBmi userWeight) throws Exception;
+
 
 }
