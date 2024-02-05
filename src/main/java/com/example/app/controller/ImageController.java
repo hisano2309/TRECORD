@@ -29,13 +29,27 @@ public class ImageController {
 
 	private final ImageMapper mapper;
 
+	// 1ページあたりの表示件数
+	private static final int NUM_PER_PAGE = 6;
+
 	// ユーザーの画像一覧取得
 	@GetMapping("/mypage")
-	public String list(Model model, HttpSession session) {
+	public String list(@RequestParam(name = "page", defaultValue = "1") Integer page, Model model,
+			HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		List<Image> imgList = mapper.getImageByUserId(user.getUserId());
 		System.out.println(imgList);
-		model.addAttribute("imgList", imgList);
+		// ページング追加のため以下の記述をコメントアウト
+		// model.addAttribute("imgList", imgList);
+		int offset = NUM_PER_PAGE * (page - 1);
+		model.addAttribute("imgList", mapper.selectLimited(offset, NUM_PER_PAGE));
+		// 全体のデータ数取得
+		// 小数点で受け取りたいため、キャスト
+		double totalNum = (double) mapper.count();
+		// 全体のページ数の計算：numPerPageは1ページあたりの表示件数とする
+		// Math.ceil 小数点以下を切り上げしてくれる
+		int totalPage = (int) Math.ceil((double) totalNum / NUM_PER_PAGE);
+		model.addAttribute("totalPage", totalPage);
 		return "mypage";
 	}
 
@@ -59,13 +73,13 @@ public class ImageController {
 	public String add(Model model, HttpSession session) {
 		model.addAttribute("image", new Image());
 		User user = (User) session.getAttribute("user");
-		System.out.println("record->"+user);
+		System.out.println("record->" + user);
 		return "record";
 	}
 
 	// 新規登録
 	@PostMapping("/record")
-	public String add(@RequestParam MultipartFile upload, @RequestParam String memo, Model model,HttpSession session)
+	public String add(@RequestParam MultipartFile upload, @RequestParam String memo, Model model, HttpSession session)
 			throws IllegalStateException, IOException {
 		if (upload.isEmpty()) {
 			model.addAttribute("msg", "画像が選択されていません");
@@ -107,12 +121,8 @@ public class ImageController {
 	}
 
 	@PostMapping("/edit/{id}")
-	public String edit(
-			@RequestParam MultipartFile upload,
-			@Valid Image image, Errors errors, 
-			HttpSession session,
-			@PathVariable Integer id,
-			Model model) throws IllegalStateException, IOException {
+	public String edit(@RequestParam MultipartFile upload, @Valid Image image, Errors errors, HttpSession session,
+			@PathVariable Integer id, Model model) throws IllegalStateException, IOException {
 		if (errors.hasErrors()) {
 			System.out.println("errors");
 			model.addAttribute("image", image);
