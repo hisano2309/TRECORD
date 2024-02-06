@@ -1,6 +1,7 @@
 package com.example.app.controller;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,8 +86,21 @@ public class WeightController {
 	//体重・BMI表示
 	@GetMapping("/weighShow")
 	public String beforeWeightBmi(Model model) throws Exception {
-		WeightBmi weightbmi = new WeightBmi();
-//		service.getSelectBeforeWeightbmi(0, null);
+		WeightBmi weightBmi = new WeightBmi();
+		
+		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
+		weightBmi.setUserId(1);
+//				User user = (User) session.getAttribute("user");
+//				weightBmi.setUserId(user.getUserId());
+				
+		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
+		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-02", LocalDate::from);
+		weightBmi.setDate(date);
+		
+		service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate());
+				
+		model.addAttribute("weightBmi", weightBmi);
+		
 		return "charge/mypage_aramaki";
 	}
 
