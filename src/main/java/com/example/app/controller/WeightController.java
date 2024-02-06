@@ -94,12 +94,13 @@ public class WeightController {
 //				weightBmi.setUserId(user.getUserId());
 				
 		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-02", LocalDate::from);
+		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-05", LocalDate::from);
 		weightBmi.setDate(date);
 		
 		service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate());
+		System.out.println(service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
 				
-		model.addAttribute("weightBmi", weightBmi);
+		model.addAttribute("weightBmi", service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
 		
 		return "charge/mypage_aramaki";
 	}

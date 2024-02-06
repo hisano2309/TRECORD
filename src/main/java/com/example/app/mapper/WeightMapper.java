@@ -1,7 +1,6 @@
 package com.example.app.mapper;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,6 +16,6 @@ public interface WeightMapper {
 
 //表示
 	//前回の体重・BMI表示
-	List<WeightBmi> selectBeforeWeightBmi(int userId, LocalDate date) throws Exception;
+	WeightBmi selectBeforeWeightBmi(int userId, LocalDate date) throws Exception;
 
 }
