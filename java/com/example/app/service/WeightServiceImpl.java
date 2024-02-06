@@ -1,6 +1,7 @@
 package com.example.app.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,11 @@ public class WeightServiceImpl implements WeightService{
 	@Override
 	public WeightBmi getSelectBeforeWeightbmi(int userId, LocalDate date) throws Exception {
 		return weightMapper.selectBeforeWeightBmi(userId, date);
+	}
+
+	@Override
+	public List<WeightBmi> getSelectChart(int userId) throws Exception {
+		return weightMapper.selectChart(userId);
 	}
 
 
