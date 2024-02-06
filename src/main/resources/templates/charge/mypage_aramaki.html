@@ -2,10 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
 <title>Insert title here</title>
 </head>
 <body>
 	<h1>マイページ表示</h1>
+	
+<!-- 	体重・BMI表示 -->
 	<th:block th:object="${weightBmi}">	
 		<table border="1">
 			<tr><th>日付</th><td>[[*{date}]]</td></tr>
@@ -14,5 +18,68 @@
 			<tr><th>適正体重</th><td>[[*{healthyWeight}]]</td></tr>
 		</table>
 	</th:block>
+	
+	
+	
+<!-- 	グラフ -->
+	<div class="area">
+		<canvas id="myLineChart"></canvas>
+	</div>
+	
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$.ajax({
+										type : 'GET',
+										url : 'http://localhost:8080/json',
+										dataType : 'json'
+									})
+									.done(
+											//dateを取得
+											
+											
+											//拡張for文
+											
+											
+											function(res) {
+												const scoresArray = res.map(item => item.userWeight);
+
+												console.log(scoresArray);
+												var ctx = document
+														.getElementById("myLineChart");
+												new Chart(
+														ctx,
+														{
+															// グラフの種類：折れ線グラフを指定
+															type : 'line',
+															data : {
+																// x軸の各メモリ
+																labels : [
+																		'1',
+																		'2',
+																		'3',
+																		'4',
+																		'5' ],
+																datasets : [
+																		{
+																			label : '体重',
+																			data : scoresArray ,
+																			borderColor : "#ec4343",
+																			backgroundColor : "#00000000",
+																			lineTension : 0
+																		}, ],
+															},
+														});
+											}).fail(function() {
+										console.log('fail');
+									});
+						});
+	</script>
+	
 </body>
 </html>

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.app.domain.WeightBmi;
 import com.example.app.service.WeightService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -85,7 +87,12 @@ public class WeightController {
 //表示
 	//体重・BMI表示
 	@GetMapping("/weighShow")
-	public String beforeWeightBmi(Model model) throws Exception {
+	public String beforeWeightBmi(
+			Model model,
+			HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+//	表形式で表示
 		WeightBmi weightBmi = new WeightBmi();
 		
 		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
@@ -101,6 +108,13 @@ public class WeightController {
 		System.out.println(service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
 				
 		model.addAttribute("weightBmi", service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
+		
+		
+	//グラフ形式で表示
+//		List<WeightBmi> listWeightBmi = new ArrayList<>();
+//		ObjectMapper om = new ObjectMapper();
+//		String json = om.writeValueAsString(listWeightBmi);
+//		response.getWriter().append(json);
 		
 		return "charge/mypage_aramaki";
 	}

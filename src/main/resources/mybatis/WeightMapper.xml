@@ -17,4 +17,15 @@
 
 <!-- 全ての体重・BMI表示 -->
 
+
+<!-- グラフ表示 -->
+	<select id="selectChart" parameterType="int" resultType="WeightBmi">
+<!-- 		SELECT * FROM weight WHERE user_id = #{id} -->
+		SELECT * FROM 
+		(SELECT * FROM weight 
+			WHERE user_id = #{id}
+			ORDER BY weight_id DESC LIMIT 5) 
+		AS A ORDER BY weight_id ASC;
+	</select>
+
 </mapper>
