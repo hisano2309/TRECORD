@@ -16,6 +16,9 @@
 		<p>
 			身長:[[*{userHeight}]]
 		</p>
+		<img th:src="@{/uploads/{name}(name=${user.fileName})}" alt="" />
+		
+		
 
 		<p>
 			<a th:href="@{/user/edit/{id}(id=*{userId})}">変更</a>
@@ -24,6 +27,7 @@
 		</p>
 	</th:block>
 	
-	<p><a th:href="@{/mypage}">戻る</a></p>
+		<p><a href="/mypage">戻る</a></p>
+		<p><a th:href="@{/mypage}">戻る</a></p>
 </body>
 </html>
