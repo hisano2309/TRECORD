@@ -17,8 +17,10 @@ public class WeightBmiJson {
 
 	private final WeightBmiService service;
 	
-	@GetMapping("/json")
+	@GetMapping("/weightBmiJson")
 	public List<WeightBmi> list(HttpSession session) throws Exception{
+		
+		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
 		WeightBmi weightBmi = new WeightBmi();
 //		User user = (User) session.getAttribute("user");
 //		weightBmi.setUserId(user.getUserId());

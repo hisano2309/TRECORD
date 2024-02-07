@@ -2,15 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.mapper.MachineMapper">
 
-<!-- 筋トレマシン一覧表示 -->
-<!-- 	<select id="selectMachine" resultType="Machine"> -->
-<!-- 		SELECT * FROM machine -->
-<!-- 	</select> -->
+<!-- 後日日付で並べ替えて取得する　2/2→2/1にならないように -->
 
-<!-- 筋トレ記録全表示 -->
-<!-- 	<select id="selectAll" resultType="MachineSetCount"> -->
-<!-- 		SELECT * FROM machine_set_count -->
-<!-- 	</select> -->
+<!-- 筋トレ記録登録 -->
+	<insert id="insert" parameterType="MachineSetCount">
+		INSERT INTO machine_set_count(training_id, user_id, date, machine_id, machine_weight, machine_count, sets)
+			VALUES(#{trainingId}, #{userId}, #{date}, #{machineId}, #{machineWeight}, #{machineCount}, #{sets})
+	</insert>
+
+<!-- 筋トレマシン一覧表示 -->
+	<select id="selectMachine" resultType="Machine">
+		SELECT * FROM machine
+	</select>
 
 <!-- 特定の日の筋トレ記録表示 -->
 	<select id="selectDay" resultType="MachineSetCount">
@@ -23,12 +26,32 @@
 		WHERE date = #{date} AND user_id = #{userId};
 	</select>
 
-<!-- 筋トレ記録登録 -->
-	<insert id="insert" parameterType="MachineSetCount">
-		INSERT INTO machine_set_count(training_id, user_id, date, machine_id, machine_weight, machine_count, sets)
-			VALUES(#{trainingId}, #{userId}, #{date}, #{machineId}, #{machineWeight}, #{count}, #{sets})
-	</insert>
 
+<!-- マシン数をカウント -->
+		<select id="countMachine" resultType="int">
+			SELECT COUNT(*) FROM machine
+		</select>
+
+<!-- グラフ表示 -->
+	<select id="selectChartMachineId1" resultType="MachineSetCount">
+		SELECT machine_set_count.training_id, machine_set_count.user_id, machine_set_count.date,
+			machine_set_count.machine_id, machine.machine_name, machine_set_count.machine_weight,
+			machine_set_count.machine_count, machine_set_count.sets 
+         FROM machine_set_count JOIN machine 
+         ON machine_set_count.machine_id = machine.machine_id 
+         WHERE user_id = #{userId} AND machine_set_count.machine_id = #{machineId};
+	</select>
+
+
+<!-- 	<select id="selectChart" resultType="MachineSetCount" parameterType="int"> -->
+<!-- 		SELECT machine_set_count.training_id, machine_set_count.user_id, machine_set_count.date, -->
+<!-- 			machine_set_count.machine_id, machine.machine_name, machine_set_count.machine_weight, -->
+<!-- 			machine_set_count.machine_count, machine_set_count.sets -->
+<!-- 		FROM machine_set_count -->
+<!-- 		JOIN machine -->
+<!-- 		ON machine_set_count.machine_id = machine.machine_id -->
+<!-- 		WHERE user_id = #{userId}; -->
+<!-- 	</select> -->
 
 
 </mapper>
