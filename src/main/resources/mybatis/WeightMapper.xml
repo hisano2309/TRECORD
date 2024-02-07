@@ -4,13 +4,13 @@
 
 <!-- 体重・BMIの登録 -->
 	<insert id="insertWeightBmi">
-		INSERT INTO weight
+		INSERT INTO weight_bmi
 		VALUES(NULL, #{userId}, #{userWeight}, #{bmi}, #{healthyWeight}, #{date})
 	</insert>
 
 <!-- 前回の体重・BMI表示 -->
 	<select id="selectBeforeWeightBmi" resultType="WeightBmi">
-		SELECT * FROM weight
+		SELECT * FROM weight_bmi
 		ORDER BY weight_id DESC
 		LIMIT 1;
 	</select>
@@ -20,7 +20,7 @@
 
 <!-- グラフ表示 -->
 	<select id="selectChart" parameterType="int" resultType="WeightBmi">
-		SELECT * FROM weight WHERE user_id = #{id}
+		SELECT * FROM weight_bmi WHERE user_id = #{id}
 		
 <!-- 		最新のデータ5つのみ表示 -->
 <!-- 		SELECT * FROM  -->
