@@ -20,12 +20,14 @@
 
 <!-- グラフ表示 -->
 	<select id="selectChart" parameterType="int" resultType="WeightBmi">
-<!-- 		SELECT * FROM weight WHERE user_id = #{id} -->
-		SELECT * FROM 
-		(SELECT * FROM weight 
-			WHERE user_id = #{id}
-			ORDER BY weight_id DESC LIMIT 5) 
-		AS A ORDER BY weight_id ASC;
+		SELECT * FROM weight WHERE user_id = #{id}
+		
+<!-- 		最新のデータ5つのみ表示 -->
+<!-- 		SELECT * FROM  -->
+<!-- 		(SELECT * FROM weight  -->
+<!-- 			WHERE user_id = #{id} -->
+<!-- 			ORDER BY weight_id DESC LIMIT 5)  -->
+<!-- 		AS A ORDER BY weight_id ASC; -->
 	</select>
 
 </mapper>

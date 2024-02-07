@@ -47,9 +47,12 @@
 											
 											
 											function(res) {
-												const scoresArray = res.map(item => item.userWeight);
+												const weightArray = res.map(item => item.userWeight);
+												const bmiArray = res.map(item => item.bmi);
+												const healthyWeightArray = res.map(item => item.healthyWeight)
+												const dateArray = res.map(item => item.date);
 
-												console.log(scoresArray);
+												console.log(weightArray);
 												var ctx = document
 														.getElementById("myLineChart");
 												new Chart(
@@ -59,21 +62,41 @@
 															type : 'line',
 															data : {
 																// x軸の各メモリ
-																labels : [
-																		'1',
-																		'2',
-																		'3',
-																		'4',
-																		'5' ],
+																labels : dateArray, //constで指定した変数（date）
 																datasets : [
 																		{
 																			label : '体重',
-																			data : scoresArray ,
+																			data : weightArray , //constで指定した変数（userWeight）
 																			borderColor : "#ec4343",
 																			backgroundColor : "#00000000",
 																			lineTension : 0
-																		}, ],
+																		}, {
+																			label : 'BMI',
+																			data : bmiArray , //constで指定した変数（bmi）
+																			borderColor : "rgb(54, 162, 235)",
+																			backgroundColor : "#00000000",
+																			lineTension : 0
+																		}, {
+																			label : '適正体重',
+																			data : healthyWeightArray , // constで指定した変数（healthyWeight）
+																			borderColor : "#FF9900",
+																			backgroundColor : "#00000000",
+																			lineTension : 0
+																		}],
 															},
+															
+															// Y軸の上がり幅、下限（初期登録+10kg）、上限（Max値+5kg）を指定
+															options: {
+																scales:{
+																	yAxes: [{
+																		ticks: {        
+																		       suggestedMax: Math.max(...weightArray) + 5,
+																		       suggestedMin: bmiArray[0] - 5,
+																		       stepSize: 5
+																		},
+																	}]
+																}
+															}
 														});
 											}).fail(function() {
 										console.log('fail');

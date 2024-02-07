@@ -24,7 +24,6 @@ public class WeightJson {
 //		weightBmi.setUserId(user.getUserId());
 		weightBmi.setUserId(1);
 		
-//		System.out.println("WeightJson　セッションのUserId" + user.getUserId());
 		return service.getSelectChart(weightBmi.getUserId());
 
 	}
