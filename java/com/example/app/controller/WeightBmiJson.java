@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.app.domain.WeightBmi;
-import com.example.app.service.WeightService;
+import com.example.app.service.WeightBmiService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class WeightJson {
+public class WeightBmiJson {
 
-	private final WeightService service;
+	private final WeightBmiService service;
 	
 	@GetMapping("/json")
 	public List<WeightBmi> list(HttpSession session) throws Exception{

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.example.app.domain.WeightBmi;
 
-public interface WeightService {
+public interface WeightBmiService {
 
 //登録
 	//体重・BMIの登録

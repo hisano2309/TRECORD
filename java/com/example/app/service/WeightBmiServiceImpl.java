@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional(rollbackFor=Exception.class)
 @RequiredArgsConstructor
-public class WeightServiceImpl implements WeightService{
+public class WeightBmiServiceImpl implements WeightBmiService{
 
 	private final WeightMapper weightMapper;
 

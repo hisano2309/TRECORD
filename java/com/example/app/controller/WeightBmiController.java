@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.app.domain.WeightBmi;
-import com.example.app.service.WeightService;
+import com.example.app.service.WeightBmiService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,9 +20,9 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class WeightController {
+public class WeightBmiController {
 
-	private final WeightService service;
+	private final WeightBmiService service;
 
 //登録
 	//体重の登録
@@ -68,6 +68,8 @@ public class WeightController {
 		weightBmi.setBmi(Math.floor(bmi * 10) / 10);
 		weightBmi.setHealthyWeight(Math.floor(healthyWeight * 10) / 10);
 
+		
+		//日付が同日の場合は登録しない（グラフが重複する）
 		//体重・BMIの登録
 		service.insertWeightBmi(weightBmi);
 
@@ -86,7 +88,7 @@ public class WeightController {
 
 //表示
 	//体重・BMI表示
-	@GetMapping("/weighShow")
+	@GetMapping("/weightShow")
 	public String beforeWeightBmi(
 			Model model,
 			HttpServletRequest request,
