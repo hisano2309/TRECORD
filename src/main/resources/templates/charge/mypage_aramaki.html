@@ -21,9 +21,9 @@
 	
 	
 	
-<!-- 	体重グラフ -->
+<!-- 	グラフ -->
 	<div class="area">
-		<canvas id="weightBmiChart"></canvas>
+		<canvas id="myLineChart"></canvas>
 	</div>
 	
 	<script
@@ -36,10 +36,16 @@
 						function() {
 							$.ajax({
 										type : 'GET',
-										url : 'http://localhost:8080/weightBmiJson',
+										url : 'http://localhost:8080/json',
 										dataType : 'json'
 									})
 									.done(
+											//dateを取得
+											
+											
+											//拡張for文
+											
+											
 											function(res) {
 												const weightArray = res.map(item => item.userWeight);
 												const bmiArray = res.map(item => item.bmi);
@@ -48,7 +54,7 @@
 
 												console.log(weightArray);
 												var ctx = document
-														.getElementById("weightBmiChart");
+														.getElementById("myLineChart");
 												new Chart(
 														ctx,
 														{
@@ -79,9 +85,9 @@
 																		}],
 															},
 															
+															// Y軸の上がり幅、下限（初期登録+10kg）、上限（Max値+5kg）を指定
 															options: {
 																scales:{
-																	// Y軸の上がり幅、下限（初期登録+10kg）、上限（Max値+5kg）を指定
 																	yAxes: [{
 																		ticks: {        
 																		       suggestedMax: Math.max(...weightArray) + 5,
@@ -97,97 +103,6 @@
 									});
 						});
 	</script>
-	
-	
-	
-	<!-- 	マシーングラフ -->
-	<div class="area">
-		<canvas id="machineSetCountChart"></canvas>
-	</div>
-	
-	<script>
-		$(document)
-				.ready(
-						function() {
-							$.ajax({
-										type : 'GET',
-										url : 'http://localhost:8080/MachineSetCountJson',
-										dataType : 'json'
-									})
-									.done(
-											function(res) {
-												console.log(res);
-// 												const machineNameArray = res.map(item => item.machineName);
-// 												const machineId1_WeightArray = res.map(item => item.machineSetCount[0][0].machineWeight);
-												const machineId1_Weightjson = res[0];
-												console.log(machineId1_Weightjson);
-												
-												const machineId1_WeightArray = machineId1_Weightjson.map(item => item.machineWeight);
-												console.log(machineId1_WeightArray);
-												
-												
-												const machineId2_WeightArray = res.map(item => item.machineSetCount[1][5]);
-												const machineId3_WeightArray = res.map(item => item.machineSetCount[3][5]);
-// 												const machineId4_WeightArray = res.map(item => item.machineWeight);
-// 												const machineId5_WeightArray = res.map(item => item.machineWeight);
-// 												const machineId6_WeightArray = res.map(item => item.machineWeight);
-												const dateArray = res.map(item => item.date);
-												
-
-												console.log(machineId1_WeightArray);
-												var ctx = document
-														.getElementById("machineSetCountChart");
-												new Chart(
-														ctx,
-														{
-															// グラフの種類：折れ線グラフを指定
-															type : 'line',
-															data : {
-																// x軸の各メモリ
-																labels : dateArray, //constで指定した変数（date）
-																datasets : [
-																		{
-																			label : 'bench press',
-																			data : machineId1_WeightArray , //constで指定した変数（machineWeight）
-																			borderColor : "#3eb370",
-																			backgroundColor : "#00000000",
-																			lineTension : 0
-																		},{
-																			label : 'chest Press',
-																			data : machineId2_WeightArray , //constで指定した変数（machineWeight）
-																			borderColor : "#3eb370",
-																			backgroundColor : "#00000000",
-																			lineTension : 0
-																		},{
-																			label : 'abdominal crunch',
-																			data : machineId3_WeightArray , //constで指定した変数（machineWeight）
-																			borderColor : "#3eb370",
-																			backgroundColor : "#00000000",
-																			lineTension : 0
-																		}],
-															},
-															
-															options: {
-																scales:{
-																	// Y軸の上がり幅、下限（初期登録+10kg）、上限（Max値+5kg）を指定
-																	yAxes: [{
-																		ticks: {        
-																		       suggestedMax: Math.max(...machineId1_WeightArray) + 5,
-																		       suggestedMin: 0,
-// 																		       stepSize: 5
-																		},
-																	}]
-																}
-															}
-														});
-											}).fail(function() {
-										console.log('fail');
-									});
-						});
-	</script>
-	
-	
-
 	
 </body>
 </html>
