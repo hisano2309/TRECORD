@@ -219,52 +219,40 @@
 												console.log(res);
 											
 												// 0:machineId_1{カラム1行目のdomain}, 1:machineId_2{カラム2行目のdomain}, 2:machineId_3{カラム3行目のdomain}......
-												const machineId_1 = res[0];
+// 												const machineId_1 = res[0];
+												const machineId_1 = res[id1, id2];
 												console.log(machineId_1);
 											// machineId_1のweightBmiドメインの各変数の中身を取得できる
 												const machineId_1Array = machineId_1.map(item => item.machineWeight);
 												console.log(machineId_1Array);
 												
-												
-												const machineId_2 = res[1];
-												console.log(machineId_2);
-												const machineId_2Array = machineId_2.map(item => item.machineWeight);
-												console.log(machineId_2Array)
-												
-												const machineId_3 = res[2];
-												console.log(machineId_3);
-												const machineId_3Array = machineId_3.map(item => item.machineWeight);
-												const dateArray = res.map(item => item.date);
-												
 												const options = {
-														title: {
-															display: true,
-															text: 'マシン使用率'
-														},
-														plugins : {
-															labels : {
-																render : 'percentage',
-																fontColor : 'white',
-																fontSize : 14
-															}
+													title: {
+														display: true,
+														text: 'マシン使用率'
+													},
+													plugins : {
+														labels : {
+															render : 'percentage',
+															fontColor : 'white',
+															fontSize : 14
 														}
-														
+													}
 												};
 												var ctx = document
 														.getElementById("machineSetCountChart");
 												new Chart(
 														ctx,
 														{
-															// グラフの種類：折れ線グラフを指定
+															// グラフの種類：円グラフを指定
 															type : 'pie',
 															data : {
 																datasets : [
-																		{
-																			labels : ['bench press','bench press','bench press'],
-																			backgroundColor : ["#FBBD8E", "#F067A6", "#FDD2B9", "#DE7C6B", "#CD4187", "#F9C1CF"],
-																			data : machineId_1Array , //constで指定した変数（machineId_1Array）
-																			lineTension : 0
-																		}],
+																	{
+																		labels : ['bench press','bench press','bench press','bench press','bench press','bench press'],
+																		backgroundColor : ["#FBBD8E", "#F067A6", "#FDD2B9", "#DE7C6B", "#CD4187", "#F9C1CF"],
+																		data : machineId_1Array , //constで指定した変数（machineId_1Array）
+																	}],
 															},
 															options : options,
 														});
