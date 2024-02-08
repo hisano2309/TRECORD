@@ -16,5 +16,8 @@ public class User {
 	@Size(min=6, max=20)
 	private String loginPass;
 	private Float userHeight;
+	
+	private String fileName;
+	
 
 }

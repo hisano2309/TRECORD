@@ -34,7 +34,7 @@
 
 <!-- 時間があったら・・・input要素とdatalist要素で「テキスト入力」と「入力候補からの選択」の両方が可能なフォームを作成 -->
 			<p>1セットあたりの回数：
-				<select th:field="*{count}">
+				<select th:field="*{machineCount}">
 <!-- #numbers.sequence　繰り返しの最初の数と最後の数を記載 -->
 					<option th:each="i : ${#numbers.sequence(1, numCount)}" th:value="${i}">
 						[[${i}]]

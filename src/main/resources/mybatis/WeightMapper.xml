@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.mapper.WeightMapper">
-	
-<!-- 体重表示 -->
 
-
-<!-- BMI表示 -->
-
-
-<!-- 体重の登録 -->
-	<insert id="insertWeight" parameterType="float">
-		INSERT INTO weight 
-		VALUES(NULL, #{userId}, #{userWeight}, #{date});
+<!-- 体重・BMIの登録 -->
+	<insert id="insertWeightBmi">
+		INSERT INTO weight_bmi
+		VALUES(NULL, #{userId}, #{userWeight}, #{bmi}, #{healthyWeight}, #{date})
 	</insert>
 
-<!-- BMIの登録 -->
-	<insert id="insertBmi" parameterType="float">
-		INSERT INTO bmi 
-		VALUES(NULL, #{userId}, #{bmi}, #{date});
-	</insert>
+<!-- 前回の体重・BMI表示 -->
+	<select id="selectBeforeWeightBmi" resultType="WeightBmi">
+		SELECT * FROM weight_bmi
+		ORDER BY weight_id DESC
+		LIMIT 1;
+	</select>
+
+<!-- 全ての体重・BMI表示 -->
+
+
+<!-- グラフ表示 -->
+	<select id="selectChart" parameterType="int" resultType="WeightBmi">
+		SELECT * FROM weight_bmi WHERE user_id = #{id}
+		
+<!-- 		最新のデータ5つのみ表示 -->
+<!-- 		SELECT * FROM  -->
+<!-- 		(SELECT * FROM weight  -->
+<!-- 			WHERE user_id = #{id} -->
+<!-- 			ORDER BY weight_id DESC LIMIT 5)  -->
+<!-- 		AS A ORDER BY weight_id ASC; -->
+	</select>
 
 </mapper>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>トレコード</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
+	rel="stylesheet" />
+<!-- splide.js cdn -->
+<script
+	src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
+<!-- splide.css cdn -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/reset.css}">
+</head>
+<body>
+	<header>
+		<div class="inner">
+			<h1>
+				<a href="">ロゴ</a>
+			</h1>
+			<nav class="navigation">
+				<ul role='list'>
+					<li><a th:href="@{/user/register}">新規会員登録</a></li>
+					<li><a th:href="@{/user/login}">ログイン</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<div class="splide" role="group" aria-label="Splideの基本的なHTML">
+			<div id="main" class="splide">
+				<div class="splide__track">
+					<ul class="splide__list">
+						<li class="splide__slide"><img src="images/slide1.jpg"></li>
+						<li class="splide__slide"><img src="images/slide2.jpg"></li>
+						<li class="splide__slide"><img src="images/slide3.jpg"></li>
+						<li class="splide__slide"><img src="images/slide4.jpg"></li>
+						<li class="splide__slide"><img src="images/slide5.jpg"></li>
+					</ul>
+				</div>
+			</div>
+			<div id="thumbnail" class="splide">
+				<div class="splide__track">
+					<ul class="splide__list">
+						<li class="splide__slide"><img src="images/slide1.jpg"></li>
+						<li class="splide__slide"><img src="images/slide2.jpg"></li>
+						<li class="splide__slide"><img src="images/slide3.jpg"></li>
+						<li class="splide__slide"><img src="images/slide4.jpg"></li>
+						<li class="splide__slide"><img src="images/slide5.jpg"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="inner">
+			<h2>
+				<span class="font-en">Training Support</span><br>トレーニングサポートコンテンツ
+			</h2>
+			<div class="support-menu">
+				<a th:href="gacha" class="support-menu_btn count">
+					<p><span>回数</span><br>ガチャを回す</p>
+				</a> 
+				<a th:href="gacha" class="support-menu_btn weight">
+					<p><span>重量</span><br>ガチャを回す</p>
+				</a> 
+				<a th:href="chart" class="support-menu_btn diagnosis">
+					<p><span>診断</span>をする</p>
+				</a>
+			</div>
+		</div>
+	</main>
+	<script th:inline="javascript">
+		const main = new Splide("#main", {
+			cover : true,
+			heightRatio : 0.4, //高さを幅に対する割合で指定
+			type : "loop",
+			padding : "calc((100vw - 110rem) /2)", //左右のスライドを5rem分表示させる
+			type : "loop", //スライドをループさせる
+			focus : "center", //アクティブなスライドを中央に表示する
+			pagination : false,
+			arrows : false,
+			autoplay : true,
+		});
+		const thumbnails = new Splide("#thumbnail", {
+			fixedWidth : 140,
+			fixedHeight : 70,
+			type : "loop",
+			focus : "center",
+			gap : 10, //スライド間の余白
+			arrows : false,
+			pagination : false,
+			isNavigation : true,
+		});
+		main.sync(thumbnails); //mount()よりも先に実行する
+		main.mount(); //メインスライダーをインスタンス化
+		thumbnails.mount(); //サムネイルスライダーをインスタンス化
+	</script>
+	<footer>
+		<small>Copyright 2024 TRECORD</small>
+	</footer>
+</body>
+</html>

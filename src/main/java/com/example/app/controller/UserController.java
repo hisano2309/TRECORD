@@ -1,5 +1,8 @@
 package com.example.app.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -7,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.app.domain.User;
 import com.example.app.mapper.UserMapper;
@@ -20,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/user")
 public class UserController {
 	
-	private final UserMapper mapper;
+private final UserMapper mapper;
 	
 	//@Autowired
     //private HttpSession session; // HttpSessionを注入
@@ -37,21 +42,41 @@ public class UserController {
 	
 	@PostMapping("/register")
 	// @ModelAttribute("user") User user
-	public String register(@Valid User user,
-			Errors errors
-
-			) {		
+	public String register(@RequestParam MultipartFile upload,
+			@Valid User user,
+			Errors errors,Model model
+			) throws IllegalStateException,IOException{
 		
-		
-		if(errors.hasErrors()) {
+		if(errors.hasErrors() || upload.isEmpty()) {
 			//エラーがあった時の処理
 			System.out.println("エラーです");
+			model.addAttribute("msg", "プロフィール画像を入れてください");
 			return "register";
 		}else {
-		System.out.println(user);
 
-		mapper.insert(user);
+		if(upload.isEmpty()) {
+			//アップロードされたファイルがない場合の処理
+			model.addAttribute("msg", "プロフィール画像を入れてください");
+			return "register";
+		} else {
+			//ファイル情報の取得と保存
+			// ファイルサイズ
+			System.out.println(upload.getSize());
+			// ファイル種類
+			System.out.println(upload.getContentType());
+			// ファイル名
+			System.out.println(upload.getOriginalFilename());
+			
+			// ファイル名取得
+			String fileName = upload.getOriginalFilename();
+			// 格納場所取得(各々のフォルダ名に変更して下さい)
+			File dest = new File("C:/Users/uploads/" + fileName);
+			
+		user.setFileName(fileName);
+		upload.transferTo(dest); //フォルダに保存
+		mapper.insert(user); //DBに保存
 		return "redirect:/user/login";
+		}
 		}
 	}
 	
@@ -64,12 +89,17 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public String login(@Valid User user, Errors errors, HttpSession session,Model model) {
+	public String login(
+			@Valid User user, 
+			Errors errors, 
+			HttpSession session,
+			Model model) {
 		if(errors.hasErrors()) {
 			System.out.println("不備あり");
 			return "login";
 		
 		}
+		System.out.println(user);
 		// ログインIDからDBへ問い合わせ
 		User foundUser = mapper.findByLoginId(user.getLoginId());
 		System.out.println("foundUser->"+foundUser);
@@ -141,22 +171,29 @@ public class UserController {
 	
 	@PostMapping("/edit/{id}")
 	public String editPost(
-			@Valid User user, Errors errors,
+			@RequestParam MultipartFile upload,
+			@Valid User user, 
+			Errors errors,
 			@PathVariable Integer id, 
 			HttpSession session, 
 			Model model
-			) {
+			) throws IllegalStateException, IOException {
 		if(errors.hasErrors()) {
 			//エラーがあった時の処理
 			System.out.println("エラーです");
+			model.addAttribute("user", user);
 			return "register";
-		}else {
+		}
 			 // フォームから受け取ったユーザー情報を使用して更新処理を行う
+			String fileName = upload.getOriginalFilename();
 			user.setUserId(id);
-		System.out.println(user);
+			user.setFileName(fileName);
+			//(各々のフォルダ名に変更して下さい)
+			File dest = new File("C:/Users/uploads/" + fileName);
+			upload.transferTo(dest);        
+		System.out.println("User object: " + user);
 		mapper.update(user);
 		return "redirect:/user/setting/"+id;
 		}
 	}
-}
 	

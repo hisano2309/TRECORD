@@ -3,14 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <title>ユーザー登録</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
+	rel="stylesheet" />
+
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/reset.css}">
 </head>
 <body>
+<header>
+	<div class="inner">
+		<h1>
+			<a href="">ロゴ</a>
+		</h1>
+		<nav class="navigation">
+			<ul role='list'>
+				<li><a th:href="@{/user/register}">新規会員登録</a></li>
+				<li><a th:href="@{/user/login}">ログイン</a></li>
+			</ul>
+		</nav>
+	</div>
+	</header>
 	<th:block th:object="${user}">
 		<p th:errors="*{loginId}"></p>
 		<p th:errors="*{loginPass}"></p>
 	</th:block>
 	<h1>ユーザー登録</h1>
-	<form action="" method="post" th:object="${user}">
+	<form action="" method="post" enctype="multipart/form-data"
+		th:object="${user}">
 		<p>
 			ログインID:<input type="text" th:field="*{loginId}" />
 		</p>
@@ -18,16 +38,19 @@
 			パスワード:<input type="text" th:field="*{loginPass}" />
 		</p>
 		<p>
-			身長:<input type="text" th:field="*{userHeight}" />
+			身長:<input type="text" th:field="*{userHeight}" />cm
 		</p>
+		<p>
+			<input type="file" name="upload" />
+		</p>
+		<img th:src="@{/uploads/{name}(name=${user.fileName})}" alt="" />
 		<p>
 			<input type="submit" value="登録" />
 		</p>
-
-
-
 	</form>
 
-
+	<footer>
+		<small>Copyright 2024 TRECORD</small>
+	</footer>
 </body>
 </html>

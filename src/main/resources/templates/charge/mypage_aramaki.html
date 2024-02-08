@@ -2,13 +2,107 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
 <title>Insert title here</title>
 </head>
 <body>
 	<h1>マイページ表示</h1>
-	<p>体重の表示</p>
-	<p>BMIの表示</p>
-	<p>Max値の表示</p>
-	<p>Min値の表示</p>
+	
+<!-- 	体重・BMI表示 -->
+	<th:block th:object="${weightBmi}">	
+		<table border="1">
+			<tr><th>日付</th><td>[[*{date}]]</td></tr>
+			<tr><th>体重</th><td>[[*{userWeight}]]</td></tr>
+			<tr><th>BMI</th><td>[[*{bmi}]]</td></tr>
+			<tr><th>適正体重</th><td>[[*{healthyWeight}]]</td></tr>
+		</table>
+	</th:block>
+	
+	
+	
+<!-- 	体重グラフ -->
+	<div class="area">
+		<canvas id="myLineChart"></canvas>
+	</div>
+	
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$.ajax({
+										type : 'GET',
+										url : 'http://localhost:8080/json',
+										dataType : 'json'
+									})
+									.done(
+											//dateを取得
+											
+											
+											//拡張for文
+											
+											
+											function(res) {
+												const weightArray = res.map(item => item.userWeight);
+												const bmiArray = res.map(item => item.bmi);
+												const healthyWeightArray = res.map(item => item.healthyWeight)
+												const dateArray = res.map(item => item.date);
+
+												console.log(weightArray);
+												var ctx = document
+														.getElementById("myLineChart");
+												new Chart(
+														ctx,
+														{
+															// グラフの種類：折れ線グラフを指定
+															type : 'line',
+															data : {
+																// x軸の各メモリ
+																labels : dateArray, //constで指定した変数（date）
+																datasets : [
+																		{
+																			label : '体重',
+																			data : weightArray , //constで指定した変数（userWeight）
+																			borderColor : "#ec4343",
+																			backgroundColor : "#00000000",
+																			lineTension : 0
+																		}, {
+																			label : 'BMI',
+																			data : bmiArray , //constで指定した変数（bmi）
+																			borderColor : "rgb(54, 162, 235)",
+																			backgroundColor : "#00000000",
+																			lineTension : 0
+																		}, {
+																			label : '適正体重',
+																			data : healthyWeightArray , // constで指定した変数（healthyWeight）
+																			borderColor : "#FF9900",
+																			backgroundColor : "#00000000",
+																			lineTension : 0
+																		}],
+															},
+															
+															// Y軸の上がり幅、下限（初期登録+10kg）、上限（Max値+5kg）を指定
+															options: {
+																scales:{
+																	yAxes: [{
+																		ticks: {        
+																		       suggestedMax: Math.max(...weightArray) + 5,
+																		       suggestedMin: bmiArray[0] - 5,
+																		       stepSize: 5
+																		},
+																	}]
+																}
+															}
+														});
+											}).fail(function() {
+										console.log('fail');
+									});
+						});
+	</script>
+	
 </body>
 </html>

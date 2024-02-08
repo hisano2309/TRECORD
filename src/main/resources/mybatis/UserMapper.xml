@@ -5,7 +5,7 @@
 <!-- ユーザー登録 -->
 <insert id="insert" parameterType="User">
 	INSERT INTO user
-		VALUES(NULL, #{loginId}, #{loginPass}, #{userHeight}, 0)
+		VALUES(NULL, #{loginId}, #{loginPass}, #{userHeight}, #{fileName}, 0)
 </insert>
 	
 	<!-- ログイン認証 -->
@@ -31,7 +31,8 @@
 	UPDATE user SET
 		login_id = #{loginId},
 		login_pass = #{loginPass},
-		user_height = #{userHeight}
+		user_height = #{userHeight},
+		file_name = #{fileName} 
 		WHERE user_id = #{userId}
 	</update>
 	

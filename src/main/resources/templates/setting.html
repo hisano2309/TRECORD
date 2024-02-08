@@ -3,8 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <title>設定変更</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/reset.css}">
 </head>
 <body>
+<header>
+		<div class="inner">
+			<h1>
+				<a href="">ロゴ</a>
+			</h1>
+			<nav class="navigation">
+				<ul role='list'>
+					<li><a th:href="@{/user/register}">新規会員登録</a></li>
+					<li><a th:href="@{/user/login}">ログイン</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 	<h1>ユーザー情報変更</h1>
 	<th:block th:object="${user}">
 		<p>
@@ -16,6 +36,9 @@
 		<p>
 			身長:[[*{userHeight}]]
 		</p>
+		<img th:src="@{/uploads/{name}(name=${user.fileName})}" alt="" />
+		
+		
 
 		<p>
 			<a th:href="@{/user/edit/{id}(id=*{userId})}">変更</a>
@@ -24,6 +47,10 @@
 		</p>
 	</th:block>
 	
-	<p><a th:href="@{/mypage}">戻る</a></p>
-</body>
+		<p><a th:href="@{/mypage}">戻る</a></p>
+		
+<footer>
+		<small>Copyright 2024 TRECORD</small>
+	</footer>
+	</body>
 </html>
