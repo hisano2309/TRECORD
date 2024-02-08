@@ -20,7 +20,12 @@
 
 <!-- グラフ表示 -->
 	<select id="selectChart" parameterType="int" resultType="WeightBmi">
-		SELECT * FROM weight_bmi WHERE user_id = #{id}
+	
+<!-- 	先頭から5つ取得 -->
+	SELECT * FROM weight_bmi WHERE user_id = #{id} LIMIT 0, 5
+	
+<!-- 	全データを取得	 -->
+<!-- 		SELECT * FROM weight_bmi WHERE user_id = #{id} -->
 		
 <!-- 		最新のデータ5つのみ表示 -->
 <!-- 		SELECT * FROM  -->
