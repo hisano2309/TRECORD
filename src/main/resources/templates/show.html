@@ -3,16 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <title>詳細内容閲覧</title>
+<style>
+img {
+	width: 25%;
+}
+</style>
+
 </head>
 <body>
 
 	<h1>トレーニング内容</h1>
-
+	
+<th:block th:each="image : ${imageList}">
 	<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-	<p th:text="${#temporals.format(image.date,'yyyy年MM月dd日(E)')}"></p>
-
-	<a th:href="@{/edit/{id}(id=*{id})}">編集</a>
-	<a th:href="@{/delete/{id}(id=*{id})}">削除</a>
+	<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+<br />
+	<a th:href="@{/edit/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">編集</a>
+	<a th:href="@{/delete/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">削除</a>
+	</th:block>
+	
+	
 
 	<p>
 		<a th:href="@{/mypage}">My Pageへ</a>

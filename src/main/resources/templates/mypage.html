@@ -3,26 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <title>My Page</title>
+
+<style>
+img {
+	width: 25%;
+}
+
+ul {
+	width: 70%;
+	display: flex;
+	list-style: none;
+}
+
+a {
+	display: block;
+	text-decoration: none;
+}
+
+/* リンク無効 */
+.noevent {
+	pointer-events: none;
+}
+</style>
+
 </head>
 <body>
 
 	<h1>MY PAGE</h1>
 	<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
 	<a th:href="@{/user/logout}">ログアウト</a>
-	<h2><a th:href="@{/record}">記録をする</a></h2>
-	
-	
+	<h2>
+		<a th:href="@{/record}">記録をする</a>
+	</h2>
+
+
 	<h2>記録を見る</h2>
+
 
 	<h3>All ALUBUM</h3>
 	<th:block th:each="image : ${imgList}">
-		<a th:href="@{/show/{id}(id=${image.imgId})}"> <img
+		<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> <img
 			th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
 		</a>
-		<p th:text="${#temporals.format(image.date,'yyyy年MM月dd日(E)')}"></p>
+		<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
 
 
-	</th:block>
+</th:block>
+
+
+		<!-- ページネーション、ページャー -->
+		<div th:if="${totalPage >= 2}">
+			<ul>
+				<!-- 前のページリンク -->
+				<th:block th:switch="${page}">
+					<li th:case="1"><a href="" class="noevent">Prev</a></li>
+					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a>
+					</li>
+				</th:block>
+				<!-- ページ番号 -->
+				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
+					<th:block th:switch="${index}">
+						<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
+						<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
+					</th:block>
+				</th:block>
+				<!-- 次のページリンク -->
+				<th:block th:switch="${page}">
+					<li th:case="${totalPage}"><a href="" class="noevent">Next</a>
+					</li>
+					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a>
+					</li>
+				</th:block>
+			</ul>
+		</div>
+	
 
 
 </body>

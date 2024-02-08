@@ -2,6 +2,7 @@ package com.example.app.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,10 @@ public class ImageController {
 		// model.addAttribute("imgList", imgList);
 		int offset = NUM_PER_PAGE * (page - 1);
 		model.addAttribute("imgList", mapper.selectLimited(offset, NUM_PER_PAGE));
+
+		// 現在のページを更新
+		model.addAttribute("page", page);
+
 		// 全体のデータ数取得
 		// 小数点で受け取りたいため、キャスト
 		double totalNum = (double) mapper.count();
@@ -53,22 +58,41 @@ public class ImageController {
 		return "mypage";
 	}
 
-	// 画像の個別取得
-	@GetMapping("/show/{id}")
-	public String show(@PathVariable Integer id, Model model) {
-		Image image = mapper.getImageById(id);
-		model.addAttribute("image", image);
+//	// 画像の個別取得
+	@GetMapping("/show/{date}")
+	public String show(@PathVariable("date") String date,
+			HttpSession session, Model model) {
+		User user = (User) session.getAttribute("user");
+		// Mapを作成してパラメータをセットする
+//		Map<String, Object> param = new HashMap<>();
+//		param.put("id", user.getUserId());
+//		param.put("date", date);
+//		// Mapを引数にしてメソッドを呼び出す
+//		Image image = mapper.getImageById(param);
+//      個別でデータをとる記述
+		List<Image> image = mapper.getImageById(user.getUserId(), date);
+		System.out.println(image);
+		model.addAttribute("imageList", image);
 		return "show";
 	}
 
-	// 削除
-	@GetMapping("/delete/{id}")
-	public String delete(@PathVariable Integer id) {
-		mapper.delete(id);
+//	// 削除
+	@GetMapping("/delete/{date}")
+	public String delete(@PathVariable Integer id, 
+			@PathVariable("date") String date,
+			HttpSession session) {
+		User user = (User) session.getAttribute("user");
+//		Map<String, Object> param = new HashMap<>();
+//		param.put("id", id);
+//		param.put("userId", user.getUserId());
+//		param.put("date", date);
+//		mapper.delete(param);
+		mapper.delete(user.getUserId(), date);
 		return "redirect:/record";
 	}
 
-	// 記録ページ
+//
+//	// 記録ページ
 	@GetMapping("/record")
 	public String add(Model model, HttpSession session) {
 		model.addAttribute("image", new Image());
@@ -77,7 +101,8 @@ public class ImageController {
 		return "record";
 	}
 
-	// 新規登録
+//
+//	// 新規登録
 	@PostMapping("/record")
 	public String add(@RequestParam MultipartFile upload, @RequestParam String memo, Model model, HttpSession session)
 			throws IllegalStateException, IOException {
@@ -112,17 +137,28 @@ public class ImageController {
 		return "redirect:/mypage";
 	}
 
-	// トレーニング内容個別編集
-	@GetMapping("/edit/{id}")
-	public String editGet(@PathVariable Integer id, Model model) {
-		Image image = mapper.getImageById(id);
+//
+//	// トレーニング内容個別編集
+	@GetMapping("/edit/{date}")
+	public String editGet(@PathVariable("date") String date,
+			HttpSession session, Model model) {
+		User user = (User) session.getAttribute("user");
+		// Mapを作成してパラメータをセットする
+//		Map<String, Object> param = new HashMap<>();
+//		param.put("id", user.getUserId());
+//		param.put("date", date);
+//		Image image = mapper.getImageById(param);
+		List<Image> image = mapper.getImageById(user.getUserId(), date);
 		model.addAttribute("image", image);
 		return "record";
 	}
 
-	@PostMapping("/edit/{id}")
-	public String edit(@RequestParam MultipartFile upload, @Valid Image image, Errors errors, HttpSession session,
-			@PathVariable Integer id, Model model) throws IllegalStateException, IOException {
+//
+	@PostMapping("/edit/{date}")
+	public String edit(@RequestParam MultipartFile upload, 
+			@Valid Image image, Errors errors,
+			HttpSession session,
+			@PathVariable Date date, Model model) throws IllegalStateException, IOException {
 		if (errors.hasErrors()) {
 			System.out.println("errors");
 			model.addAttribute("image", image);
@@ -131,10 +167,15 @@ public class ImageController {
 		String imgName = upload.getOriginalFilename();
 		User user = (User) session.getAttribute("user");
 		image.setUserId(user.getUserId());
-		image.setImgId(id);
+		image.setImgId(image.getImgId());
 		image.setImgName(imgName);
 		File dest = new File("C:/Users/uploads/" + imgName);
 		upload.transferTo(dest);
+//		Map<String, Object> param = new HashMap<>();
+//		param.put("imgId", image.getImgId());
+//		param.put("imgName", image.getImgName());
+//		param.put("memo", image.getMemo());
+//		mapper.edit(param);
 		mapper.edit(image);
 		return "redirect:/mypage";
 

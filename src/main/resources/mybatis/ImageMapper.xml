@@ -5,38 +5,43 @@
 	<!-- ユーザーの画像一覧取得 -->
 	<select id="getImageByUserId" parameterType="integer"
 		resultType="Image">
-		SELECT * FROM images
+		SELECT * FROM image
 		WHERE user_id = #{id}
 	</select>
 
 	<!-- 画像の個別取得 -->
-	<select id="getImageById" resultType="Image"
-		parameterType="integer">
+	<!-- parameterTypeをmapに変更 -->
+	<!-- dateを条件に追加 -->
+	<select id="getImageById" resultType="Image">
 		SELECT * FROM
-		images WHERE img_id = #{id}
+		image WHERE user_id = #{id} AND date = #{date}
 	</select>
 
 	<!-- 新規登録 -->
-	<insert id="add" parameterType="Image">
-		INSERT INTO images
+	<insert id="add">
+		INSERT INTO image
 		VALUES(NULL,
-		#{userId}, #{imgName}, #{memo}, now())
+		#{userId}, #{imgName},
+		#{memo}, now())
 	</insert>
 
 	<!-- 削除 -->
-	<delete id="delete" parameterType="integer">
-		DELETE FROM images WHERE
-		img_id=#{id}
+	<delete id="delete">
+		DELETE FROM image WHERE
+		img_id=#{id} AND
+		user_id=#{userId} AND date=#{date}
 	</delete>
 
 	<!-- 更新 -->
-	<update id="edit" parameterType="Image">
+	<update id="edit">
 		<!-- DBカラム名 = #{Javaフィールド名} -->
-		UPDATE images SET
+		UPDATE image SET
 		img_name = #{imgName},
 		memo = #{memo},
-		date = now()
-		WHERE img_id = #{imgId}
+		WHERE img_id =
+		#{imgId}
+		AND user_id=#{userId}
+		AND date=#{date}
 	</update>
 
 	<!-- ページャー 全体数字カウント -->
@@ -44,8 +49,9 @@
 		SELECT count(*) FROM image
 	</select>
 	<!-- ページ分割 -->
-	<select id="selectLimited">
-		SELECT * FROM image LIMIT #{offset}, #{limit}
+	<select id="selectLimited" resultType="Image">
+		SELECT * FROM image LIMIT
+		#{offset}, #{limit}
 	</select>
 
 
