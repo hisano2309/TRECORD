@@ -32,7 +32,7 @@
 			SELECT COUNT(*) FROM machine
 		</select>
 
-<!-- グラフ表示 -->
+<!-- 線グラフ表示 -->
 	<select id="selectChartMachineId1" resultType="MachineSetCount">
 		SELECT machine_set_count.training_id, machine_set_count.user_id, machine_set_count.date,
 			machine_set_count.machine_id, machine.machine_name, machine_set_count.machine_weight,
@@ -41,7 +41,6 @@
          ON machine_set_count.machine_id = machine.machine_id 
          WHERE user_id = #{userId} AND machine_set_count.machine_id = #{machineId};
 	</select>
-
 
 <!-- 	<select id="selectChart" resultType="MachineSetCount" parameterType="int"> -->
 <!-- 		SELECT machine_set_count.training_id, machine_set_count.user_id, machine_set_count.date, -->
@@ -52,6 +51,12 @@
 <!-- 		ON machine_set_count.machine_id = machine.machine_id -->
 <!-- 		WHERE user_id = #{userId}; -->
 <!-- 	</select> -->
+
+
+<!-- 円グラフ表示 -->
+	<select id="">
+		SELECT COUNT(machine_id = 1) FROM machine
+	</select>
 
 
 </mapper>
