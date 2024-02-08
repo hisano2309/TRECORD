@@ -4,18 +4,14 @@
 <meta charset="UTF-8">
 <title>ユーザー登録</title>
 <link
-	th:href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
+	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
 	rel="stylesheet" />
-<!-- splide.js cdn -->
-<script
-	src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
-<!-- splide.css cdn -->
-<link rel="stylesheet"
-	th:href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
-<link rel="stylesheet" th:href="css/common.css">
-<link rel="stylesheet" th:href="css/reset.css">
+
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/reset.css}">
 </head>
 <body>
+<header>
 	<div class="inner">
 		<h1>
 			<a href="">ロゴ</a>
@@ -42,7 +38,7 @@
 			パスワード:<input type="text" th:field="*{loginPass}" />
 		</p>
 		<p>
-			身長:<input type="text" th:field="*{userHeight}" />
+			身長:<input type="text" th:field="*{userHeight}" />cm
 		</p>
 		<p>
 			<input type="file" name="upload" />
