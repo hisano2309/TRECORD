@@ -12,24 +12,31 @@ import com.example.app.domain.Image;
 @Transactional
 public interface ImageMapper {
 
-	//ユーザーの画像一覧取得
+	// ユーザーの画像一覧取得
 	List<Image> getImageByUserId(int id);
-	
-	//ページ分割
-	//全体のデータ数
+
+	// ページ分割
+	// 全体のデータ数
 	Long count();
-	//分割データ
-	List<Image> selectLimited(@Param("offset") int offset,@Param("limit") int limit);
 
-	//画像の個別取得
-	Image getImageById(int id);
+	// 分割データ
+	List<Image> selectLimited(@Param("offset") int offset, @Param("limit") int limit);
 
-	//新規登録
+	// 画像の個別取得
+//	Image getImageById(Map<String, Object> param);
+//  個別でデータをとる記述
+	List<Image> getImageById(@Param("id") Integer id, @Param("date") String date);
+
+	// 新規登録
 	void add(Image image);
 
-	//削除
-	void delete(int id);
+	// 削除
+//	int delete(Map<String, Object> param);
+//  個別でデータをとる記述
+	void delete(@Param("userId") Integer id, @Param("date") String date);
 
-	//更新
-	void edit(Image image);
+	// 更新
+	List<Image> edit(Image image);
+//	void edit(Map<String, Object> image);
+
 }
