@@ -2,14 +2,6 @@
 html {
   font-size: 62.5%;
 }
-
-body {
-  font-size: 1.6rem;
-  line-height: 1.5;
-  font-family: "メイリオ", "Meiryo", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Sans-Serif;
-  background: #fff;
-}
-
 :root {
   --main-bg-color: #35aaad;
   --accent-color: #fdd178;
@@ -17,7 +9,12 @@ body {
   --main-gradation: linear-gradient(90deg, rgb(174 255 206), rgb(160 224 255));
   --bg-gradation: linear-gradient(90deg, rgba(253, 240, 146, 1), rgba(248, 254, 230, 1) 50%, rgba(209, 248, 254, 1));
 }
-
+body {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  font-family: "メイリオ", "Meiryo", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Sans-Serif;
+  background: #fff;
+}
 a {
   text-decoration: none;
 }
@@ -35,6 +32,9 @@ header .inner {
 }
 header h1 {
   line-height: 1.8;
+}
+header .logo img {
+	width: 160px;
 }
 header .navigation {
   width: 50%;
@@ -74,7 +74,7 @@ main h2 {
   font-weight: 900;
   font-family: Helvetica, Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Sans-Serif;
   text-align: center;
-  padding: 50px 0 20px;
+  padding: 20px 0 15px;
   line-height: 1.5;
 }
 main h2 .font-en {
@@ -85,7 +85,7 @@ main h2 .font-en {
 .support-menu {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 .support-menu_btn {
   background: #80cbf7;
@@ -112,16 +112,16 @@ main h2 .font-en {
 }
 .support-menu_btn p span {
   font-size: 5rem;
-  line-height: 1.2;
+  line-height: 1;
   letter-spacing: 0.2rem;
 }
 .support-menu_btn::before {
   content: "";
   position: absolute;
   z-index: 2;
-  width: 100%;
+  width: 90%;
   height: 100%;
-  top: -25%;
+  top: -20%;
   left: 0;
   opacity: 0.6;
   background-repeat: no-repeat;
@@ -137,22 +137,6 @@ main h2 .font-en {
   background-image: url(../images/menu-icon3.png);
 }
 
-.splide__slide img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
-.splide__track--nav > .splide__list > .splide__slide.is-active {
-  opacity: 0.6;
-  border: none;
-}
-
-#main .splide__slide.is-prev, #main .splide__slide.is-next {
-  filter: blur(6px);
-}
-
 footer {
   position: -webkit-sticky;
   position: sticky;
@@ -161,4 +145,22 @@ footer {
   padding: 5px 0;
   background: var(--main-gradation);
 }
+
+
+/*----- topスライドここから -----*/
+.splide__slide img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.splide__track--nav > .splide__list > .splide__slide.is-active {
+  opacity: 0.6;
+  border: none;
+}
+#main .splide__slide.is-prev, #main .splide__slide.is-next {
+  filter: blur(6px);
+}
+
+
 /*# sourceMappingURL=common.css.map */
