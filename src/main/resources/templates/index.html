@@ -3,15 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>トレコード</title>
-<link
-	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
-	rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap" rel="stylesheet" />
 <!-- splide.js cdn -->
-<script
-	src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
 <!-- splide.css cdn -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
 <link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/reset.css}">
 </head>
@@ -19,7 +15,7 @@
 	<header>
 		<div class="inner">
 			<h1>
-				<a href="">ロゴ</a>
+				<a th:href="@{/index}" class="logo"><img th:src="@{images/ttl_logo.png}"></a>
 			</h1>
 			<nav class="navigation">
 				<ul role='list'>
@@ -34,22 +30,22 @@
 			<div id="main" class="splide">
 				<div class="splide__track">
 					<ul class="splide__list">
-						<li class="splide__slide"><img src="images/slide1.jpg"></li>
-						<li class="splide__slide"><img src="images/slide2.jpg"></li>
-						<li class="splide__slide"><img src="images/slide3.jpg"></li>
-						<li class="splide__slide"><img src="images/slide4.jpg"></li>
-						<li class="splide__slide"><img src="images/slide5.jpg"></li>
+						<li class="splide__slide"><img th:src="@{images/slide1.jpg}"></li>
+						<li class="splide__slide"><img th:src="@{images/slide2.jpg}"></li>
+						<li class="splide__slide"><img th:src="@{images/slide3.jpg}"></li>
+						<li class="splide__slide"><img th:src="@{images/slide4.jpg}"></li>
+						<li class="splide__slide"><img th:src="@{images/slide5.jpg}"></li>
 					</ul>
 				</div>
 			</div>
 			<div id="thumbnail" class="splide">
 				<div class="splide__track">
 					<ul class="splide__list">
-						<li class="splide__slide"><img src="images/slide1.jpg"></li>
-						<li class="splide__slide"><img src="images/slide2.jpg"></li>
-						<li class="splide__slide"><img src="images/slide3.jpg"></li>
-						<li class="splide__slide"><img src="images/slide4.jpg"></li>
-						<li class="splide__slide"><img src="images/slide5.jpg"></li>
+						<li class="splide__slide"><img th:src="@{images/slide1.jpg}"></li>
+						<li class="splide__slide"><img th:src="@{images/slide2.jpg}"></li>
+						<li class="splide__slide"><img th:src="@{images/slide3.jpg}"></li>
+						<li class="splide__slide"><img th:src="@{images/slide4.jpg}"></li>
+						<li class="splide__slide"><img th:src="@{images/slide5.jpg}"></li>
 					</ul>
 				</div>
 			</div>
@@ -59,10 +55,10 @@
 				<span class="font-en">Training Support</span><br>トレーニングサポートコンテンツ
 			</h2>
 			<div class="support-menu">
-				<a th:href="gacha" class="support-menu_btn count">
+				<a th:href="@{/gacha(gachaType='count')}" class="support-menu_btn count">
 					<p><span>回数</span><br>ガチャを回す</p>
 				</a> 
-				<a th:href="gacha" class="support-menu_btn weight">
+				<a th:href="@{/gacha(gachaType='weight')}" class="support-menu_btn weight">
 					<p><span>重量</span><br>ガチャを回す</p>
 				</a> 
 				<a th:href="chart" class="support-menu_btn diagnosis">
@@ -71,13 +67,15 @@
 			</div>
 		</div>
 	</main>
+	<footer>
+		<small>Copyright 2024 TRECORD</small>
+	</footer>
 	<script th:inline="javascript">
 		const main = new Splide("#main", {
 			cover : true,
 			heightRatio : 0.4, //高さを幅に対する割合で指定
 			type : "loop",
-			padding : "calc((100vw - 110rem) /2)", //左右のスライドを5rem分表示させる
-			type : "loop", //スライドをループさせる
+			padding : "calc((100vw - 110rem) /2)",
 			focus : "center", //アクティブなスライドを中央に表示する
 			pagination : false,
 			arrows : false,
@@ -97,8 +95,5 @@
 		main.mount(); //メインスライダーをインスタンス化
 		thumbnails.mount(); //サムネイルスライダーをインスタンス化
 	</script>
-	<footer>
-		<small>Copyright 2024 TRECORD</small>
-	</footer>
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleef.org">
+<head>
+<meta charset="UTF-8">
+<title>トレーニングサポート</title>
+</head>
+<body>
+    <div class="gacha_wrap">
+        <div class="gacha">
+            <p class="door"></p>
+            <img class="bg" src="images/gacha.png" alt="">
+            <img class="handle" src="images/handle.png" alt="">
+            <p class="lightup"></p>
+            <div class="capsule">
+                <div class="capsule_inner">
+                    <img class="capsule_white" src="images/capsule_white.png" alt="">
+                    <img class="capsule_red" src="images/capsule_red.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shutter"></div>
+    <div class="point_wrap">
+        <div class="line-container"></div>
+        <div class="result">
+          <p>[[${number}]]<span th:text="${content}"></span></p>
+          <br>追加！！
+        </div>
+        <p><a th:href="@{mypage}">戻る</a></p>
+    </div>
+    <script src="js/gacha.js"></script>
+</body>
+</html>
