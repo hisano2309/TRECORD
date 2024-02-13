@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.app.domain.Count;
 import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 import com.example.app.mapper.MachineMapper;
@@ -42,8 +43,13 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 	
 	
 	@Override
-	public List<MachineSetCount> getSelectChartMachineId1(int userId, int machineId) throws Exception {
-		return machineMapper.selectChartMachineId1(userId, machineId);
+	public List<MachineSetCount> getSelectLineGraph(int userId, int machineId) throws Exception {
+		return machineMapper.selectLineGraph(userId, machineId);
+	}
+
+	@Override
+	public List<Count> getSelectPieGraph(int UserId) throws Exception {
+		return machineMapper.selectPieGraph(UserId);
 	}
 
 

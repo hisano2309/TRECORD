@@ -3,6 +3,7 @@ package com.example.app.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.app.domain.Count;
 import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 
@@ -23,11 +24,11 @@ public interface MachineSetCountService {
 	//マシン数をカウント
 	int getCountMachine() throws Exception;
 
-	//グラフ表示（machineId=1 bench press）
-	List<MachineSetCount> getSelectChartMachineId1(int userId, int machineId) throws Exception;
+	//折れ線グラフ表示
+	List<MachineSetCount> getSelectLineGraph(int userId, int machineId) throws Exception;
 		
-	//グラフ表示
-//	List<MachineSetCount> getSelectChart(int userId) throws Exception;
+	//円グラフ表示
+	List<Count> getSelectPieGraph(int UserId) throws Exception;
 	
 
 

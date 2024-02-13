@@ -121,25 +121,6 @@ public class MachineSetCountController {
 
 
 
-//筋トレマシンのMax値、Min値を表示
-//	@GetMapping("/mypage_aramaki")
-//	public String showMax(
-//			MachineMaxMin machineMaxMin,
-//			Model model) throws Exception {
-//		//Max値を表示
-//		int MaxWeight = service.getMax(machineMaxMin.getMachineId());
-//
-//		//Min値を表示
-//		int MinWeight = service.getMin(machineMaxMin.getMachineId());
-//
-//		machineMaxMin.setMaxWeight(MaxWeight);
-//		machineMaxMin.setMinWeight(MinWeight);
-//		model.addAttribute("machineMaxMin", machineMaxMin);
-//
-//		return "charge/mypage_aramaki";
-//	}
-
-
 
 
 

@@ -23,7 +23,7 @@
 	
 <!-- 	体重グラフ -->
 	<div class="area">
-		<canvas id="myLineChart"></canvas>
+		<canvas id="weightBmiChart"></canvas>
 	</div>
 	
 	<script
@@ -36,15 +36,10 @@
 						function() {
 							$.ajax({
 										type : 'GET',
-										url : 'http://localhost:8080/json',
+										url : 'http://localhost:8080/weightBmiJson',
 										dataType : 'json'
 									})
 									.done(
-											//dateを取得
-											
-											
-											//拡張for文
-											
 											
 											function(res) {
 												const weightArray = res.map(item => item.userWeight);
@@ -55,7 +50,7 @@
 												console.log(res);
 												console.log(weightArray);
 												var ctx = document
-														.getElementById("myLineChart");
+														.getElementById("weightBmiChart");
 												new Chart(
 														ctx,
 														{
@@ -109,7 +104,7 @@
 	
 	<!-- 	マシーングラフ（線） -->
 	<div class="area">
-		<canvas id="machineSetCountChart"></canvas>
+		<canvas id="machineSetCountLineGraph"></canvas>
 	</div>
 	
 	<script>
@@ -118,7 +113,7 @@
 						function() {
 							$.ajax({
 										type : 'GET',
-										url : 'http://localhost:8080/MachineSetCountJson',
+										url : 'http://localhost:8080/MachineSetCountLineGraph',
 										dataType : 'json'
 									})
 									.done(
@@ -143,11 +138,25 @@
 												const machineId_3 = res[2];
 												console.log(machineId_3);
 												const machineId_3Array = machineId_3.map(item => item.machineWeight);
-												const dateArray = res.map(item => item.date);
 												
+												const machineId_4 = res[3];
+												console.log(machineId_4);
+												const machineId_4Array = machineId_4.map(item => item.machineWeight);
+												
+												const machineId_5 = res[4];
+												console.log(machineId_5);
+												const machineId_5Array = machineId_5.map(item => item.machineWeight);
+												
+												const machineId_6 = res[5];
+												console.log(machineId_6);
+												const machineId_6Array = machineId_6.map(item => item.machineWeight);
+												
+												// machineId_1のdateを取得する
+												const dateArray = machineId_1.map(item => item.date);
+												console.log(dateArray);
 												
 												var ctx = document
-														.getElementById("machineSetCountChart");
+														.getElementById("machineSetCountLineGraph");
 												new Chart(
 														ctx,
 														{
@@ -200,67 +209,62 @@
 	
 		<!-- 	マシーングラフ（丸） -->
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js" 
-	integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY="
-	crossorigin="anonymous"></script>
+	integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY=" crossorigin="anonymous"></script>
+	
+	<div class="area">
+		<canvas id="machineSetCountPieGraph"></canvas>
+	</div>
 
 	<script>
-		$(document)
-				.ready(
-						function() {
-							$.ajax({
-										type : 'GET',
-										url : 'http://localhost:8080/MachineSetCountJson',
-										dataType : 'json'
-									})
-									.done(
-											function(res) {
-											// List<List<>> [Array(4), Array(0), Array(1)] → [{machineId_1}(SQL4行), {machineId_2(SQL0行)}, {machineId_3(SQL1行)}]
-											// {machineId_1{カラム1行目{0(domain)}, カラム2行目{1(domain)}, {2(domain)}, {3(domain)}}, machineId_2{}, {}, {], {}}}
-												console.log(res);
+ 		$(document)
+ 				.ready(
+ 						function() {
+ 							$.ajax({
+ 										type : 'GET',
+ 										url : 'http://localhost:8080/MachineSetCountPieGraph',
+ 										dataType : 'json'
+ 									})
+ 									.done(
+ 											function(res) {
+ 												console.log(res);
+ 												const countArray = res.map(item => item.count);
+ 												const machineNameArray = res.map(item => item.machineName);
 											
-												// 0:machineId_1{カラム1行目のdomain}, 1:machineId_2{カラム2行目のdomain}, 2:machineId_3{カラム3行目のdomain}......
-// 												const machineId_1 = res[0];
-												const machineId_1 = res[id1, id2];
-												console.log(machineId_1);
-											// machineId_1のweightBmiドメインの各変数の中身を取得できる
-												const machineId_1Array = machineId_1.map(item => item.machineWeight);
-												console.log(machineId_1Array);
+ 												const options = {
+ 													title: {
+ 														display: true,
+ 														text: 'マシン使用率'
+ 													},
+ 													plugins : {
+ 														labels : {
+ 															render : 'percentage',
+ 															fontColor : 'white',
+ 															fontSize : 14
+ 														}
+ 													}
+ 												};
+ 												var ctx = document
+ 														.getElementById("machineSetCountPieGraph");
+ 												new Chart(
+ 														ctx,
+ 														{
+ 															// グラフの種類：円グラフを指定
+ 															type : 'pie',
+ 															data : {
+ 																labels : [machineNameArray[0], machineNameArray[1], machineNameArray[2], machineNameArray[3], machineNameArray[4], machineNameArray[5]],
+ 																datasets : [
+ 																	{
+ 																		backgroundColor : ["#FBBD8E", "#F067A6", "#FDD2B9", "#DE7C6B", "#CD4187", "#F9C1CF"],
+ 																		data : countArray , //constで指定した変数（machineId_1Array）
+ 																	}],
+ 															},
+ 															options : options,
+ 														});
 												
-												const options = {
-													title: {
-														display: true,
-														text: 'マシン使用率'
-													},
-													plugins : {
-														labels : {
-															render : 'percentage',
-															fontColor : 'white',
-															fontSize : 14
-														}
-													}
-												};
-												var ctx = document
-														.getElementById("machineSetCountChart");
-												new Chart(
-														ctx,
-														{
-															// グラフの種類：円グラフを指定
-															type : 'pie',
-															data : {
-																datasets : [
-																	{
-																		labels : ['bench press','bench press','bench press','bench press','bench press','bench press'],
-																		backgroundColor : ["#FBBD8E", "#F067A6", "#FDD2B9", "#DE7C6B", "#CD4187", "#F9C1CF"],
-																		data : machineId_1Array , //constで指定した変数（machineId_1Array）
-																	}],
-															},
-															options : options,
-														});
-												
-											}).fail(function() {
-										console.log('fail');
-									});
-						});
+ 											}).fail(function() {
+ 										console.log('fail');
+ 									});
+ 						});
 	</script>
 	
 	

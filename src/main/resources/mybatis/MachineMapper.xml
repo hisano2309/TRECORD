@@ -33,7 +33,7 @@
 		</select>
 
 <!-- 線グラフ表示 -->
-	<select id="selectChartMachineId1" resultType="MachineSetCount">
+	<select id="selectLineGraph" resultType="MachineSetCount">
 		SELECT machine_set_count.training_id, machine_set_count.user_id, machine_set_count.date,
 			machine_set_count.machine_id, machine.machine_name, machine_set_count.machine_weight,
 			machine_set_count.machine_count, machine_set_count.sets 
@@ -54,8 +54,15 @@
 
 
 <!-- 円グラフ表示 -->
-	<select id="">
-		SELECT COUNT(machine_id = 1) FROM machine
+	<select id="selectPieGraph" resultType="Count" parameterType="int">
+		SELECT machine_set_count.machine_id, machine.machine_name, 
+			COUNT(machine_set_count.machine_id) AS count
+		FROM machine_set_count 
+		JOIN machine 
+         ON machine_set_count.machine_id = machine.machine_id 
+         WHERE machine_set_count.user_id = #{userId} 
+         GROUP BY machine_set_count.machine_id 
+         ORDER BY machine_id
 	</select>
 
 
