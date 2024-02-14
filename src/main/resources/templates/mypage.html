@@ -46,6 +46,16 @@ a {
 
 
 	<h2>記録を見る</h2>
+	
+	<!-- 	体重・BMI表示 -->
+	<th:block th:object="${weightBmi}">	
+		<table border="1">
+			<tr><th>日付</th><td>[[*{date}]]</td></tr>
+			<tr><th>体重</th><td>[[*{userWeight}]]</td></tr>
+			<tr><th>BMI</th><td>[[*{bmi}]]</td></tr>
+			<tr><th>適正体重</th><td>[[*{healthyWeight}]]</td></tr>
+		</table>
+	</th:block>
 
 
 	<h3>All ALUBUM</h3>

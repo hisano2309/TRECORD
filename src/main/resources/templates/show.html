@@ -14,6 +14,7 @@ img {
 
 	<h1>トレーニング内容</h1>
 	
+<!-- 	画像表示 -->
 <th:block th:each="image : ${imageList}">
 	<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
 	<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
@@ -22,6 +23,19 @@ img {
 	<a th:href="@{/delete/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">削除</a>
 	</th:block>
 	
+	
+<!-- 	筋トレ記録表示 -->
+	<th:block th:each="machineSC, status : ${machineSetCount}" th:object="${machineSC}">
+		<p>------------- 本日[[${status.count}]]回目の記録 --------------</p>
+			<table border="1">
+				<tr><th>日付</th><td>[[*{date}]]</td></tr>
+				<tr><th>筋トレマシン名</th><td>[[*{machineName}]]</td></tr>
+				<tr><th>重量</th><td>[[*{machineWeight}]] kg</td></tr>
+				<tr><th>1セットあたりの回数</th><td>[[*{machineCount}]] 回</td></tr>
+				<tr><th>セット数</th><td>[[*{sets}]] セット</td></tr>
+			</table>
+		</th:block>
+			<p>----------------------------------------------</p>
 	
 
 	<p>
