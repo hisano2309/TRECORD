@@ -11,6 +11,9 @@ import com.example.app.domain.MachineSetCount;
 public interface MachineSetCountService {
 
 //登録//
+	//本日分がすでに登録してあるか確認
+//	List<MachineSetCount> checkDate(LocalDate date) throws Exception;
+	
 	//筋トレ記録登録
 	void addMachineSetCount(MachineSetCount machineRecord) throws Exception;
 

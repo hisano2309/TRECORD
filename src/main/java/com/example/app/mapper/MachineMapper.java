@@ -14,6 +14,10 @@ import com.example.app.domain.MachineSetCount;
 public interface MachineMapper {
 
 	//登録/
+	
+	//本日分がすでに登録してあるか確認
+//	List<MachineSetCount> selectCheckDate(LocalDate date);
+	
 	//筋トレ記録の登録
 	void insert(MachineSetCount MachineSetCount) throws Exception;
 

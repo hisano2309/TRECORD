@@ -15,6 +15,7 @@ import com.example.app.domain.MachineSetCount;
 import com.example.app.service.MachineSetCountService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -31,15 +32,19 @@ public class MachineSetCountController {
 
 //筋トレ記録の登録
 	@GetMapping("/record_aramaki")
-	public String register(Model model) throws Exception{
+	public String register(
+			Model model,
+			HttpSession session) throws Exception{
 		MachineSetCount machineSetCount = new MachineSetCount();
 
-		//ユーザーID
-//		HttpSession session = request.getSession();
-//		User userId = session.getAttribute(user.userId);
-		
 //!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
 		machineSetCount.setUserId(1);
+
+		//ユーザーID
+//		User user = (User) session.getAttribute("user");
+//		machineSetCount.setUserId(user.getUserId());
+//		System.out.println("user.getUserId()" + user.getUserId());
+		
 
 		//日付
 		LocalDate now = LocalDate.now();
@@ -78,6 +83,8 @@ public class MachineSetCountController {
 //			model.addAttribute("machine", machineSetCount);
 //			return "charge/record_aramaki";
 //		}
+		
+		
 
 		System.out.println(machineSetCount);
 		service.addMachineSetCount(machineSetCount);

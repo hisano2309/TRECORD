@@ -20,6 +20,11 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 
 	private final MachineMapper machineMapper;
 
+//	@Override
+//	public List<MachineSetCount> checkDate(LocalDate date) throws Exception {
+//		return machineMapper.selectCheckDate(date);
+//	}
+
 	@Override
 	public void addMachineSetCount(MachineSetCount machineRecord) throws Exception {
 		machineMapper.insert(machineRecord);	
@@ -51,6 +56,7 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 	public List<Count> getSelectPieGraph(int UserId) throws Exception {
 		return machineMapper.selectPieGraph(UserId);
 	}
+
 
 
 //	@Override

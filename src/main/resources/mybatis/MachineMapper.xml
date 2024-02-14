@@ -4,6 +4,11 @@
 
 <!-- 後日日付で並べ替えて取得する　2/2→2/1にならないように -->
 
+<!-- 本日分がすでに登録してあるか確認 -->
+<!-- 	<select id="checkDate" parameterType="Date"> -->
+<!-- 		SELECT * FROM machine_set_count WHERE date = #{date} -->
+<!-- 	</select> -->
+
 <!-- 筋トレ記録登録 -->
 	<insert id="insert" parameterType="MachineSetCount">
 		INSERT INTO machine_set_count(training_id, user_id, date, machine_id, machine_weight, machine_count, sets)
