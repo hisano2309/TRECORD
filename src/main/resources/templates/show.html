@@ -25,17 +25,8 @@ img {
 	
 	
 <!-- 	筋トレ記録表示 -->
-	<th:block th:each="machineSC, status : ${machineSetCount}" th:object="${machineSC}">
-		<p>------------- 本日[[${status.count}]]回目の記録 --------------</p>
-			<table border="1">
-				<tr><th>日付</th><td>[[*{date}]]</td></tr>
-				<tr><th>筋トレマシン名</th><td>[[*{machineName}]]</td></tr>
-				<tr><th>重量</th><td>[[*{machineWeight}]] kg</td></tr>
-				<tr><th>1セットあたりの回数</th><td>[[*{machineCount}]] 回</td></tr>
-				<tr><th>セット数</th><td>[[*{sets}]] セット</td></tr>
-			</table>
-		</th:block>
-			<p>----------------------------------------------</p>
+	
+	
 	
 
 	<p>
