@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.app.domain.MachineSetCount;
 import com.example.app.domain.WeightBmi;
 import com.example.app.service.WeightBmiService;
 
@@ -94,7 +95,7 @@ public class WeightBmiController {
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-//	表形式で表示
+	//表形式で体重・BMI表示
 		WeightBmi weightBmi = new WeightBmi();
 		
 		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
@@ -112,11 +113,9 @@ public class WeightBmiController {
 		model.addAttribute("weightBmi", service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
 		
 		
-	//グラフ形式で表示
-//		List<WeightBmi> listWeightBmi = new ArrayList<>();
-//		ObjectMapper om = new ObjectMapper();
-//		String json = om.writeValueAsString(listWeightBmi);
-//		response.getWriter().append(json);
+	//前回のトレーニング重量表示
+		MachineSetCount machineSetCount = new MachineSetCount();
+		
 		
 		return "charge/mypage_aramaki";
 	}

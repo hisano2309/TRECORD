@@ -93,7 +93,7 @@ public class MachineSetCountController {
 	}
 
 
-//筋トレ記録の表示
+//筋トレ記録の表示（show）
 	@GetMapping("/show_aramaki")
 	public String showDay(
 			HttpServletRequest request,
@@ -115,6 +115,8 @@ public class MachineSetCountController {
 
 		return "charge/show_aramaki";
 	}
+	
+	
 
 //筋トレ記録編集
 //	@GetMapping("/show_aramaki/{day}")
