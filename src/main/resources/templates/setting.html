@@ -19,7 +19,7 @@
 			</h1>
 			<nav class="navigation">
 				<ul role='list'>
-					<li><a th:href="@{/ }">トップに戻る</a></li>
+					<li><a th:href="@{/user/register}">新規会員登録</a></li>
 					<li><a th:href="@{/user/login}">ログイン</a></li>
 				</ul>
 			</nav>
@@ -36,11 +36,10 @@
 		<p>
 			身長:[[*{userHeight}]]
 		</p>
-		<p><img th:if="${user.fileName ne null}"
-			th:src="@{/images/macho_cat.png}" alt="Default Image" /> 
-		<img th:unless="${user.fileName ne null}"
-			th:src="@{/uploads/{name}(name=${user.fileName})}" alt="" />
-			</p>
+		<img th:src="@{/uploads/{name}(name=${user.fileName})}" alt="" />
+		
+		
+
 		<p>
 			<a th:href="@{/user/edit/{id}(id=*{userId})}">変更</a>
 			<a th:href="@{/user/delete/{id}(id=*{userId})}">削除</a>
