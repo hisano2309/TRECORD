@@ -44,7 +44,7 @@ public class MachineSetCountController {
 //		User user = (User) session.getAttribute("user");
 //		machineSetCount.setUserId(user.getUserId());
 //		System.out.println("user.getUserId()" + user.getUserId());
-		
+
 
 		//日付
 		LocalDate now = LocalDate.now();
@@ -83,8 +83,8 @@ public class MachineSetCountController {
 //			model.addAttribute("machine", machineSetCount);
 //			return "charge/record_aramaki";
 //		}
-		
-		
+
+
 
 		System.out.println(machineSetCount);
 		service.addMachineSetCount(machineSetCount);
@@ -100,10 +100,10 @@ public class MachineSetCountController {
 			Model model) throws Exception {
 
 		//カレンダーから特定の日の筋トレ記録を取得
-		
+
 //!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
 		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-02", LocalDate::from);
-		
+
 		MachineSetCount machineSetCount = new MachineSetCount();
 		machineSetCount.setUserId(1);
 		List<MachineSetCount> getDayData = service.getMachineSetCountDay(date, machineSetCount.getUserId());
@@ -115,18 +115,7 @@ public class MachineSetCountController {
 
 		return "charge/show_aramaki";
 	}
-	
-	
 
-//筋トレ記録編集
-//	@GetMapping("/show_aramaki/{day}")
-//	public String updateDay(
-//			@PathVariable LocalDate day,
-//			Model model) {
-////		MachineSetCount selectDay = service.getMachineSetCountDay(day);
-//		service.editMachineSetCount(selectDay);
-//		return "";
-//	}
 
 
 
