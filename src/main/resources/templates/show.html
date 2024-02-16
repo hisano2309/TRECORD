@@ -18,7 +18,6 @@ img {
 <th:block th:each="image : ${imageList}">
 	<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
 	<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
-<br />
 	<p><a th:href="@{/edit/{id}(id=${image.imgId})}">編集</a></p>
 	<p><a th:href="@{/delete/{id}(id=${image.imgId})}">削除</a></p>
 	</th:block>

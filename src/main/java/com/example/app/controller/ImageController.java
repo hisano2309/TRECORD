@@ -88,7 +88,7 @@ public class ImageController {
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Integer id) {
 		mapper.delete(id);
-		return "redirect:/record";
+		return "redirect:/mypage";
 	}
 
 
