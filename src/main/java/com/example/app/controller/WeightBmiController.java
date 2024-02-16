@@ -2,6 +2,8 @@ package com.example.app.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.app.domain.MachineSetCount;
 import com.example.app.domain.WeightBmi;
+import com.example.app.service.MachineSetCountService;
 import com.example.app.service.WeightBmiService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class WeightBmiController {
 
 	private final WeightBmiService service;
+	private final MachineSetCountService machineSetCountService;
 
 //登録
 	//体重の登録
@@ -114,8 +118,16 @@ public class WeightBmiController {
 		
 		
 	//前回のトレーニング重量表示
-		MachineSetCount machineSetCount = new MachineSetCount();
-		
+		int machineCount = machineSetCountService.getCountMachine();
+		List<MachineSetCount> beforeCount = new ArrayList<>();
+		for(int i = 1; i <= machineCount; i++) {
+			
+			beforeCount.add(machineSetCountService.getSelectBefore(i));
+			model.addAttribute("beforeCount", beforeCount);
+			System.out.println("count.add(machineSetCountService.getSelectBefore(i))" + beforeCount);
+			model.addAttribute("size", beforeCount.size());
+			System.out.println("beforeCount.size()" + beforeCount.size());
+		}
 		
 		return "charge/mypage_aramaki";
 	}

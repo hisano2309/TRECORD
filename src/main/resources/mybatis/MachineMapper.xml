@@ -71,9 +71,12 @@
 	</select>
 
 <!-- 前回のマシン記録表示 -->
-	<select id="" resultType="MachineSetCount" parameterType="int">
-		SELECT * FROM machine_set_count 
-		WHERE machine_id = #{machineId}
+	<select id="selectBefore" resultType="MachineSetCount" parameterType="Integer">
+		SELECT machine_set_count.training_id, machine_set_count.user_id, machine_set_count.date, machine_set_count.machine_id, 
+		machine.machine_name, machine_set_count.machine_weight, machine_set_count.machine_count, machine_set_count.sets 
+		FROM machine_set_count
+		JOIN machine ON machine_set_count.machine_id = machine.machine_id
+		WHERE machine_set_count.machine_id = #{machineId} 
 		ORDER BY training_id DESC
 		LIMIT 1
 	</select>

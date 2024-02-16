@@ -19,6 +19,17 @@
 		</table>
 	</th:block>
 	
+	<p>前回のトレーニング記録</p>
+	<table border="1">
+		<tr th:each="machineSetCount : ${beforeCount}">
+			<th:block th:if="${machineSetCount != null}">
+				<th>[[${machineSetCount.machineName}]]</th>
+				<td>[[${machineSetCount.machineWeight}]]kg</td>
+				<td>[[${machineSetCount.machineCount}]]回</td>
+				<td>[[${machineSetCount.sets}]]セット</td>
+			</th:block>
+		</tr>
+	</table>
 	
 	
 <!-- 	体重グラフ -->

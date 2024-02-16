@@ -33,6 +33,9 @@ public interface MachineSetCountService {
 	//円グラフ表示
 	List<Count> getSelectPieGraph(int UserId) throws Exception;
 	
+	// 前回のトレーニング重量表示
+	MachineSetCount getSelectBefore(Integer machineId) throws Exception;
+	
 
 
 //編集//
