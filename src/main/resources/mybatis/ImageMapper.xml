@@ -12,9 +12,10 @@
 	<!-- 画像の個別取得 -->
 	<!-- parameterTypeをmapに変更 -->
 	<!-- dateを条件に追加 -->
-	<select id="getImageById" resultType="Image">
+	<select id="getImageByDate" resultType="Image">
 		SELECT * FROM
-		image WHERE user_id = #{id} AND date = #{date}
+		image WHERE
+		user_id = #{id} AND date = #{date}
 	</select>
 
 	<!-- 新規登録 -->
@@ -26,23 +27,25 @@
 	</insert>
 
 	<!-- 削除 -->
-	<delete id="delete">
+	<delete id="delete" parameterType="integer">
 		DELETE FROM image WHERE
-		img_id=#{id} AND
-		user_id=#{userId} AND date=#{date}
+		img_id=#{id}
 	</delete>
 
 	<!-- 更新 -->
-	<update id="edit">
+	<update id="edit" parameterType="Image">
 		<!-- DBカラム名 = #{Javaフィールド名} -->
 		UPDATE image SET
 		img_name = #{imgName},
 		memo = #{memo},
 		WHERE img_id =
 		#{imgId}
-		AND user_id=#{userId}
-		AND date=#{date}
 	</update>
+	<!-- 更新の際の個別取得 -->
+	<select id="getImageById" parameterType="Integer"
+		resultType="Image">
+		SELECT * FROM images WHERE imgId = #{id}
+	</select>
 
 	<!-- ページャー 全体数字カウント -->
 	<select id="count" resultType="long">
