@@ -149,7 +149,9 @@ public class ImageController {
 
 
 	@PostMapping("/edit/{id}")
-	public String edit(@RequestParam MultipartFile upload, @Valid Image image, Errors errors, HttpSession session,
+	public String edit(@RequestParam MultipartFile upload, 
+			@Valid Image image, Errors errors,
+			HttpSession session,
 			@PathVariable Integer id, Model model) throws IllegalStateException, IOException {
 		if (errors.hasErrors()) {
 			System.out.println("errors");

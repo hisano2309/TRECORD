@@ -37,7 +37,7 @@ public interface ImageMapper {
 		void delete(int id);
 
 	// 更新
-	List<Image> edit(Image image);
+	void edit(Image image);
    //void edit(Map<String, Object> image);
     //更新の際の個別取得
 	Image getImageById(Integer id);
