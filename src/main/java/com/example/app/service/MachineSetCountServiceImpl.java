@@ -57,6 +57,11 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 		return machineMapper.selectPieGraph(UserId);
 	}
 
+	@Override
+	public MachineSetCount getSelectBefore(Integer machineId) throws Exception {
+		return machineMapper.selectBefore(machineId);
+	}
+
 
 
 //	@Override
