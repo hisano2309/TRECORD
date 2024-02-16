@@ -29,7 +29,7 @@
 	<!-- 削除 -->
 	<delete id="delete" parameterType="integer">
 		DELETE FROM image WHERE
-		img_id=#{id}
+		img_id=#{imgId}
 	</delete>
 
 	<!-- 更新 -->
@@ -37,14 +37,14 @@
 		<!-- DBカラム名 = #{Javaフィールド名} -->
 		UPDATE image SET
 		img_name = #{imgName},
-		memo = #{memo},
+		memo = #{memo}
 		WHERE img_id =
 		#{imgId}
 	</update>
 	<!-- 更新の際の個別取得 -->
 	<select id="getImageById" parameterType="Integer"
 		resultType="Image">
-		SELECT * FROM images WHERE imgId = #{id}
+		SELECT * FROM image WHERE img_id = #{imgId}
 	</select>
 
 	<!-- ページャー 全体数字カウント -->
