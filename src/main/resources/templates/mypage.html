@@ -32,69 +32,79 @@ a {
 	
 <!-- カレンダー機能リンク -->
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
 
-<link rel="stylesheet" th:href="@{/css/reset.css}">
 <link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" href="css/common.css" />
+</head>
 
 </head>
 <body>
-
-	<h1>MY PAGE</h1>
-	<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
-	<a th:href="@{/user/logout}">ログアウト</a>
+	<header>
+	<!-- ここにヘッダーを入れる -->
+	</header>
+	<main>
+		<h1>MY PAGE</h1>
+		
+	<!-- ここにログインIDとアイコンを表示 -->
 	
-	<h2>
-		<span class="font-en"><a th:href="@{/record}">RECORD</a></span><br>記録をする
-	</h2>
+		
+		<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
+		<a th:href="@{/user/logout}">ログアウト</a>
+		
+		<h2>
+			<span class="font-en">RECORD</span><br>記録をする
+		</h2>
+		<a th:href="@{/record}">記録</a>
+		
 	
-
-	<h2>
-	     <span class="font-en">CHECK</span><br>記録を見る
-	</h2>
-     
-     <form action="show" th:object="${calendar}">
-		<input type="hidden" value="" name="date2" id="date2" /> <input type="submit" />
-	</form>
-	<div class="date"></div>
-
-
-	<h3>All View</h3>
+		<h2>
+		     <span class="font-en">CHECK</span><br>記録を見る
+		</h2>
+	     
+	     <form action="show" th:object="${calendar}">
+			<input type="hidden" value="" name="date2" id="date2" /> <input type="submit" />
+		</form>
+		<div class="date"></div>
 	
-	<th:block th:each="image : ${imgList}">
-		<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> 
-			<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-		</a>
-		<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
-     </th:block>
-
-		<!-- ページネーション、ページャー -->
-	<div th:if="${totalPage >= 2}">
-		<ul>
-			<!-- 前のページリンク -->
-			<th:block th:switch="${page}">
-				<li th:case="1"><a href="" class="noevent">Prev</a></li>
-				<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
-			</th:block>
-			<!-- ページ番号 -->
-			<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
-				<th:block th:switch="${index}">
-					<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
-					<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
+	
+		<h3>All View</h3>
+		
+		<th:block th:each="image : ${imgList}">
+			<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> 
+				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+			</a>
+			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+	     </th:block>
+	
+			<!-- ページネーション、ページャー -->
+		<div th:if="${totalPage >= 2}">
+			<ul>
+				<!-- 前のページリンク -->
+				<th:block th:switch="${page}">
+					<li th:case="1"><a href="" class="noevent">Prev</a></li>
+					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
 				</th:block>
-			</th:block>
-			<!-- 次のページリンク -->
-			<th:block th:switch="${page}">
-				<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
-				<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
-			</th:block>
-		</ul>
-	</div>
+				<!-- ページ番号 -->
+				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
+					<th:block th:switch="${index}">
+						<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
+						<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
+					</th:block>
+				</th:block>
+				<!-- 次のページリンク -->
+				<th:block th:switch="${page}">
+					<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
+					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
+				</th:block>
+			</ul>
+		</div>
+			
 		
-	
-	<h3>Comparison</h3>
-		
-	
+		<h3>Comparison</h3>
+			
+	</main>
 	<footer>
 		<small>Copyright 2024 TRECORD</small>
 	</footer>
