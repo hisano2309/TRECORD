@@ -83,6 +83,8 @@
 
 ### 画面設計
 ![画面遷移図](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/aac195ec-263d-4ad7-8805-d8175dd2d57b)
+
+### 画面一覧
 ![画面一覧](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/4d28ede8-9751-40ab-8ecd-a74d3decd9ac)
 
 ### データ設計
