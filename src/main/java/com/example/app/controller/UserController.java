@@ -70,7 +70,7 @@ private final UserMapper mapper;
 			// ファイル名取得
 			String fileName = upload.getOriginalFilename();
 			// 格納場所取得(各々のフォルダ名に変更して下さい)
-			File dest = new File("C:/Users/uploads/" + fileName);
+			File dest = new File("C:/Users/zd3M11/uploads/" + fileName);
 			
 		user.setFileName(fileName);
 		upload.transferTo(dest); //フォルダに保存
@@ -189,7 +189,7 @@ private final UserMapper mapper;
 			user.setUserId(id);
 			user.setFileName(fileName);
 			//(各々のフォルダ名に変更して下さい)
-			File dest = new File("C:/Users/uploads/" + fileName);
+			File dest = new File("C:/Users/zd3M11/uploads/" + fileName);
 			upload.transferTo(dest);        
 		System.out.println("User object: " + user);
 		mapper.update(user);

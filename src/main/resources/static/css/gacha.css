@@ -52,7 +52,7 @@
 
 .point_wrap .back {
 	text-decoration: none;
-	background: var(- -main-bg-color);
+	background: var(--main-bg-color);
 	padding: 1rem 3rem;
 	border-radius: 5rem;
 	color: #fff;
@@ -107,14 +107,14 @@
 	width: 50px;
 	height: 50px;
 	border-radius: 50px;
-	background: var(- -accent-color);
+	background: var(--accent-color);
 	opacity: 0;
 }
 
 .shutter {
 	width: 100vw;
 	height: 100vh;
-	background: var(- -accent-color);
+	background: var(--accent-color);
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -174,7 +174,21 @@ body {
 	background-image: radial-gradient(#ffee33 0%, #ffee33 12%, transparent 30%, transparent);
 }
 
-
+/* mask-imageに対応している場合のスタイル */
+@supports (
+    (-webkit-mask-image: radial-gradient(white, white))
+    or
+    (mask-image: radial-gradient(white, white))
+  )
+  and (not (-ms-ime-align: auto)) {
+  .line-container {
+    /* 中心をくり抜く */
+mask-image: radial-gradient( transparent 0%, transparent 4%, white 30%, white );
+  }
+  .line-container:before {
+    display: none;
+  }
+}
 
 
 .area {
@@ -204,7 +218,6 @@ body {
 	background-repeat: no-repeat;
 	background-size: 100%;
 }
-
 .circles li:nth-child(1) {
 	left: 25%;
 	width: 80px;
@@ -212,7 +225,6 @@ body {
 	animation-delay: 0s;
 	bottom: 100px;
 }
-
 .circles li:nth-child(2) {
 	left: 5%;
 	width: 160px;
@@ -221,14 +233,12 @@ body {
 	animation-duration: 11s;
 	bottom: 200px;
 }
-
 .circles li:nth-child(3) {
 	left: 70%;
 	width: 20px;
 	height: 20px;
 	animation-delay: 4s;
 }
-
 .circles li:nth-child(4) {
 	left: 3%;
 	width: 60px;
@@ -237,7 +247,6 @@ body {
 	animation-duration: 10s;
 	bottom: 500px;
 }
-
 .circles li:nth-child(5) {
 	left: 65%;
 	width: 50px;
@@ -245,21 +254,18 @@ body {
 	animation-delay: 0s;
 	bottom: 300px;
 }
-
 .circles li:nth-child(6) {
 	left: 75%;
 	width: 110px;
 	height: 110px;
 	animation-delay: 3s;
 }
-
 .circles li:nth-child(7) {
 	left: 15%;
 	width: 80px;
 	height: 80px;
 	animation-delay: 0s;
 }
-
 .circles li:nth-child(8) {
 	left: 85%;
 	width: 150px;
