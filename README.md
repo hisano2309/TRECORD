@@ -13,7 +13,14 @@
     - JavaScript(jQuery)    
 - コード管理    
     - Fork        
-    - GitHub    
+    - GitHub
+ 
+### 言語使用率
+- Java 54.7%
+- HTML 27.4%
+- CSS 6.9%
+- JavaScript 11.0%
+
 
  ***
 
