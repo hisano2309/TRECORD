@@ -63,6 +63,7 @@ a {
 		     <span class="font-en">CHECK</span><br>記録を見る
 		</h2>
 	     
+<!-- 	     カレンダー -->
 	     <form action="show" th:object="${calendar}">
 			<input type="hidden" value="" name="date2" id="date2" /> <input type="submit" />
 		</form>
@@ -77,6 +78,7 @@ a {
 			</a>
 			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
 	     </th:block>
+	
 	
 			<!-- ページネーション、ページャー -->
 		<div th:if="${totalPage >= 2}">

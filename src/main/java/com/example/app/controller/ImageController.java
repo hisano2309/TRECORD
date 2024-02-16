@@ -58,9 +58,10 @@ public class ImageController {
 	}
 
 	// 画像の個別取得
+	// "/show/{date}"→アルバムからshow、"/show"→カレンダーからshow
 	@GetMapping({"/show/{date}", "/show"})
-	public String show(@PathVariable(required = false) String date,
-			@RequestParam(name = "date2", required = false) String date2,
+	public String show(@PathVariable(required = false) String date, // アルバムをクリックdate
+			@RequestParam(name = "date2", required = false) String date2, // カレンダーのパスから引っ張ってくるdate
 			HttpSession session, Model model) {
 		User user = (User) session.getAttribute("user");
 		// Mapを作成してパラメータをセットする
@@ -72,8 +73,10 @@ public class ImageController {
 //      個別でデータをとる記述
 		List<Image> image  = null;
 		if(date != null) {
+			// "/show/{date}"→アルバムからshow
 			image = mapper.getImageByDate(user.getUserId(), date);
 		}else {
+			// "/show"→カレンダーからshow
 			image = mapper.getImageByDate
 					(user.getUserId(), date2);
 			
