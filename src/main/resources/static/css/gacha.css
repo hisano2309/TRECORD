@@ -1,0 +1,280 @@
+@charset "UTF-8";
+
+.point_wrap {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	text-align: center;
+	overflow: hidden;
+	background: cornsilk;
+}
+
+.result {
+	font-size: 6vw;
+	background: #fff;
+	width: 70vw;
+	min-width: 700px;
+	padding: 12vh 5vw;
+	margin: 15vh auto;
+	box-sizing: border-box;
+	border-radius: 20px;
+}
+
+.result img {
+	width: 8vw;
+	vertical-align: sub;
+}
+
+.result .number {
+	font-size: 8vw;
+	margin-left: 1rem;
+}
+
+.result .comment {
+	font-size: 4vw;
+}
+
+.gacha {
+	position: relative;
+	width: 400px;
+	margin: 12% auto;
+}
+
+.gacha .handle {
+	position: absolute;
+	top: 65%;
+	left: 34%;
+	width: 32%;
+}
+
+.point_wrap .back {
+	text-decoration: none;
+	background: var(- -main-bg-color);
+	padding: 1rem 3rem;
+	border-radius: 5rem;
+	color: #fff;
+	letter-spacing: 0.2rem;
+}
+
+.door {
+	display: block;
+	height: 20%;
+	width: 50%;
+	background: #00b1bc;
+	position: absolute;
+	top: 75%;
+	left: 25%;
+	z-index: -1;
+	transform-origin: top;
+}
+
+.gacha .bg {
+	width: 100%;
+}
+
+.capsule {
+	position: absolute;
+	top: 84%;
+	left: 42%;
+	width: 14%;
+}
+
+.capsule_inner {
+	position: relative;
+	opacity: 0;
+}
+
+.capsule img {
+	object-fit: contain;
+	width: 100%;
+	height: auto;
+}
+
+.capsule_white {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform-origin: 100% 70%;
+}
+
+.gacha .lightup {
+	position: absolute;
+	top: 82%;
+	left: 44%;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	background: var(- -accent-color);
+	opacity: 0;
+}
+
+.shutter {
+	width: 100vw;
+	height: 100vh;
+	background: var(- -accent-color);
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	margin: 0;
+	transform: scaleY(0);
+	transform-origin: 0 0;
+}
+
+.gacha_wrap {
+	display: block;
+	background: #b9ebfb;
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+}
+
+.point_wrap p.error {
+	margin: 20vh;
+}
+
+.line-container {
+	position: absolute;
+	width: 200vw;
+	height: 200vw;
+	left: calc(50% - 100vw);
+	top: calc(50% - 100vw);
+	background-image: repeating-conic-gradient(transparent 0, transparent 13deg, #ffd59e 13deg
+		, #ffd59e 16deg),
+		repeating-conic-gradient(transparent 0, transparent 10deg, #ffab3c 10deg
+		, #ffab3c 13deg);
+	animation: backgroundAnimation 40s infinite linear;
+	z-index: -2;
+}
+
+body {
+	z-index: -100;
+	position: relative;
+}
+
+@keyframes backgroundAnimation {
+	from { -webkit-transform:rotate(0);
+		transform: rotate(0);
+	}
+	to {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+
+/* 中心のぼかした円 */
+.line-container:before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-image: radial-gradient(#ffee33 0%, #ffee33 12%, transparent 30%, transparent);
+}
+
+
+
+
+.area {
+	width: 100%;
+	height: 100vh;
+	position: absolute;
+}
+
+.circles {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.circles li {
+	position: absolute;
+	display: block;
+	list-style: none;
+	width: 20px;
+	height: 20px;
+	animation: animate 25s linear infinite;
+	bottom: -150px;
+	background-image: url(../images/menu-icon2.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+.circles li:nth-child(1) {
+	left: 25%;
+	width: 80px;
+	height: 80px;
+	animation-delay: 0s;
+	bottom: 100px;
+}
+
+.circles li:nth-child(2) {
+	left: 5%;
+	width: 160px;
+	height: 160px;
+	animation-delay: 0s;
+	animation-duration: 11s;
+	bottom: 200px;
+}
+
+.circles li:nth-child(3) {
+	left: 70%;
+	width: 20px;
+	height: 20px;
+	animation-delay: 4s;
+}
+
+.circles li:nth-child(4) {
+	left: 3%;
+	width: 60px;
+	height: 60px;
+	animation-delay: 0s;
+	animation-duration: 10s;
+	bottom: 500px;
+}
+
+.circles li:nth-child(5) {
+	left: 65%;
+	width: 50px;
+	height: 50px;
+	animation-delay: 0s;
+	bottom: 300px;
+}
+
+.circles li:nth-child(6) {
+	left: 75%;
+	width: 110px;
+	height: 110px;
+	animation-delay: 3s;
+}
+
+.circles li:nth-child(7) {
+	left: 15%;
+	width: 80px;
+	height: 80px;
+	animation-delay: 0s;
+}
+
+.circles li:nth-child(8) {
+	left: 85%;
+	width: 150px;
+	height: 150px;
+	animation-delay: 0s;
+	animation-duration: 11s;
+}
+
+@keyframes animate { 
+	0%{
+		transform: translateY(0) rotate(0deg);
+		opacity: 1;
+	}
+	100%{
+		transform:translateY(-1000px) rotate(720deg);
+		opacity:0;
+	}
+}

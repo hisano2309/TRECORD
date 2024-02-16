@@ -15,7 +15,7 @@
 	<header>
 		<div class="inner">
 			<h1>
-				<a th:href="@{/index}" class="logo"><img th:src="@{images/ttl_logo.png}"></a>
+				<a th:href="@{/}" class="logo"><img th:src="@{images/ttl_logo.png}"></a>
 			</h1>
 			<nav class="navigation">
 				<ul role='list'>
@@ -26,7 +26,7 @@
 		</div>
 	</header>
 	<main>
-		<div class="splide" role="group" aria-label="Splideの基本的なHTML">
+		<div class="splide" role="group">
 			<div id="main" class="splide">
 				<div class="splide__track">
 					<ul class="splide__list">
@@ -61,9 +61,9 @@
 				<a th:href="@{/gacha(gachaType='weight')}" class="support-menu_btn weight">
 					<p><span>重量</span><br>ガチャを回す</p>
 				</a> 
-				<a th:href="chart" class="support-menu_btn diagnosis">
+				<!-- <a th:href="chart" class="support-menu_btn diagnosis">
 					<p><span>診断</span>をする</p>
-				</a>
+				</a> -->
 			</div>
 		</div>
 	</main>

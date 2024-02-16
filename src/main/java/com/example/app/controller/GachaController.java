@@ -18,13 +18,17 @@ public class GachaController {
 		Integer number = Gacha.GachaNumber();
 		model.addAttribute("number", number);
 		
-		String content = null;
+		String unit = null;
+		String comment = null;
     if ("count".equals(gachaType)) {
-        content = "kg";
+    	unit = "回";
+    	comment = "理想の体に近づける！";
     } else if ("weight".equals(gachaType)) {
-        content = "回";
+    	unit = "kg";
+    	comment = "君ならできる！！";
     }
-    model.addAttribute("content", content);
+    model.addAttribute("unit", unit);
+    model.addAttribute("comment", comment);
     
 		
 		return "gacha";

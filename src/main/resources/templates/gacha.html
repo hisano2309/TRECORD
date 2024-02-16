@@ -1,33 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleef.org">
 <head>
-<meta charset="UTF-8">
-<title>トレーニングサポート</title>
+  <meta charset="UTF-8">
+  <title>トレーニングサポート</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/css/reset.css}">
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/gacha.css}">
 </head>
 <body>
-    <div class="gacha_wrap">
-        <div class="gacha">
-            <p class="door"></p>
-            <img class="bg" src="images/gacha.png" alt="">
-            <img class="handle" src="images/handle.png" alt="">
-            <p class="lightup"></p>
-            <div class="capsule">
-                <div class="capsule_inner">
-                    <img class="capsule_white" src="images/capsule_white.png" alt="">
-                    <img class="capsule_red" src="images/capsule_red.png" alt="">
-                </div>
-            </div>
+  <div class="gacha_wrap">
+    <div class="area" >
+      <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div >
+    <div class="gacha">
+      <p class="door"></p>
+      <img class="bg" src="images/gacha.png">
+      <img class="handle" src="images/handle.png">
+      <p class="lightup"></p>
+      <div class="capsule">
+        <div class="capsule_inner">
+          <img class="capsule_white" src="images/capsule_white.png">
+          <img class="capsule_red" src="images/capsule_red.png">
         </div>
+      </div>
     </div>
-    <div class="shutter"></div>
-    <div class="point_wrap">
-        <div class="line-container"></div>
-        <div class="result">
-          <p>[[${number}]]<span th:text="${content}"></span></p>
-          <br>追加！！
-        </div>
-        <p><a th:href="@{mypage}">戻る</a></p>
+  </div>
+  <div class="shutter"></div>
+  <div class="point_wrap">
+    <header>
+      <div class="inner">
+        <h1>
+          <a th:href="@{/}" class="logo"><img th:src="@{images/ttl_logo.png}"></a>
+        </h1>
+        <nav class="navigation">
+          <ul role='list'>
+            <li><a th:href="@{/}">TOP</a></li>
+            <li><a th:href="@{/mypage}">マイページ</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="line-container"></div>
+    <div class="result">
+      <p><span class="number">+[[${number}]]</span> <span th:text="${unit}"></span></p>
+      <p th:text="${comment}" class="comment"></p>
     </div>
-    <script src="js/gacha.js"></script>
+  </div>
+  <footer>
+    <small>Copyright 2024 TRECORD</small>
+  </footer>
+  <script th:src="@{/js/gacha.js}"></script>
 </body>
 </html>
