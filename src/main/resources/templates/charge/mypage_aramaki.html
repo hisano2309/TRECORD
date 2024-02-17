@@ -8,9 +8,14 @@
 </head>
 <body>
 	<h1>マイページ表示</h1>
-	
-<!-- 	体重・BMI表示 -->
-	<th:block th:object="${weightBmi}">	
+
+<p>体重表示</p>
+		<!-- 	体重・BMI表示 -->
+	<th:block th:if="${weightBmi == null}" th:object="${weightBmi}">
+		<p>記録はまだありません。</p>
+	</th:block>
+
+	<th:block th:if="${weightBmi != null}" th:object="${weightBmi}">
 		<table border="1">
 			<tr><th>日付</th><td>[[*{date}]]</td></tr>
 			<tr><th>体重</th><td>[[*{userWeight}]]</td></tr>
@@ -18,8 +23,11 @@
 			<tr><th>適正体重</th><td>[[*{healthyWeight}]]</td></tr>
 		</table>
 	</th:block>
-	
+
 	<p>前回のトレーニング記録</p>
+	<th:block th:if="${beforeCount == null}">
+		<p>記録はまだありません。</p>
+	</th:block>
 	<table border="1">
 		<tr th:each="machineSetCount : ${beforeCount}">
 			<th:block th:if="${machineSetCount != null}">
@@ -30,8 +38,8 @@
 			</th:block>
 		</tr>
 	</table>
-	
-	
+
+
 <!-- 	体重グラフ -->
 	<div class="area">
 		<canvas id="weightBmiChart"></canvas>
@@ -42,8 +50,8 @@
 	<div class="area">
 		<canvas id="machineSetCountLineGraph"></canvas>
 	</div>
-	
-	
+
+
 		<!-- 	マシーングラフ（丸） -->
 	<div class="area">
 		<canvas id="machineSetCountPieGraph"></canvas>
@@ -54,11 +62,11 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js" 
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js"
 	integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY=" crossorigin="anonymous"></script>
 	<script th:src="@{/js/script.js}"></script>
-	
 
-	
+
+
 </body>
 </html>

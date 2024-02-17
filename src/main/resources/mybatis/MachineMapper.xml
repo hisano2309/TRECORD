@@ -41,9 +41,9 @@
 	<select id="selectLineGraph" resultType="MachineSetCount">
 		SELECT machine_set_count.training_id, machine_set_count.user_id, machine_set_count.date,
 			machine_set_count.machine_id, machine.machine_name, machine_set_count.machine_weight,
-			machine_set_count.machine_count, machine_set_count.sets 
-         FROM machine_set_count JOIN machine 
-         ON machine_set_count.machine_id = machine.machine_id 
+			machine_set_count.machine_count, machine_set_count.sets
+         FROM machine_set_count JOIN machine
+         ON machine_set_count.machine_id = machine.machine_id
          WHERE user_id = #{userId} AND machine_set_count.machine_id = #{machineId};
 	</select>
 
@@ -60,23 +60,23 @@
 
 <!-- 円グラフ表示 -->
 	<select id="selectPieGraph" resultType="Count" parameterType="int">
-		SELECT machine_set_count.machine_id, machine.machine_name, 
+		SELECT machine_set_count.machine_id, machine.machine_name,
 			COUNT(machine_set_count.machine_id) AS count
-		FROM machine_set_count 
-		JOIN machine 
-         ON machine_set_count.machine_id = machine.machine_id 
-         WHERE machine_set_count.user_id = #{userId} 
-         GROUP BY machine_set_count.machine_id 
+		FROM machine_set_count
+		JOIN machine
+         ON machine_set_count.machine_id = machine.machine_id
+         WHERE machine_set_count.user_id = #{userId}
+         GROUP BY machine_set_count.machine_id
          ORDER BY machine_id
 	</select>
 
 <!-- 前回のマシン記録表示 -->
-	<select id="selectBefore" resultType="MachineSetCount" parameterType="Integer">
-		SELECT machine_set_count.training_id, machine_set_count.user_id, machine_set_count.date, machine_set_count.machine_id, 
-		machine.machine_name, machine_set_count.machine_weight, machine_set_count.machine_count, machine_set_count.sets 
+	<select id="selectBefore" resultType="MachineSetCount">
+		SELECT machine_set_count.training_id, machine_set_count.user_id, machine_set_count.date, machine_set_count.machine_id,
+		machine.machine_name, machine_set_count.machine_weight, machine_set_count.machine_count, machine_set_count.sets
 		FROM machine_set_count
 		JOIN machine ON machine_set_count.machine_id = machine.machine_id
-		WHERE machine_set_count.machine_id = #{machineId} 
+		WHERE machine_set_count.machine_id = #{machineId}  AND machine_set_count.user_id = #{userId}
 		ORDER BY training_id DESC
 		LIMIT 1
 	</select>
