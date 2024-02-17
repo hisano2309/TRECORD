@@ -1,6 +1,7 @@
 package com.example.app.service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 
 	@Override
 	public void addMachineSetCount(MachineSetCount machineRecord) throws Exception {
-		machineMapper.insert(machineRecord);	
+		machineMapper.insert(machineRecord);
 	}
 
 		@Override
@@ -45,8 +46,8 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 		return machineMapper.countMachine();
 	}
 
-	
-	
+
+
 	@Override
 	public List<MachineSetCount> getSelectLineGraph(int userId, int machineId) throws Exception {
 		return machineMapper.selectLineGraph(userId, machineId);
@@ -60,6 +61,11 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 	@Override
 	public MachineSetCount getSelectBefore(Integer machineId) throws Exception {
 		return machineMapper.selectBefore(machineId);
+	}
+
+	@Override
+	public LocalDate convertToLocalDate(String date, String format) throws Exception {
+		return LocalDate.parse(date, DateTimeFormatter.ofPattern(format));
 	}
 
 

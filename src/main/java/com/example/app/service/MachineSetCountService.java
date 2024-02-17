@@ -13,7 +13,7 @@ public interface MachineSetCountService {
 //登録//
 	//本日分がすでに登録してあるか確認
 //	List<MachineSetCount> checkDate(LocalDate date) throws Exception;
-	
+
 	//筋トレ記録登録
 	void addMachineSetCount(MachineSetCount machineRecord) throws Exception;
 
@@ -23,19 +23,22 @@ public interface MachineSetCountService {
 
 	//カレンダーから特定の日の筋トレ記録表示
 	List<MachineSetCount> getMachineSetCountDay(LocalDate day, int userId) throws Exception;
-	
+
 	//マシン数をカウント
 	int getCountMachine() throws Exception;
 
 	//折れ線グラフ表示
 	List<MachineSetCount> getSelectLineGraph(int userId, int machineId) throws Exception;
-		
+
 	//円グラフ表示
 	List<Count> getSelectPieGraph(int UserId) throws Exception;
-	
+
 	// 前回のトレーニング重量表示
 	MachineSetCount getSelectBefore(Integer machineId) throws Exception;
-	
+
+// 文字列からLocalDate型に変換
+	LocalDate convertToLocalDate(String date, String format) throws Exception;
+
 
 
 //編集//
