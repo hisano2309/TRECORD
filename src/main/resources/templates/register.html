@@ -9,12 +9,13 @@
 
 <link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" th:href="@{/css/user.css}">
 </head>
 <body>
 <header>
 	<div class="inner">
 		<h1>
-			<a href="">ロゴ</a>
+			<a th:href="@{/ }" class="logo"><img th:src="@{images/ttl_logo.png}"></a>
 		</h1>
 		<nav class="navigation">
 			<ul role='list'>
@@ -24,30 +25,36 @@
 		</nav>
 	</div>
 	</header>
+	<main>
+	<div class="inner">
 	<th:block th:object="${user}">
 		<p th:errors="*{loginId}"></p>
 		<p th:errors="*{loginPass}"></p>
 	</th:block>
-	<h1>ユーザー登録</h1>
+	<h2><span class="font-en">Sign Up</span><br>ユーザー登録</h2>
 	<form action="" method="post" enctype="multipart/form-data"
 		th:object="${user}">
 		<p>
-			ログインID:<input type="text" th:field="*{loginId}" />
+			<span>ログインID:</span><input type="text" th:field="*{loginId}" />
 		</p>
 		<p>
-			パスワード:<input type="text" th:field="*{loginPass}" />
+			<span>パスワード:</span><input type="text" th:field="*{loginPass}" />
 		</p>
 		<p>
-			身長:<input type="text" th:field="*{userHeight}" />cm
+			<span>身長:</span><input type="text" th:field="*{userHeight}" />cm
 		</p>
 		<p>
 			<input type="file" name="upload" />
 		</p>
-		<img th:src="@{/uploads/{name}(name=${user.fileName})}" alt="" />
+		<img th:if="${user.fileName ne null}" th:src="@{/uploads/{name}(name=${user.fileName})}" alt="" />
+	<img th:unless="${user.fileName ne null}" th:src="@{/images/macho_cat.png}" alt="Default Image" />
+	※画像がない場合はこちらの画像がアイコンとなります		
 		<p>
 			<input type="submit" value="登録" />
 		</p>
 	</form>
+	</div>
+	</main>
 
 	<footer>
 		<small>Copyright 2024 TRECORD</small>

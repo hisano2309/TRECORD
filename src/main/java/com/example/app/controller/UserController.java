@@ -47,17 +47,23 @@ private final UserMapper mapper;
 			Errors errors,Model model
 			) throws IllegalStateException,IOException{
 		
-		if(errors.hasErrors() || upload.isEmpty()) {
+		if(errors.hasErrors()) {
 			//エラーがあった時の処理
 			System.out.println("エラーです");
-			model.addAttribute("msg", "プロフィール画像を入れてください");
+			// エラーメッセージをモデルに追加
+			model.addAttribute("msg", "入力内容にエラーがあります");
 			return "register";
 		}else {
 
-		if(upload.isEmpty()) {
-			//アップロードされたファイルがない場合の処理
-			model.addAttribute("msg", "プロフィール画像を入れてください");
-			return "register";
+		if(upload.isEmpty() && (user.getFileName() == null || user.getFileName().isEmpty())) {
+			//アップロードが空の場合の処理
+			// デフォルトの画像パスを取得する
+			String defaultImagePath = " ";
+			user.setFileName(defaultImagePath);
+
+			// ユーザーをデータベースに保存
+			mapper.insert(user);
+			return "redirect:/user/login";
 		} else {
 			//ファイル情報の取得と保存
 			// ファイルサイズ
@@ -70,7 +76,7 @@ private final UserMapper mapper;
 			// ファイル名取得
 			String fileName = upload.getOriginalFilename();
 			// 格納場所取得(各々のフォルダ名に変更して下さい)
-			File dest = new File("C:/Users/zd3M11/uploads/" + fileName);
+			File dest = new File("C:/Users/uploads/" + fileName);
 			
 		user.setFileName(fileName);
 		upload.transferTo(dest); //フォルダに保存
@@ -189,7 +195,7 @@ private final UserMapper mapper;
 			user.setUserId(id);
 			user.setFileName(fileName);
 			//(各々のフォルダ名に変更して下さい)
-			File dest = new File("C:/Users/zd3M11/uploads/" + fileName);
+			File dest = new File("C:/Users/uploads/" + fileName);
 			upload.transferTo(dest);        
 		System.out.println("User object: " + user);
 		mapper.update(user);
