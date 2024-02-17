@@ -56,6 +56,20 @@
 		SELECT * FROM image LIMIT
 		#{offset}, #{limit}
 	</select>
+	
+	<!-- 一番古い日付でuploadした画像を取得 -->
+	<select id="getOldestImage" resultType="Image">
+		SELECT * FROM image
+		ORDER BY date ASC
+		LIMIT 1
+	</select>
+
+	<!-- 一番新しい日付でuploadした画像を取得 -->
+	<select id="getNewestImage" resultType="Image">
+		SELECT * FROM image
+		ORDER BY date DESC
+		LIMIT 1
+	</select>
 
 
 </mapper>

@@ -54,14 +54,22 @@ public class ImageController {
 		// Math.ceil 小数点以下を切り上げしてくれる
 		int totalPage = (int) Math.ceil((double) totalNum / NUM_PER_PAGE);
 		model.addAttribute("totalPage", totalPage);
+
+		// 一番古い日付でuploadした画像を取得
+		Image oldestImage = mapper.getOldestImage();
+		model.addAttribute("oldestImage", oldestImage);
+
+		// 一番新しい日付でuploadした画像を取得
+		Image newestImage = mapper.getNewestImage();
+		model.addAttribute("newestImage", newestImage);
+
 		return "mypage";
 	}
 
 	// 画像の個別取得
-	@GetMapping({"/show/{date}", "/show"})
+	@GetMapping({ "/show/{date}", "/show" })
 	public String show(@PathVariable(required = false) String date,
-			@RequestParam(name = "date2", required = false) String date2,
-			HttpSession session, Model model) {
+			@RequestParam(name = "date2", required = false) String date2, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("user");
 		// Mapを作成してパラメータをセットする
 //		Map<String, Object> param = new HashMap<>();
@@ -70,15 +78,14 @@ public class ImageController {
 //		// Mapを引数にしてメソッドを呼び出す
 //		Image image = mapper.getImageById(param);
 //      個別でデータをとる記述
-		List<Image> image  = null;
-		if(date != null) {
+		List<Image> image = null;
+		if (date != null) {
 			image = mapper.getImageByDate(user.getUserId(), date);
-		}else {
-			image = mapper.getImageByDate
-					(user.getUserId(), date2);
-			
+		} else {
+			image = mapper.getImageByDate(user.getUserId(), date2);
+
 		}
-		
+
 		System.out.println(image);
 		model.addAttribute("imageList", image);
 		return "show";
@@ -91,7 +98,6 @@ public class ImageController {
 		return "redirect:/mypage";
 	}
 
-
 	// 記録ページ
 	@GetMapping("/record")
 	public String add(Model model, HttpSession session) {
@@ -100,7 +106,6 @@ public class ImageController {
 		System.out.println("record->" + user);
 		return "record";
 	}
-
 
 	// 新規登録
 	@PostMapping("/record")
@@ -147,11 +152,8 @@ public class ImageController {
 		return "record";
 	}
 
-
 	@PostMapping("/edit/{id}")
-	public String edit(@RequestParam MultipartFile upload, 
-			@Valid Image image, Errors errors,
-			HttpSession session,
+	public String edit(@RequestParam MultipartFile upload, @Valid Image image, Errors errors, HttpSession session,
 			@PathVariable Integer id, Model model) throws IllegalStateException, IOException {
 		if (errors.hasErrors()) {
 			System.out.println("errors");

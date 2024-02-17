@@ -2,28 +2,89 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>My Page</title>
+
+<style>
+img {
+	width: 25%;
+}
+
+ul {
+	width: 70%;
+	display: flex;
+	list-style: none;
+}
+
+a {
+	display: block;
+	text-decoration: none;
+}
+
+/* リンク無効 */
+.noevent {
+	pointer-events: none;
+}
+</style>
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
+	rel="stylesheet" />
+	
+<!-- カレンダー機能リンク -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
+
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" href="css/common.css" />
+</head>
+
 </head>
 <body>
-<h3>All ALUBUM</h3>
-	<th:block th:each="image : ${imgList}">
-		<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> <img
-			th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-		</a>
-		<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
-
-
-</th:block>
-
-
-		<!-- ページネーション、ページャー -->
+	<header>
+	<!-- ここにヘッダーを入れる -->
+	</header>
+	<main>
+		<h1>MY PAGE</h1>
+		
+	<!-- ここにログインIDとアイコンを表示 -->
+	
+		
+		<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
+		<a th:href="@{/user/logout}">ログアウト</a>
+		
+		<h2>
+			<span class="font-en">RECORD</span><br>記録をする
+		</h2>
+		<a th:href="@{/record}">記録</a>
+		
+	
+		<h2>
+		     <span class="font-en">CHECK</span><br>記録を見る
+		</h2>
+	     
+	     <form action="show" th:object="${calendar}">
+			<input type="hidden" value="" name="date2" id="date2" /> <input type="submit" />
+		</form>
+		<div class="date"></div>
+	
+	
+		<h3>All View</h3>
+		
+		<th:block th:each="image : ${imgList}">
+			<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> 
+				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+			</a>
+			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+	     </th:block>
+	
+			<!-- ページネーション、ページャー -->
 		<div th:if="${totalPage >= 2}">
 			<ul>
 				<!-- 前のページリンク -->
 				<th:block th:switch="${page}">
 					<li th:case="1"><a href="" class="noevent">Prev</a></li>
-					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a>
-					</li>
+					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
 				</th:block>
 				<!-- ページ番号 -->
 				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
@@ -34,12 +95,46 @@
 				</th:block>
 				<!-- 次のページリンク -->
 				<th:block th:switch="${page}">
-					<li th:case="${totalPage}"><a href="" class="noevent">Next</a>
-					</li>
-					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a>
-					</li>
+					<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
+					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
 				</th:block>
 			</ul>
 		</div>
+			
+		
+		<h3>Comparison</h3>
+		
+		<div>
+    		<!-- 一番古い日付でuploadした画像を表示 -->
+    		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
+    		<p>Before</p>
+    		<!-- 一番新しい日付でuploadした画像を表示 -->
+    		<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}" alt="New Body" >
+    		<p>New Body</p>
+  		</div>
+			
+	</main>
+	<footer>
+		<small>Copyright 2024 TRECORD</small>
+	</footer>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js" 
+	integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY=" crossorigin="anonymous"></script>
+	<script th:src="@{/js/script.js}"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script>	
+       $('.date').datepicker({
+	   dateFormat: "yy/mm/dd",
+	   onSelect: (date, inst)=>{
+       $("#date2").val(date);
+            }
+       });
+     </script>
+     
 </body>
 </html>
