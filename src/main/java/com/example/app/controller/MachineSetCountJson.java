@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.app.domain.Count;
 import com.example.app.domain.MachineSetCount;
+import com.example.app.domain.User;
 import com.example.app.service.MachineSetCountService;
 
 import jakarta.servlet.http.HttpSession;
@@ -18,15 +19,21 @@ import lombok.RequiredArgsConstructor;
 public class MachineSetCountJson {
 
 	private final MachineSetCountService service;
-	
+
 	@GetMapping("/MachineSetCountLineGraph")
 	public List<List<MachineSetCount>> line(HttpSession session) throws Exception{
-		
-		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
+
+		// !!!!!!!!!!!!!!!!!!!!!!!　リアルデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		User user = (User) session.getAttribute("user");
+//		MachineSetCount machineSetCount = new MachineSetCount();
+//		machineSetCount.setUserId(user.getUserId());
+//		System.out.println("MachineSetCountLineGraph_user.getUserId()" + user.getUserId());
+
+		// !!!!!!!!!!!!!!!!!!!!!!!　ダミーデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		MachineSetCount machineSetCount = new MachineSetCount();
-		machineSetCount.setUserId(1);
-		
-		
+		machineSetCount.setUserId(2);
+
+
 		machineSetCount.setMachineId(1);
 		List<MachineSetCount> machine1 = service.getSelectLineGraph(machineSetCount.getUserId(), machineSetCount.getMachineId());
 		machineSetCount.setMachineId(2);
@@ -39,7 +46,7 @@ public class MachineSetCountJson {
 		List<MachineSetCount> machine5 = service.getSelectLineGraph(machineSetCount.getUserId(), machineSetCount.getMachineId());
 		machineSetCount.setMachineId(6);
 		List<MachineSetCount> machine6 = service.getSelectLineGraph(machineSetCount.getUserId(), machineSetCount.getMachineId());
-		
+
 		List<List<MachineSetCount>> machineList = new ArrayList<>();
 		machineList.add(machine1);
 		machineList.add(machine2);
@@ -51,23 +58,26 @@ public class MachineSetCountJson {
 //		return service.getSelectChartMachineId1(machineSetCount.getUserId(), machineSetCount.getMachineId());
 		return machineList;
 	}
-	
-	
+
+
 	@GetMapping("/MachineSetCountPieGraph")
 	public List<Count> pie(HttpSession session) throws Exception{
-		
-		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
+
+		// !!!!!!!!!!!!!!!!!!!!!!!　ダミーデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		User user = (User) session.getAttribute("user");
+//		MachineSetCount machineSetCount = new MachineSetCount();
+//		machineSetCount.setUserId(user.getUserId());
+//		System.out.println("MachineSetCountPieGraph_user.getUserId()" + user.getUserId());
+
+		// !!!!!!!!!!!!!!!!!!!!!!!　リアルデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		MachineSetCount machineSetCount = new MachineSetCount();
-		machineSetCount.setUserId(1);
-		
-		// System.out.println("machineSetCount.getUserId()->"+machineSetCount.getUserId());
-		
+		machineSetCount.setUserId(2);
+
 		List<Count> count = service.getSelectPieGraph(machineSetCount.getUserId());
-		// System.out.println("service.getSelectPieGraph" + service.getSelectPieGraph(machineSetCount.getUserId()));
-		// System.out.println("count" + count);
-		
+		System.out.println("MachineSetCountPieGraph_machineSetCount.getUserId()" + machineSetCount.getUserId());
+
 		return count;
 	}
 
-	
+
 }
