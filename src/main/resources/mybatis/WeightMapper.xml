@@ -9,8 +9,9 @@
 	</insert>
 
 <!-- 前回の体重・BMI表示 -->
-	<select id="selectBeforeWeightBmi" resultType="WeightBmi">
+	<select id="selectBeforeWeightBmi" resultType="WeightBmi" parameterType="int">
 		SELECT * FROM weight_bmi
+		 WHERE user_id = #{userId}
 		ORDER BY weight_id DESC
 		LIMIT 1;
 	</select>
@@ -20,13 +21,13 @@
 
 <!-- グラフ表示 -->
 	<select id="selectChart" parameterType="int" resultType="WeightBmi">
-	
+
 <!-- 	先頭から5つ取得 -->
 	SELECT * FROM weight_bmi WHERE user_id = #{id} LIMIT 0, 5
-	
+
 <!-- 	全データを取得	 -->
 <!-- 		SELECT * FROM weight_bmi WHERE user_id = #{id} -->
-		
+
 <!-- 		最新のデータ5つのみ表示 -->
 <!-- 		SELECT * FROM  -->
 <!-- 		(SELECT * FROM weight  -->

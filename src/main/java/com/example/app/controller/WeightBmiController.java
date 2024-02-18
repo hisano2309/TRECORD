@@ -1,7 +1,6 @@
 package com.example.app.controller;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WeightBmiController {
 
-	private final WeightBmiService service;
+	private final WeightBmiService weightBmiService;
 	private final MachineSetCountService machineSetCountService;
 
 //登録
@@ -73,10 +72,10 @@ public class WeightBmiController {
 		weightBmi.setBmi(Math.floor(bmi * 10) / 10);
 		weightBmi.setHealthyWeight(Math.floor(healthyWeight * 10) / 10);
 
-		
+
 		//日付が同日の場合は登録しない（グラフが重複する）
 		//体重・BMIの登録
-		service.insertWeightBmi(weightBmi);
+		weightBmiService.insertWeightBmi(weightBmi);
 
 		model.addAttribute("weightBmi", weightBmi);
 
@@ -98,37 +97,40 @@ public class WeightBmiController {
 			Model model,
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+
 	//表形式で体重・BMI表示
 		WeightBmi weightBmi = new WeightBmi();
-		
+
 		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
 		weightBmi.setUserId(1);
 //				User user = (User) session.getAttribute("user");
 //				weightBmi.setUserId(user.getUserId());
-				
-		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-05", LocalDate::from);
-		weightBmi.setDate(date);
-		
-		service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate());
-		System.out.println(service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
-				
-		model.addAttribute("weightBmi", service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
-		
-		
+
+		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!　→→→引数のdateを不要とする
+//		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-05", LocalDate::from);
+//		weightBmi.setDate(date);
+//		service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate());
+//		System.out.println(service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
+//		model.addAttribute("weightBmi", service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
+
+		weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId());
+		System.out.println(weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId()));
+
+		model.addAttribute("weightBmi", weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId()));
+
+
 	//前回のトレーニング重量表示
 		int machineCount = machineSetCountService.getCountMachine();
 		List<MachineSetCount> beforeCount = new ArrayList<>();
 		for(int i = 1; i <= machineCount; i++) {
-			
+
 			beforeCount.add(machineSetCountService.getSelectBefore(i));
 			model.addAttribute("beforeCount", beforeCount);
 			System.out.println("count.add(machineSetCountService.getSelectBefore(i))" + beforeCount);
 			model.addAttribute("size", beforeCount.size());
 			System.out.println("beforeCount.size()" + beforeCount.size());
 		}
-		
+
 		return "charge/mypage_aramaki";
 	}
 

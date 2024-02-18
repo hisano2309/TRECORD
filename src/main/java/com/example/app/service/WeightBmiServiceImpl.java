@@ -25,8 +25,8 @@ public class WeightBmiServiceImpl implements WeightBmiService{
 	}
 
 	@Override
-	public WeightBmi getSelectBeforeWeightbmi(int userId, LocalDate date) throws Exception {
-		return weightMapper.selectBeforeWeightBmi(userId, date);
+	public WeightBmi getSelectBeforeWeightbmi(int userId) throws Exception {
+		return weightMapper.selectBeforeWeightBmi(userId);
 	}
 
 	@Override

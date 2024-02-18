@@ -17,7 +17,7 @@ public interface WeightMapper {
 
 //表示
 	//前回の体重・BMI表示
-	WeightBmi selectBeforeWeightBmi(int userId, LocalDate date) throws Exception;
+	WeightBmi selectBeforeWeightBmi(int userId) throws Exception;
 
 	//グラフ表示
 	List<WeightBmi> selectChart(int userId) throws Exception;
