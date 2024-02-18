@@ -54,6 +54,15 @@ public class ImageController {
 		// Math.ceil 小数点以下を切り上げしてくれる
 		int totalPage = (int) Math.ceil((double) totalNum / NUM_PER_PAGE);
 		model.addAttribute("totalPage", totalPage);
+
+		// 一番古い日付でuploadした画像を取得
+		Image oldestImage = mapper.getOldestImage();
+		model.addAttribute("oldestImage", oldestImage);
+
+		// 一番新しい日付でuploadした画像を取得
+		Image newestImage = mapper.getNewestImage();
+		model.addAttribute("newestImage", newestImage);
+
 		return "mypage";
 	}
 
@@ -79,9 +88,7 @@ public class ImageController {
 			// "/show"→カレンダーからshow
 			image = mapper.getImageByDate
 					(user.getUserId(), date2);
-			
 		}
-		
 		System.out.println(image);
 		model.addAttribute("imageList", image);
 		return "show";
@@ -94,7 +101,6 @@ public class ImageController {
 		return "redirect:/mypage";
 	}
 
-
 	// 記録ページ
 	@GetMapping("/record")
 	public String add(Model model, HttpSession session) {
@@ -103,7 +109,6 @@ public class ImageController {
 		System.out.println("record->" + user);
 		return "record";
 	}
-
 
 	// 新規登録
 	@PostMapping("/record")
@@ -150,11 +155,8 @@ public class ImageController {
 		return "record";
 	}
 
-
 	@PostMapping("/edit/{id}")
-	public String edit(@RequestParam MultipartFile upload, 
-			@Valid Image image, Errors errors,
-			HttpSession session,
+	public String edit(@RequestParam MultipartFile upload, @Valid Image image, Errors errors, HttpSession session,
 			@PathVariable Integer id, Model model) throws IllegalStateException, IOException {
 		if (errors.hasErrors()) {
 			System.out.println("errors");

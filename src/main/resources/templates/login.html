@@ -9,12 +9,13 @@
 
 <link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" th:href="@{/css/user.css}">
 </head>
 <body>
 	<header>
 		<div class="inner">
 			<h1>
-				<a href="">ロゴ</a>
+				<a th:href="@{/ }" class="logo"><img th:src="@{images/ttl_logo.png}"></a>
 			</h1>
 			<nav class="navigation">
 				<ul role='list'>
@@ -29,18 +30,22 @@
 		<p th:errors="*{loginPass}"></p>
 	</th:block>
 
-		<h1>ログイン</h1>
+	<main>
+	<div class="inner">
+		<h2><span class="font-en">Login</span><br>ログイン</h2>
 		<form action="" method="post" th:object="${user}">
 			<p>
-				ログインID:<input type="text" th:field="*{loginId}" />
+				<span>ログインID:</span><input type="text" th:field="*{loginId}" />
 			</p>
 			<p>
-				パスワード:<input type="text" th:field="*{loginPass}" />
+				<span>パスワード:</span><input type="text" th:field="*{loginPass}" />
 			</p>
 			<p>
 				<input type="submit" value="ログイン" />
 			</p>
 		</form>
+	</div>
+	</main>
 
 
 	<footer>

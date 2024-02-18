@@ -63,7 +63,6 @@ a {
 		     <span class="font-en">CHECK</span><br>記録を見る
 		</h2>
 	     
-<!-- 	     カレンダー -->
 	     <form action="show" th:object="${calendar}">
 			<input type="hidden" value="" name="date2" id="date2" /> <input type="submit" />
 		</form>
@@ -104,6 +103,15 @@ a {
 			
 		
 		<h3>Comparison</h3>
+		
+		<div>
+    		<!-- 一番古い日付でuploadした画像を表示 -->
+    		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
+    		<p>Before</p>
+    		<!-- 一番新しい日付でuploadした画像を表示 -->
+    		<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}" alt="New Body" >
+    		<p>New Body</p>
+  		</div>
 			
 	</main>
 	<footer>

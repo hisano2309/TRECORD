@@ -23,23 +23,29 @@ public interface ImageMapper {
 	List<Image> selectLimited(@Param("offset") int offset, @Param("limit") int limit);
 
 	// 画像の個別取得
-    //Image getImageById(Map<String, Object> param);
-    //個別でデータをとる記述
+	// Image getImageById(Map<String, Object> param);
+	// 個別でデータをとる記述
 	List<Image> getImageByDate(@Param("id") Integer id, @Param("date") String date);
 
 	// 新規登録
 	void add(Image image);
 
-    //削除
-    //int delete(Map<String, Object> param);
-    //個別でデータをとる記述
-	//削除
-		void delete(int id);
+	// 削除
+	// int delete(Map<String, Object> param);
+	// 個別でデータをとる記述
+	// 削除
+	void delete(int id);
 
 	// 更新
 	void edit(Image image);
-   //void edit(Map<String, Object> image);
-    //更新の際の個別取得
+
+	// void edit(Map<String, Object> image);
+	// 更新の際の個別取得
 	Image getImageById(Integer id);
 
+	// 一番古い日付でuploadした画像を取得
+	Image getOldestImage();
+
+	// 一番新しい日付でuploadした画像を取得
+	Image getNewestImage();
 }
