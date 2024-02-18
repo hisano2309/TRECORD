@@ -46,53 +46,64 @@ a {
 	</header>
 	<main>
 		<h1>MY PAGE</h1>
-	<p>体重表示</p>
-		<!-- 	体重・BMI表示 -->
-	<th:block th:if="${weightBmi == null}" th:object="${weightBmi}">
-		<p>記録はまだありません。</p>
-	</th:block>
 
-	<th:block th:if="${weightBmi != null}" th:object="${weightBmi}">
+	<!-- ここにログインIDとアイコンを表示 -->
+
+<!-- 	設定など -->
+
+<!-- 	表グラフ -->
+		<p>体重表示</p>
+			<!-- 	体重・BMI表示 -->
+		<th:block th:if="${weightBmi == null}" th:object="${weightBmi}">
+			<p>記録はまだありません。</p>
+		</th:block>
+
+		<th:block th:if="${weightBmi != null}" th:object="${weightBmi}">
+			<table border="1">
+				<tr><th>日付</th><td>[[*{date}]]</td></tr>
+				<tr><th>体重</th><td>[[*{userWeight}]]</td></tr>
+				<tr><th>BMI</th><td>[[*{bmi}]]</td></tr>
+				<tr><th>適正体重</th><td>[[*{healthyWeight}]]</td></tr>
+			</table>
+		</th:block>
+
+		<p>前回のトレーニング記録</p>
+		<th:block th:if="${beforeCount == null}">
+			<p>記録はまだありません。</p>
+		</th:block>
 		<table border="1">
-			<tr><th>日付</th><td>[[*{date}]]</td></tr>
-			<tr><th>体重</th><td>[[*{userWeight}]]</td></tr>
-			<tr><th>BMI</th><td>[[*{bmi}]]</td></tr>
-			<tr><th>適正体重</th><td>[[*{healthyWeight}]]</td></tr>
+			<tr th:each="machineSetCount : ${beforeCount}">
+				<th:block th:if="${machineSetCount != null}">
+					<th>[[${machineSetCount.machineName}]]</th>
+					<td>[[${machineSetCount.machineWeight}]]kg</td>
+					<td>[[${machineSetCount.machineCount}]]回</td>
+					<td>[[${machineSetCount.sets}]]セット</td>
+				</th:block>
+			</tr>
 		</table>
-	</th:block>
-
-	<p>前回のトレーニング記録</p>
-	<th:block th:if="${beforeCount == null}">
-		<p>記録はまだありません。</p>
-	</th:block>
-	<table border="1">
-		<tr th:each="machineSetCount : ${beforeCount}">
-			<th:block th:if="${machineSetCount != null}">
-				<th>[[${machineSetCount.machineName}]]</th>
-				<td>[[${machineSetCount.machineWeight}]]kg</td>
-				<td>[[${machineSetCount.machineCount}]]回</td>
-				<td>[[${machineSetCount.sets}]]セット</td>
-			</th:block>
-		</tr>
-	</table>
 
 
-<!-- 	体重グラフ -->
-	<div class="area">
-		<canvas id="weightBmiChart"></canvas>
-	</div>
+	<!-- 	体重グラフ -->
+		<div class="area">
+			<canvas id="weightBmiChart"></canvas>
+		</div>
 
 
-	<!-- 	マシーングラフ（線） -->
-	<div class="area">
-		<canvas id="machineSetCountLineGraph"></canvas>
-	</div>
+		<!-- 	マシーングラフ（線） -->
+		<div class="area">
+			<canvas id="machineSetCountLineGraph"></canvas>
+		</div>
 
 
-		<!-- 	マシーングラフ（丸） -->
-	<div class="area">
-		<canvas id="machineSetCountPieGraph"></canvas>
-	</div>
+			<!-- 	マシーングラフ（丸） -->
+		<div class="area">
+			<canvas id="machineSetCountPieGraph"></canvas>
+		</div>
+
+
+<!-- 画像 -->
+
+
 
 	</main>
 	<footer>
@@ -109,10 +120,10 @@ a {
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script>
-       $('.date').datepicker({
+       $('.pictureDate').datepicker({
 	   dateFormat: "yy/mm/dd",
-	   onSelect: (date, inst)=>{
-       $("#date2").val(date);
+	   onSelect: (pictureDate, inst)=>{
+       $("#calendarDate").val(pictureDate);
             }
        });
      </script>

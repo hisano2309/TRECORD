@@ -38,11 +38,15 @@ public class RecordController {
 	private static final int NUM_PER_PAGE = 6;
 
 
-
+// 【マイページ表示】
 @GetMapping("/mypage")
-	public String list(@RequestParam(name = "page", defaultValue = "1") Integer page, Model model,
-		HttpSession session) throws Exception {
+	public String mypage(
+			@RequestParam(name = "page", defaultValue = "1") Integer page, Model model,
+			HttpSession session) throws Exception {
 		User user = (User) session.getAttribute("user");
+
+	// 画像一覧
+
 
 	//表形式で体重・BMI表示
 		WeightBmi weightBmi = new WeightBmi();
@@ -71,9 +75,9 @@ public class RecordController {
 	}
 
 
-// 【記録ページ】
+// 【トレーニング記録】
 	@GetMapping("/record")
-	public String add(Model model, HttpSession session) throws Exception {
+	public String registerRecord(Model model, HttpSession session) throws Exception {
 
 	// 画像
 		model.addAttribute("image", new Image());
@@ -117,7 +121,7 @@ public class RecordController {
 
 
 	@PostMapping("/record")
-	public String add(
+	public String registerRecord(
 			@Valid MachineSetCount machineSetCount,
 			Errors errors, Model model, HttpSession session)
 			throws Exception {
@@ -131,32 +135,43 @@ public class RecordController {
 
 //// 【トレーニング記録詳細ページ】
 //	// "/show/{date}"→アルバムからshow、"/show"→カレンダーからshow
-//	@GetMapping({"/show/{date}", "/show"})
+//	@GetMapping({"/show/{pictureDate}", "/show"})
 //	public String showDay(
-//			@PathVariable(required = false) String date, // アルバムをクリックdate
-//			@RequestParam(name = "date2", required = false) String date2, // カレンダーのパスから引っ張ってくるdate
+//			@PathVariable(required = false) String pictureDate, // アルバムをクリックdate
+//			@RequestParam(name = "date2", required = false) String calendarDate, // カレンダーのパスから引っ張ってくるdate
 //			HttpSession session,
 //			Model model) throws Exception {
 //
-//	// 画像の個別取得
 //		User user = (User) session.getAttribute("user");
 //
+//	// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		WeightBmi dammy = new WeightBmi();
+//		dammy.setUserId(2);
+//
+//	// 画像の個別取得
 //      // 個別でデータをとる記述
 //		List<Image> image  = null;
-//		if(date != null) {
-//		// アルバムからshow("/show/{date}")
-//			image = mapper.getImageByDate(user.getUserId(), date);
-//		}else {
-//		// カレンダーからshow("/show")
-//			// 画像
-//			image = mapper.getImageByDate
-//					(user.getUserId(), date2);
+//		if(pictureDate != null) {
+//	// アルバムからshow("/show/{pictureDate}")
 //
-//			//カレンダーから特定の日の筋トレ記録を取得
+//		// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		//	image = mapper.getImageByDate(user.getUserId(), pictureDate);
+//			image = mapper.getImageByDate(dammy.getUserId(), pictureDate);
+//
+//		}else {
+//	// カレンダーからshow("/show")
+//		// 画像
+//		// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		//	image = mapper.getImageByDate(user.getUserId(), calendarDate);
+//			image = mapper.getImageByDate(dammy.getUserId(), calendarDate);
+//
+//		//カレンダーから特定の日の筋トレ記録を取得
 //			// トレーニング記録
 //			MachineSetCount machineSetCount = new MachineSetCount();
-//			LocalDate convertToLocalDate = machineSetCountService.convertToLocalDate(date2, "yyyy-MM-dd");
-//			List<MachineSetCount> getDayData = machineSetCountService.getMachineSetCountDay(convertToLocalDate, user.getUserId());
+//			LocalDate convertToLocalDate = machineSetCountService.convertToLocalDate(calendarDate, "yyyy-MM-dd");
+//		// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		//	List<MachineSetCount> getDayData = machineSetCountService.getMachineSetCountDay(convertToLocalDate, user.getUserId());
+//			List<MachineSetCount> getDayData = machineSetCountService.getMachineSetCountDay(convertToLocalDate, dammy.getUserId());
 //			machineSetCount.setDate(convertToLocalDate);
 //
 //			System.out.println("getDayData：" + getDayData);
@@ -168,6 +183,59 @@ public class RecordController {
 //
 //		return "show";
 //	}
+
+
+// 【ボディコンディションを登録】
+	@GetMapping("bodyCondition")
+	public String registerBodyCondition(Model model) throws Exception{
+
+	// 体重を登録
+		WeightBmi weightBmi = new WeightBmi();
+		//日付(初期値)
+		LocalDate now = LocalDate.now();
+		weightBmi.setDate(now);
+		weightBmi.setUserWeight(50.5);
+		model.addAttribute("weightBmi", weightBmi);
+
+		return "bodyCondition";
+	}
+
+	@PostMapping("bodyCondition")
+	public String registerBodyCondition(
+			Model model,
+			@Valid WeightBmi weightBmi,
+			Errors errors,
+			HttpSession session) throws Exception{
+
+		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
+		weightBmi.setUserId(2);
+//		User user = (User) session.getAttribute("user");
+//		weightBmi.setUserId(user.getUserId());
+
+	//BMIを計算
+		//BMI ＝ 体重kg ÷ (身長m)2
+		//適正体重 ＝ (身長m)2 ×22
+	//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
+//		User user = (User) session.getAttribute("user");
+//		double heightCm = user.getUserHeight();  //単位：cm
+		double heightCm = 160;  //単位：cm
+
+		double userHeight = heightCm / 100;   //単位：m
+		double bmi = weightBmi.getUserWeight() / (userHeight * userHeight);
+		double healthyWeight = (userHeight*userHeight) * 22;
+
+		//小数点第二位で切り捨て
+		weightBmi.setBmi(Math.floor(bmi * 10) / 10);
+		weightBmi.setHealthyWeight(Math.floor(healthyWeight * 10) / 10);
+
+		//日付が同日の場合は登録しない（グラフが重複する）
+	//体重・BMIの登録
+		weightBmiService.insertWeightBmi(weightBmi);
+
+		model.addAttribute("weightBmi", weightBmi);
+
+		return "redirect:/mypage";
+	}
 
 
 
