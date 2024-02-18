@@ -29,7 +29,7 @@ a {
 <link
 	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
 	rel="stylesheet" />
-	
+
 <!-- カレンダー機能リンク -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
@@ -46,66 +46,54 @@ a {
 	</header>
 	<main>
 		<h1>MY PAGE</h1>
-		
-	<!-- ここにログインIDとアイコンを表示 -->
-	
-		
-		<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
-		<a th:href="@{/user/logout}">ログアウト</a>
-		
-		<h2>
-			<span class="font-en">RECORD</span><br>記録をする
-		</h2>
-		<a th:href="@{/record}">記録</a>
-		
-	
-		<h2>
-		     <span class="font-en">CHECK</span><br>記録を見る
-		</h2>
-	     
-<!-- 	     カレンダー -->
-	     <form action="show" th:object="${calendar}">
-			<input type="hidden" value="" name="date2" id="date2" /> <input type="submit" />
-		</form>
-		<div class="date"></div>
-	
-	
-		<h3>All View</h3>
-		
-		<th:block th:each="image : ${imgList}">
-			<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> 
-				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-			</a>
-			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
-	     </th:block>
-	
-	
-			<!-- ページネーション、ページャー -->
-		<div th:if="${totalPage >= 2}">
-			<ul>
-				<!-- 前のページリンク -->
-				<th:block th:switch="${page}">
-					<li th:case="1"><a href="" class="noevent">Prev</a></li>
-					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
-				</th:block>
-				<!-- ページ番号 -->
-				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
-					<th:block th:switch="${index}">
-						<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
-						<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
-					</th:block>
-				</th:block>
-				<!-- 次のページリンク -->
-				<th:block th:switch="${page}">
-					<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
-					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
-				</th:block>
-			</ul>
-		</div>
-			
-		
-		<h3>Comparison</h3>
-			
+	<p>体重表示</p>
+		<!-- 	体重・BMI表示 -->
+	<th:block th:if="${weightBmi == null}" th:object="${weightBmi}">
+		<p>記録はまだありません。</p>
+	</th:block>
+
+	<th:block th:if="${weightBmi != null}" th:object="${weightBmi}">
+		<table border="1">
+			<tr><th>日付</th><td>[[*{date}]]</td></tr>
+			<tr><th>体重</th><td>[[*{userWeight}]]</td></tr>
+			<tr><th>BMI</th><td>[[*{bmi}]]</td></tr>
+			<tr><th>適正体重</th><td>[[*{healthyWeight}]]</td></tr>
+		</table>
+	</th:block>
+
+	<p>前回のトレーニング記録</p>
+	<th:block th:if="${beforeCount == null}">
+		<p>記録はまだありません。</p>
+	</th:block>
+	<table border="1">
+		<tr th:each="machineSetCount : ${beforeCount}">
+			<th:block th:if="${machineSetCount != null}">
+				<th>[[${machineSetCount.machineName}]]</th>
+				<td>[[${machineSetCount.machineWeight}]]kg</td>
+				<td>[[${machineSetCount.machineCount}]]回</td>
+				<td>[[${machineSetCount.sets}]]セット</td>
+			</th:block>
+		</tr>
+	</table>
+
+
+<!-- 	体重グラフ -->
+	<div class="area">
+		<canvas id="weightBmiChart"></canvas>
+	</div>
+
+
+	<!-- 	マシーングラフ（線） -->
+	<div class="area">
+		<canvas id="machineSetCountLineGraph"></canvas>
+	</div>
+
+
+		<!-- 	マシーングラフ（丸） -->
+	<div class="area">
+		<canvas id="machineSetCountPieGraph"></canvas>
+	</div>
+
 	</main>
 	<footer>
 		<small>Copyright 2024 TRECORD</small>
@@ -114,13 +102,13 @@ a {
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js" 
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js"
 	integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY=" crossorigin="anonymous"></script>
 	<script th:src="@{/js/script.js}"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<script>	
+	<script>
        $('.date').datepicker({
 	   dateFormat: "yy/mm/dd",
 	   onSelect: (date, inst)=>{
@@ -128,6 +116,6 @@ a {
             }
        });
      </script>
-     
+
 </body>
 </html>

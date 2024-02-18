@@ -2,6 +2,7 @@ package com.example.app.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,10 @@ import com.example.app.domain.Image;
 import com.example.app.domain.Machine;
 import com.example.app.domain.MachineSetCount;
 import com.example.app.domain.User;
+import com.example.app.domain.WeightBmi;
 import com.example.app.mapper.ImageMapper;
 import com.example.app.service.MachineSetCountService;
+import com.example.app.service.WeightBmiService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -27,7 +30,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecordController {
 	// 筋トレ記録
-	private final MachineSetCountService service;
+	private final MachineSetCountService machineSetCountService;
+	private final WeightBmiService weightBmiService;
 	// 画像
 	private final ImageMapper mapper;
 	// 1ページあたりの表示件数
@@ -38,26 +42,31 @@ public class RecordController {
 @GetMapping("/mypage")
 	public String list(@RequestParam(name = "page", defaultValue = "1") Integer page, Model model,
 		HttpSession session) throws Exception {
-	// ユーザーの画像一覧取得
 		User user = (User) session.getAttribute("user");
-		List<Image> imgList = mapper.getImageByUserId(user.getUserId());
-		System.out.println(imgList);
-		// ページング追加のため以下の記述をコメントアウト
-		// model.addAttribute("imgList", imgList);
-		int offset = NUM_PER_PAGE * (page - 1);
-		model.addAttribute("imgList", mapper.selectLimited(offset, NUM_PER_PAGE));
 
-		// 現在のページを更新
-		model.addAttribute("page", page);
+	//表形式で体重・BMI表示
+		WeightBmi weightBmi = new WeightBmi();
+//		weightBmi.setUserId(user.getUserId());
+	//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
+		weightBmi.setUserId(1);
 
-		// 全体のデータ数取得
-		// 小数点で受け取りたいため、キャスト
-		double totalNum = (double) mapper.count();
-		// 全体のページ数の計算：numPerPageは1ページあたりの表示件数とする
-		// Math.ceil 小数点以下を切り上げしてくれる
-		int totalPage = (int) Math.ceil((double) totalNum / NUM_PER_PAGE);
-		model.addAttribute("totalPage", totalPage);
+		weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId());
+		System.out.println(weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId()));
 
+		model.addAttribute("weightBmi", weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId()));
+
+
+	//前回のトレーニング重量表示
+		int machineCount = machineSetCountService.getCountMachine();
+		List<MachineSetCount> beforeCount = new ArrayList<>();
+		for(int i = 1; i <= machineCount; i++) {
+
+			beforeCount.add(machineSetCountService.getSelectBefore(i));
+			model.addAttribute("beforeCount", beforeCount);
+			System.out.println("count.add(machineSetCountService.getSelectBefore(i))" + beforeCount);
+			model.addAttribute("size", beforeCount.size());
+			System.out.println("beforeCount.size()" + beforeCount.size());
+		}
 		return "mypage";
 	}
 
@@ -66,21 +75,27 @@ public class RecordController {
 	@GetMapping("/record")
 	public String add(Model model, HttpSession session) throws Exception {
 
+	// 画像
+		model.addAttribute("image", new Image());
+		User user = (User) session.getAttribute("user");
+		System.out.println("record->" + user);
+
 	// トレーニング記録
 		MachineSetCount machineSetCount = new MachineSetCount();
 
 		//ユーザーID
+		machineSetCount.setUserId(user.getUserId());
+		System.out.println("user.getUserId()" + (user.getUserId()));
 		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-		machineSetCount.setUserId(1);
+		// weightBmi.setUserId(1);
 
 		//日付
-		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
 		LocalDate now = LocalDate.now();
 		machineSetCount.setDate(now);
 		System.out.println("今日の日付：" + machineSetCount.getDate());
 
 		//筋トレマシン一覧表示
-		List<Machine> machine = service.getSelectMachine();
+		List<Machine> machine = machineSetCountService.getSelectMachine();
 		model.addAttribute("machine", machine);
 
 		//重量
@@ -108,50 +123,51 @@ public class RecordController {
 			throws Exception {
 	// トレーニング記録
 			System.out.println(machineSetCount);
-			service.addMachineSetCount(machineSetCount);
+			machineSetCountService.addMachineSetCount(machineSetCount);
 
 		return "recordDone";
 	}
 
 
-// 【トレーニング記録詳細ページ】
-	// "/show/{date}"→アルバムからshow、"/show"→カレンダーからshow
-	@GetMapping({"/show/{date}", "/show"})
-	public String showDay(
-			@PathVariable(required = false) String date, // アルバムをクリックdate
-			@RequestParam(name = "date2", required = false) String date2, // カレンダーのパスから引っ張ってくるdate
-			HttpSession session,
-			Model model) throws Exception {
-
-	// 画像の個別取得
-		User user = (User) session.getAttribute("user");
-
-      // 個別でデータをとる記述
-		List<Image> image  = null;
-		if(date != null) {
-		// アルバムからshow("/show/{date}")
-			image = mapper.getImageByDate(user.getUserId(), date);
-		}else {
-		// カレンダーからshow("/show")
-			// 画像
-			image = mapper.getImageByDate
-					(user.getUserId(), date2);
-
-			//カレンダーから特定の日の筋トレ記録を取得
-			// トレーニング記録
-			MachineSetCount machineSetCount = new MachineSetCount();
-			List<MachineSetCount> getDayData = service.getMachineSetCountDay(date2, user.getUserId());
-			machineSetCount.setDate(date2);
-
-			System.out.println("getDayData：" + getDayData);
-			model.addAttribute("machineSetCount", getDayData);
-		}
-
-		System.out.println(image);
-		model.addAttribute("imageList", image);
-
-		return "show";
-	}
+//// 【トレーニング記録詳細ページ】
+//	// "/show/{date}"→アルバムからshow、"/show"→カレンダーからshow
+//	@GetMapping({"/show/{date}", "/show"})
+//	public String showDay(
+//			@PathVariable(required = false) String date, // アルバムをクリックdate
+//			@RequestParam(name = "date2", required = false) String date2, // カレンダーのパスから引っ張ってくるdate
+//			HttpSession session,
+//			Model model) throws Exception {
+//
+//	// 画像の個別取得
+//		User user = (User) session.getAttribute("user");
+//
+//      // 個別でデータをとる記述
+//		List<Image> image  = null;
+//		if(date != null) {
+//		// アルバムからshow("/show/{date}")
+//			image = mapper.getImageByDate(user.getUserId(), date);
+//		}else {
+//		// カレンダーからshow("/show")
+//			// 画像
+//			image = mapper.getImageByDate
+//					(user.getUserId(), date2);
+//
+//			//カレンダーから特定の日の筋トレ記録を取得
+//			// トレーニング記録
+//			MachineSetCount machineSetCount = new MachineSetCount();
+//			LocalDate convertToLocalDate = machineSetCountService.convertToLocalDate(date2, "yyyy-MM-dd");
+//			List<MachineSetCount> getDayData = machineSetCountService.getMachineSetCountDay(convertToLocalDate, user.getUserId());
+//			machineSetCount.setDate(convertToLocalDate);
+//
+//			System.out.println("getDayData：" + getDayData);
+//			model.addAttribute("machineSetCount", getDayData);
+//		}
+//
+//		System.out.println(image);
+//		model.addAttribute("imageList", image);
+//
+//		return "show";
+//	}
 
 
 
