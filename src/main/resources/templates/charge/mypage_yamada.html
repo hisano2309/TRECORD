@@ -3,6 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <title>My Page</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
+	rel="stylesheet" />
+
+<!-- カレンダー機能リンク -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
+
+<link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
 
 <style>
 img {
@@ -26,75 +36,81 @@ a {
 }
 </style>
 
-<link
-	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
-	rel="stylesheet" />
-	
-<!-- カレンダー機能リンク -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
-
-<link rel="stylesheet" th:href="@{/css/common.css}">
-<link rel="stylesheet" th:href="@{/css/reset.css}">
-
-</head>
-
 </head>
 <body>
 	<header>
-	<div class="inner">
+		<div class="inner">
 			<h1>
-				<a th:href="@{/ }" class="logo"><img th:src="@{images/ttl_logo.png}"></a>
+				<a th:href="@{/ }" class="logo"><img
+					th:src="@{/images/ttl_logo.png}"></a>
 			</h1>
 			<nav class="navigation">
 				<ul role='list'>
-					<li><a th:href="@{/ }">トップに戻る</a></li>
 					<li><a th:href="@{/user/logout}">ログアウト</a></li>
 				</ul>
 			</nav>
 		</div>
 	</header>
 	<main>
-		<h2><span class="font-en">MY PAGE</span><br>マイページ</h2>
+		<h2>
+			<span class="font-en">MY PAGE</span><br>マイページ
+		</h2>
+
+		<!-- ログインIDとアイコンを表示 -->
+		<div class="icon" style="display: flex; align-items: center;">
+			<img th:if="${session.user.fileName != null}"
+				th:src="@{/uploads/{name}(name=${session.user.fileName})}" alt="" />
+			<img th:if="${session.user.fileName == null}"
+				th:src="@{/images/macho_cat.png}" alt="Default Image" />
+			<p th:text="${session.user.loginId + 'さん'}"></p>
+		</div>
 		
-	<!-- ここにログインIDとアイコンを表示 -->
-	<div class="icon">
-    	<p th:text="${session.user.loginId + 'さん'}"></p>
-    	<img th:if="${session.user.fileName != null}" th:src="@{/uploads/{name}(name=${session.user.fileName})}" alt="" />
-		<img th:if="${session.user.fileName == null}" th:src="@{/images/macho_cat.png}" alt="Default Image" />
-	</div>	
-	</th:block>
-		
-		<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
-		
+				<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
+		</th:block>
+
 		<h2>
 			<span class="font-en">RECORD</span><br>記録をする
 		</h2>
-		<a th:href="@{/record}">記録</a>
-		
-	
+		<div class="support-menu">
+				<a th:href="@{/gacha(gachaType='count')}" class="support-menu_btn count">
+					<p><span>回数</span><br>ガチャを回す</p>
+				</a> 
+				<a th:href="@{/gacha(gachaType='weight')}" class="support-menu_btn weight">
+					<p><span>重量</span><br>ガチャを回す</p>
+				</a> 
+				</div>
+				<div class="support-menu">
+				<a th:href="@{/record}" class="support-menu_btn">
+					<p><span>トレーニング</span><br>を記録</p>
+				</a> 
+				<a th:href="@{/bodyCondition}" class="support-menu_btn">
+					<p><span>体重と画像</span><br>を記録</p>
+				</a> 
+				</div>
+
+
 		<h2>
-		     <span class="font-en">CHECK</span><br>記録を見る
+			<span class="font-en">CHECK</span><br>記録を見る
 		</h2>
-	     
-<!-- 	     カレンダー -->
-	     <form action="show" th:object="${calendar}">
-			<input type="hidden" value="" name="date2" id="date2" /> <input type="submit" />
+
+		<form action="show" th:object="${calendar}">
+			<input type="hidden" value="" name="date2" id="date2" /> <input
+				type="submit" />
 		</form>
 		<div class="date"></div>
-	
-	
+
+
 		<h3>All View</h3>
-		
+
 		<th:block th:each="image : ${imgList}">
-			<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> 
+			<a
+				th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">
 				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
 			</a>
 			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
-	     </th:block>
-	
-	
-			<!-- ページネーション、ページャー -->
+		</th:block>
+
+		<!-- ページネーション、ページャー -->
 		<div th:if="${totalPage >= 2}">
 			<ul>
 				<!-- 前のページリンク -->
@@ -116,20 +132,35 @@ a {
 				</th:block>
 			</ul>
 		</div>
-			
-		
+
+
 		<h3>Comparison</h3>
-			
+
+		<div>
+			<!-- 一番古い日付でuploadした画像を表示 -->
+			<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}"
+				alt="Before">
+			<p>Before</p>
+			<!-- 一番新しい日付でuploadした画像を表示 -->
+			<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}"
+				alt="New Body">
+			<p>New Body</p>
+		</div>
+
 	</main>
 	<footer>
 		<small>Copyright 2024 TRECORD</small>
 	</footer>
 
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js" 
-	integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY=" crossorigin="anonymous"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js"
+		integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY="
+		crossorigin="anonymous"></script>
 	<script th:src="@{/js/script.js}"></script>
 
 	<script
@@ -142,6 +173,6 @@ a {
             }
        });
      </script>
-     
+
 </body>
 </html>

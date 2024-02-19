@@ -18,7 +18,7 @@
 	width: 70vw;
 	min-width: 700px;
 	padding: 12vh 5vw;
-	margin: 15vh auto;
+	margin: 15vh auto 5vh;
 	box-sizing: border-box;
 	border-radius: 20px;
 }
@@ -26,6 +26,18 @@
 .result img {
 	width: 8vw;
 	vertical-align: sub;
+}
+
+.back_btn a {
+    background: var(--main-color);
+    display: block;
+    width: 20%;
+    margin: 0 auto;
+    border-radius: 100px;
+    color: #fff;
+    padding: 10px;
+    letter-spacing: 1rem;
+    font-size: 2rem;
 }
 
 .result .number {
@@ -37,10 +49,11 @@
 	font-size: 4vw;
 }
 
+
 .gacha {
 	position: relative;
-	width: 400px;
-	margin: 12% auto;
+	width: 26%;
+	min-width: 300px;
 }
 
 .gacha .handle {
@@ -125,15 +138,13 @@
 }
 
 .gacha_wrap {
-	display: block;
-	background: #b9ebfb;
-	height: 100vh;
-	width: 100vw;
-	position: fixed;
-}
-
-.point_wrap p.error {
-	margin: 20vh;
+	display: flex;
+    background: #b9ebfb;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
 }
 
 .line-container {

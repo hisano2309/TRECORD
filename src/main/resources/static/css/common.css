@@ -3,7 +3,7 @@ html {
   font-size: 62.5%;
 }
 :root {
-  --main-bg-color: #80cbf7;
+  --main-color: #80cbf7;
   --accent-color: #fdd178;
   --text-color: #333;
   --main-gradation: linear-gradient(90deg, rgb(174 255 206), rgb(160 224 255));
@@ -37,7 +37,7 @@ header h1 {
   line-height: 1.8;
 }
 header .logo img {
-  width: 160px;
+  width: 190px;
 }
 header .navigation {
   width: 50%;
@@ -63,10 +63,10 @@ header .navigation ul li:hover {
   letter-spacing: 0.5rem;
 }
 header .navigation ul li:nth-child(1) a {
-  background: #fbdf07;
+  background: var(--accent-color);
 }
 header .navigation ul li:nth-child(2) a {
-  border: 1px solid #fbdf07;
+  border: 1px solid var(--accent-color);
 }
 
 main {
@@ -91,7 +91,7 @@ main h2 .font-en {
   margin-bottom: 20px;
 }
 .support-menu_btn {
-  background: #80cbf7;
+  background: var(--main-color);
   font-size: 1.8rem;
   font-weight: bold;
   padding: 30px;
