@@ -1,7 +1,8 @@
 package com.example.app.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.app.domain.Image;
 import com.example.app.domain.Machine;
@@ -44,20 +45,68 @@ public class RecordController {
 			@RequestParam(name = "page", defaultValue = "1") Integer page, Model model,
 			HttpSession session) throws Exception {
 		User user = (User) session.getAttribute("user");
+		System.out.println("user.getUserId()" + user.getUserId());
+		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
+//		WeightBmi weightBmi = new WeightBmi();
+//		weightBmi.setUserId(1);
 
 	// 画像一覧
+		List<Image> imgList = mapper.getImageByUserId(user.getUserId());
+		System.out.println(imgList);
+		// ページング追加のため以下の記述をコメントアウト
+		// model.addAttribute("imgList", imgList);
+		int offset = NUM_PER_PAGE * (page - 1);
+		model.addAttribute("imgList", mapper.selectLimited(offset, NUM_PER_PAGE));
 
+		// 現在のページを更新
+		model.addAttribute("page", page);
 
+		// 全体のデータ数取得
+		// 小数点で受け取りたいため、キャスト
+		double totalNum = (double) mapper.count();
+		// 全体のページ数の計算：numPerPageは1ページあたりの表示件数とする
+		// Math.ceil 小数点以下を切り上げしてくれる
+		int totalPage = (int) Math.ceil((double) totalNum / NUM_PER_PAGE);
+		model.addAttribute("totalPage", totalPage);
+
+		// 一番古い日付でuploadした画像を取得
+		Image oldestImage = mapper.getOldestImage();
+		model.addAttribute("oldestImage", oldestImage);
+
+		// 一番新しい日付でuploadした画像を取得
+		Image newestImage = mapper.getNewestImage();
+		model.addAttribute("newestImage", newestImage);
+		
+		
+	
+	// IDでweightDB、machineSetCountに1つ以上記録があるか確認
+		if(machineSetCountService.checkId(user.getUserId()).size() != 0) {
+			model.addAttribute("machineSetCountCheckIdOver1", "aaa");
+			System.out.println("aiueo");
+		}
+		if(weightBmiService.CheckId(user.getUserId()).size() != 0) {
+			model.addAttribute("weightCheckIdOver1", "aaa");
+			System.out.println("machineSetCountService.checkId(weightBmi.getUserId())aaa" + machineSetCountService.checkId(user.getUserId()));
+		}
+		
+	// IDでweightDB、machineSetCountに2つ以上記録があるか確認
+		if(machineSetCountService.checkId(user.getUserId()).size() >= 2) {
+			model.addAttribute("machineSetCountCheckIdOver2", "aaa");
+			System.out.println("aiueo");
+		}
+		if(weightBmiService.CheckId(user.getUserId()).size() >= 2) {
+			model.addAttribute("weightCheckIdOver2", "aaa");
+			System.out.println("machineSetCountService.checkId(weightBmi.getUserId())aaa" + machineSetCountService.checkId(user.getUserId()));
+		}
+
+		
 	//表形式で体重・BMI表示
-		WeightBmi weightBmi = new WeightBmi();
 //		weightBmi.setUserId(user.getUserId());
-	//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-		weightBmi.setUserId(1);
 
-		weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId());
-		System.out.println(weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId()));
+		weightBmiService.getSelectBeforeWeightbmi(user.getUserId());
+		System.out.println(weightBmiService.getSelectBeforeWeightbmi(user.getUserId()));
 
-		model.addAttribute("weightBmi", weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId()));
+		model.addAttribute("weightBmi", weightBmiService.getSelectBeforeWeightbmi(user.getUserId()));
 
 
 	//前回のトレーニング重量表示
@@ -65,7 +114,7 @@ public class RecordController {
 		List<MachineSetCount> beforeCount = new ArrayList<>();
 		for(int i = 1; i <= machineCount; i++) {
 
-			beforeCount.add(machineSetCountService.getSelectBefore(i));
+			beforeCount.add(machineSetCountService.getSelectBefore(user.getUserId(), i));
 			model.addAttribute("beforeCount", beforeCount);
 			System.out.println("count.add(machineSetCountService.getSelectBefore(i))" + beforeCount);
 			model.addAttribute("size", beforeCount.size());
@@ -146,7 +195,7 @@ public class RecordController {
 //
 //	// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //		WeightBmi dammy = new WeightBmi();
-//		dammy.setUserId(2);
+//		dammy.setUserId(3);
 //
 //	// 画像の個別取得
 //      // 個別でデータをとる記述
@@ -186,8 +235,15 @@ public class RecordController {
 
 
 // 【ボディコンディションを登録】
-	@GetMapping("bodyCondition")
-	public String registerBodyCondition(Model model) throws Exception{
+	@GetMapping("/bodyCondition")
+	public String registerBodyCondition(
+			Model model, HttpSession session) throws Exception{
+		
+	// 画像
+		model.addAttribute("image", new Image());
+		User user = (User) session.getAttribute("user");
+		System.out.println("record->" + user);
+		
 
 	// 体重を登録
 		WeightBmi weightBmi = new WeightBmi();
@@ -200,15 +256,50 @@ public class RecordController {
 		return "bodyCondition";
 	}
 
-	@PostMapping("bodyCondition")
+	@PostMapping("/bodyCondition")
 	public String registerBodyCondition(
+			@RequestParam MultipartFile upload, 
+			@RequestParam String memo,
 			Model model,
 			@Valid WeightBmi weightBmi,
 			Errors errors,
-			HttpSession session) throws Exception{
+			HttpSession session) throws IllegalStateException, IOException, Exception{
+		
+		User user = (User) session.getAttribute("user");
+		
+		
+	//画像
+		if (upload.isEmpty()) {
+			model.addAttribute("msg", "画像が選択されていません");
+			return "record";
 
+		} else {
+			// ファイルサイズ
+			System.out.println(upload.getSize());
+			// ファイル種類
+			System.out.println(upload.getContentType());
+			// ファイル名
+			System.out.println(upload.getOriginalFilename());
+			// ファイル名取得
+			String imgName = upload.getOriginalFilename();
+	/////// ★★★格納場所取得(各々のフォルダ名に変更して下さい)★★★ ///////
+			File dest = new File("C:/Users/uploads/" + imgName);
+			// File dest = new File("C:/uploads/" + imgName);
+			Image image = new Image();
+			image.setUserId(user.getUserId());
+			image.setImgName(imgName);
+			image.setMemo(memo);
+			upload.transferTo(dest);// フォルダに保存
+			mapper.add(image);// DBに保存
+
+			// TODO ここにレベルアップ機能を実装
+			// TODO 済み画像表示機能実装
+		}
+		
+	// 体重
+		weightBmi.setUserId(user.getUserId());
 		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-		weightBmi.setUserId(2);
+//		weightBmi.setUserId(1);
 //		User user = (User) session.getAttribute("user");
 //		weightBmi.setUserId(user.getUserId());
 
