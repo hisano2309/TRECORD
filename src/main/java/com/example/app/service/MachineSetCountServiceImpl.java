@@ -27,6 +27,11 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 //	}
 
 	@Override
+	public List<MachineSetCount> checkId(int userId) throws Exception {
+		return machineMapper.selectCheckId(userId);
+	}
+
+	@Override
 	public void addMachineSetCount(MachineSetCount machineRecord) throws Exception {
 		machineMapper.insert(machineRecord);
 	}
@@ -59,14 +64,15 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 	}
 
 	@Override
-	public MachineSetCount getSelectBefore(Integer machineId) throws Exception {
-		return machineMapper.selectBefore(machineId);
+	public MachineSetCount getSelectBefore(int userId, Integer machineId) throws Exception {
+		return machineMapper.selectBefore(userId, machineId);
 	}
 
 	@Override
 	public LocalDate convertToLocalDate(String date, String format) throws Exception {
 		return LocalDate.parse(date, DateTimeFormatter.ofPattern(format));
 	}
+
 
 
 
