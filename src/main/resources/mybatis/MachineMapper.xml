@@ -4,10 +4,16 @@
 
 <!-- 後日日付で並べ替えて取得する　2/2→2/1にならないように -->
 
-<!-- 本日分がすでに登録してあるか確認 -->
+<!-- 本日分がすでに登録してあるか確認(グラフの日付重複対策) -->
 <!-- 	<select id="checkDate" parameterType="Date"> -->
 <!-- 		SELECT * FROM machine_set_count WHERE date = #{date} -->
 <!-- 	</select> -->
+
+<!-- IDでweightDB、machineSetCountに記録があるか確認(データがある場合のみ表形式グラフの表示) -->
+	<select id="selectCheckId" parameterType="int" resultType="machineSetCount">
+		SELECT * FROM machine_set_count WHERE user_id = #{userId};
+	</select>
+
 
 <!-- 筋トレ記録登録 -->
 	<insert id="insert" parameterType="MachineSetCount">

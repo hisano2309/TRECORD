@@ -1,6 +1,5 @@
 package com.example.app.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +18,11 @@ public class WeightBmiServiceImpl implements WeightBmiService{
 	private final WeightMapper weightMapper;
 
 	@Override
+	public List<WeightBmi> CheckId(int userId) throws Exception {
+		return weightMapper.selectCheckId(userId);
+	}
+
+	@Override
 	public void insertWeightBmi(WeightBmi WeightBmi) throws Exception {
 		weightMapper.insertWeightBmi(WeightBmi);
 
@@ -33,6 +37,7 @@ public class WeightBmiServiceImpl implements WeightBmiService{
 	public List<WeightBmi> getSelectChart(int userId) throws Exception {
 		return weightMapper.selectChart(userId);
 	}
+
 
 
 

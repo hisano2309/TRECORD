@@ -1,11 +1,14 @@
 package com.example.app.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.example.app.domain.WeightBmi;
 
 public interface WeightBmiService {
+	
+//確認//	
+	// IDでweightDB、machineSetCountに記録があるか確認(データがある場合のみ表形式グラフの表示)
+	List<WeightBmi> CheckId(int userId)throws Exception;
 
 //登録
 	//体重・BMIの登録

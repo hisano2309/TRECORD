@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.app.mapper.WeightMapper">
+	
 
+<!-- IDでweightDB、machineSetCountに記録があるか確認(データがある場合のみ表形式グラフの表示) -->
+	<select id="selectCheckId" parameterType="int" resultType="WeightBmi">
+		SELECT * FROM weight_bmi WHERE user_id = #{userId};
+	</select>
+	
 <!-- 体重・BMIの登録 -->
 	<insert id="insertWeightBmi">
 		INSERT INTO weight_bmi

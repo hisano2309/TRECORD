@@ -12,11 +12,16 @@ import com.example.app.domain.MachineSetCount;
 
 @Mapper
 public interface MachineMapper {
-
-	//登録/
 	
-	//本日分がすでに登録してあるか確認
+// 確認 //	
+	
+	//本日分がすでに登録してあるか確認(グラフの日付重複対策)
 //	List<MachineSetCount> selectCheckDate(LocalDate date);
+	
+	// IDでweightDB、machineSetCountに記録があるか確認(データがある場合のみ表形式グラフの表示)
+	List<MachineSetCount> selectCheckId(int userId)throws Exception;
+
+//登録//
 	
 	//筋トレ記録の登録
 	void insert(MachineSetCount MachineSetCount) throws Exception;
@@ -42,7 +47,7 @@ public interface MachineMapper {
 	List<Count> selectPieGraph(int UserId) throws Exception;
 	
 	// 前回のトレーニング重量表示
-	MachineSetCount selectBefore(Integer machineId) throws Exception;
+	MachineSetCount selectBefore(int userId, Integer machineId) throws Exception;
 	
 //編集//
 	//筋トレ記録編集
