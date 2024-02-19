@@ -24,7 +24,7 @@ public class WeightBmiJson {
 		WeightBmi weightBmi = new WeightBmi();
 //		User user = (User) session.getAttribute("user");
 //		weightBmi.setUserId(user.getUserId());
-		weightBmi.setUserId(2);
+		weightBmi.setUserId(1);
 
 		return service.getSelectChart(weightBmi.getUserId());
 

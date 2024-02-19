@@ -24,14 +24,14 @@ public class MachineSetCountJson {
 	public List<List<MachineSetCount>> line(HttpSession session) throws Exception{
 
 		// !!!!!!!!!!!!!!!!!!!!!!!　リアルデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		User user = (User) session.getAttribute("user");
-//		MachineSetCount machineSetCount = new MachineSetCount();
-//		machineSetCount.setUserId(user.getUserId());
-//		System.out.println("MachineSetCountLineGraph_user.getUserId()" + user.getUserId());
+		User user = (User) session.getAttribute("user");
+		MachineSetCount machineSetCount = new MachineSetCount();
+		machineSetCount.setUserId(user.getUserId());
+		System.out.println("MachineSetCountLineGraph_user.getUserId()" + user.getUserId());
 
 		// !!!!!!!!!!!!!!!!!!!!!!!　ダミーデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		MachineSetCount machineSetCount = new MachineSetCount();
-		machineSetCount.setUserId(2);
+//		MachineSetCount machineSetCount = new MachineSetCount();
+//		machineSetCount.setUserId(1);
 
 
 		machineSetCount.setMachineId(1);
@@ -63,15 +63,15 @@ public class MachineSetCountJson {
 	@GetMapping("/MachineSetCountPieGraph")
 	public List<Count> pie(HttpSession session) throws Exception{
 
-		// !!!!!!!!!!!!!!!!!!!!!!!　ダミーデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		User user = (User) session.getAttribute("user");
-//		MachineSetCount machineSetCount = new MachineSetCount();
-//		machineSetCount.setUserId(user.getUserId());
-//		System.out.println("MachineSetCountPieGraph_user.getUserId()" + user.getUserId());
-
 		// !!!!!!!!!!!!!!!!!!!!!!!　リアルデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		User user = (User) session.getAttribute("user");
 		MachineSetCount machineSetCount = new MachineSetCount();
-		machineSetCount.setUserId(2);
+		machineSetCount.setUserId(user.getUserId());
+		System.out.println("MachineSetCountPieGraph_user.getUserId()" + user.getUserId());
+
+		// !!!!!!!!!!!!!!!!!!!!!!!　ダミーデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		MachineSetCount machineSetCount = new MachineSetCount();
+//		machineSetCount.setUserId(1);
 
 		List<Count> count = service.getSelectPieGraph(machineSetCount.getUserId());
 		System.out.println("MachineSetCountPieGraph_machineSetCount.getUserId()" + machineSetCount.getUserId());
