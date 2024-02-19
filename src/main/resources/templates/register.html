@@ -7,53 +7,62 @@
 	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
 	rel="stylesheet" />
 
-<link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/user.css}">
 </head>
 <body>
-<header>
-	<div class="inner">
-		<h1>
-			<a th:href="@{/ }" class="logo"><img th:src="@{images/ttl_logo.png}"></a>
-		</h1>
-		<nav class="navigation">
-			<ul role='list'>
-				<li><a th:href="@{/user/register}">新規会員登録</a></li>
-				<li><a th:href="@{/user/login}">ログイン</a></li>
-			</ul>
-		</nav>
-	</div>
+	<header>
+		<div class="inner">
+			<h1>
+				<a th:href="@{/ }" class="logo"><img
+					th:src="@{/images/ttl_logo.png}"></a>
+			</h1>
+			<nav class="navigation">
+				<ul role='list'>
+					<li><a th:href="@{/user/register}">新規会員登録</a></li>
+					<li><a th:href="@{/user/login}">ログイン</a></li>
+				</ul>
+			</nav>
+		</div>
 	</header>
 	<main>
-	<div class="inner">
-	<th:block th:object="${user}">
-		<p th:errors="*{loginId}"></p>
-		<p th:errors="*{loginPass}"></p>
-	</th:block>
-	<h2><span class="font-en">Sign Up</span><br>ユーザー登録</h2>
-	<form action="" method="post" enctype="multipart/form-data"
-		th:object="${user}">
-		<p>
-			<span>ログインID:</span><input type="text" th:field="*{loginId}" />
-		</p>
-		<p>
-			<span>パスワード:</span><input type="text" th:field="*{loginPass}" />
-		</p>
-		<p>
-			<span>身長:</span><input type="text" th:field="*{userHeight}" />cm
-		</p>
-		<p>
-			<input type="file" name="upload" />
-		</p>
-		<img th:if="${user.fileName ne null}" th:src="@{/uploads/{name}(name=${user.fileName})}" alt="" />
-	<img th:unless="${user.fileName ne null}" th:src="@{/images/macho_cat.png}" alt="Default Image" />
-	※画像がない場合はこちらの画像がアイコンとなります		
-		<p>
-			<input type="submit" value="登録" />
-		</p>
-	</form>
-	</div>
+		<div class="inner">
+			<th:block th:object="${user}">
+				<p th:errors="*{loginId}"></p>
+				<p th:errors="*{loginPass}"></p>
+			</th:block>
+			<!-- h2要素のテキストを動的に設定 -->
+			<h2 th:if="${user.loginId != null}">
+				<span class="font-en">Edit</span><br>編集
+			</h2>
+			<h2 th:unless="${user.loginId != null}">
+				<span class="font-en">Sign Up</span><br>ユーザー登録
+			</h2>
+			<form action="" method="post" enctype="multipart/form-data"
+				th:object="${user}">
+				<p>
+					<span>ログインID:</span><input type="text" th:field="*{loginId}" />
+				</p>
+				<p>
+					<span>パスワード:</span><input type="text" th:field="*{loginPass}" />
+				</p>
+				<p>
+					<span>身長:</span><input type="text" th:field="*{userHeight}" />cm
+				</p>
+				<p>
+					<input type="file" name="upload" />
+				</p>
+				<img th:if="${user.fileName ne null}"
+					th:src="@{/uploads/{name}(name=${user.fileName})}" alt="" /> <img
+					th:unless="${user.fileName ne null}"
+					th:src="@{/images/macho_cat.png}" alt="Default Image" />
+				<p th:if="${user.fileName == null}">※画像がない場合はこちらの画像がアイコンとなります</p>
+				<p>
+					<input type="submit" value="登録" />
+				</p>
+			</form>
+		</div>
 	</main>
 
 	<footer>

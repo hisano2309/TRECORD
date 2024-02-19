@@ -177,7 +177,7 @@ private final UserMapper mapper;
 	
 	@PostMapping("/edit/{id}")
 	public String editPost(
-			@RequestParam MultipartFile upload,
+			@RequestParam(required = false) MultipartFile upload,
 			@Valid User user, 
 			Errors errors,
 			@PathVariable Integer id, 
@@ -190,15 +190,24 @@ private final UserMapper mapper;
 			model.addAttribute("user", user);
 			return "register";
 		}
-			 // フォームから受け取ったユーザー情報を使用して更新処理を行う
-			String fileName = upload.getOriginalFilename();
-			user.setUserId(id);
+		user.setUserId(id);
+		// 画像がアップロードされたかどうかを確認
+	    if(upload != null && !upload.isEmpty()) {
+	        // 画像がアップロードされた場合の処理
+	    	String fileName = upload.getOriginalFilename();
 			user.setFileName(fileName);
 			//(各々のフォルダ名に変更して下さい)
 			File dest = new File("C:/Users/uploads/" + fileName);
-			upload.transferTo(dest);        
+			upload.transferTo(dest);
+	    } else {
+	        // 画像がアップロードされなかった場合の処理
+	        // 既存のFileNameをそのまま保持する
+	        User existingUser = mapper.selectById(id);
+	        user.setFileName(existingUser.getFileName());
+	    }
 		System.out.println("User object: " + user);
 		mapper.update(user);
+		session.setAttribute("user", user);
 		return "redirect:/user/setting/"+id;
 		}
 	}
