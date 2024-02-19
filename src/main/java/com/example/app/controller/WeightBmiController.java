@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.app.domain.MachineSetCount;
+import com.example.app.domain.User;
 import com.example.app.domain.WeightBmi;
 import com.example.app.service.MachineSetCountService;
 import com.example.app.service.WeightBmiService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -95,16 +94,15 @@ public class WeightBmiController {
 	@GetMapping("/weightShow")
 	public String beforeWeightBmi(
 			Model model,
-			HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpSession session) throws Exception {
 
 	//表形式で体重・BMI表示
 		WeightBmi weightBmi = new WeightBmi();
 
 		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-		weightBmi.setUserId(1);
-//				User user = (User) session.getAttribute("user");
-//				weightBmi.setUserId(user.getUserId());
+//		weightBmi.setUserId(1);
+		//リアルデータ//
+		User user = (User) session.getAttribute("user");
 
 		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!　→→→引数のdateを不要とする
 //		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-05", LocalDate::from);
@@ -124,7 +122,7 @@ public class WeightBmiController {
 		List<MachineSetCount> beforeCount = new ArrayList<>();
 		for(int i = 1; i <= machineCount; i++) {
 
-			beforeCount.add(machineSetCountService.getSelectBefore(i));
+			beforeCount.add(machineSetCountService.getSelectBefore(user.getUserId(), i));
 			model.addAttribute("beforeCount", beforeCount);
 			System.out.println("count.add(machineSetCountService.getSelectBefore(i))" + beforeCount);
 			model.addAttribute("size", beforeCount.size());

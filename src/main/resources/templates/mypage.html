@@ -50,15 +50,31 @@ a {
 	<!-- ここにログインIDとアイコンを表示 -->
 
 <!-- 	設定など -->
+		<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
+		<a th:href="@{/user/logout}">ログアウト</a>
+		
+		
+<!-- 記録する		 -->
+		<h2>
+			<span class="font-en">RECORD</span><br>記録をする
+		</h2>
+		
+		<a th:href="@{/bodyCondition}">ボディコンディションを記録</a>
+		<a th:href="@{/record}">トレーニングを記録</a>
+		
+<!-- 記録を表示 -->
+		<h2>
+		     <span class="font-en">CHECK</span><br>記録を見る
+		</h2>
 
 <!-- 	表グラフ -->
 		<p>体重表示</p>
 			<!-- 	体重・BMI表示 -->
-		<th:block th:if="${weightBmi == null}" th:object="${weightBmi}">
+		<th:block th:if="${weightCheckIdOver1 == null}">
 			<p>記録はまだありません。</p>
 		</th:block>
 
-		<th:block th:if="${weightBmi != null}" th:object="${weightBmi}">
+		<th:block th:if="${weightCheckIdOver1 != null}" th:object="${weightBmi}">
 			<table border="1">
 				<tr><th>日付</th><td>[[*{date}]]</td></tr>
 				<tr><th>体重</th><td>[[*{userWeight}]]</td></tr>
@@ -67,42 +83,100 @@ a {
 			</table>
 		</th:block>
 
-		<p>前回のトレーニング記録</p>
-		<th:block th:if="${beforeCount == null}">
-			<p>記録はまだありません。</p>
-		</th:block>
-		<table border="1">
-			<tr th:each="machineSetCount : ${beforeCount}">
-				<th:block th:if="${machineSetCount != null}">
-					<th>[[${machineSetCount.machineName}]]</th>
-					<td>[[${machineSetCount.machineWeight}]]kg</td>
-					<td>[[${machineSetCount.machineCount}]]回</td>
-					<td>[[${machineSetCount.sets}]]セット</td>
-				</th:block>
-			</tr>
-		</table>
+		
+
 
 
 	<!-- 	体重グラフ -->
-		<div class="area">
-			<canvas id="weightBmiChart"></canvas>
+		<th:block th:if="${weightCheckIdOver2 != null}" th:object="${weightBmi}">
+			<div class="area">
+				<canvas id="weightBmiChart"></canvas>
+			</div>
+		</th:block>
+		
+		<p>前回のトレーニング記録</p>
+		<th:block th:if="${machineSetCountCheckIdOver1 == null}">
+			<p>記録はまだありません。</p>
+		</th:block>
+		<th:block th:if="${machineSetCountCheckIdOver1 != null}">
+			<table border="1">
+				<tr th:each="machineSetCount : ${beforeCount}">
+					<th:block th:if="${machineSetCount != null}">
+						<th>[[${machineSetCount.machineName}]]</th>
+						<td>[[${machineSetCount.machineWeight}]]kg</td>
+						<td>[[${machineSetCount.machineCount}]]回</td>
+						<td>[[${machineSetCount.sets}]]セット</td>
+					</th:block>
+				</tr>
+			</table>
+		</th:block>
+
+		<th:block th:if="${machineSetCountCheckIdOver2 != null}">
+			<!-- 	マシーングラフ（線） -->
+			<div class="area">
+				<canvas id="machineSetCountLineGraph"></canvas>
+			</div>
+	
+	
+				<!-- 	マシーングラフ（丸） -->
+			<div class="area">
+				<canvas id="machineSetCountPieGraph"></canvas>
+			</div>
+		</th:block>
+		
+		
+<!-- カレンダー -->
+		<div class="pictureDate"></div>
+		<form action="show" th:object="${calendar}">
+			<input type="hidden" value="" name="calendarDate" id="calendarDate" /> 
+			<input type="submit" value="カレンダーの詳細を見る" />
+		</form>
+		
+<!-- 画像一覧 -->
+		<h3>All View</h3>
+		
+		<th:block th:each="image : ${imgList}">
+			<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> 
+				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+			</a>
+			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+	     </th:block>
+	
+			<!-- ページネーション、ページャー -->
+		<div th:if="${totalPage >= 2}">
+			<ul>
+				<!-- 前のページリンク -->
+				<th:block th:switch="${page}">
+					<li th:case="1"><a href="" class="noevent">Prev</a></li>
+					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
+				</th:block>
+				<!-- ページ番号 -->
+				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
+					<th:block th:switch="${index}">
+						<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
+						<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
+					</th:block>
+				</th:block>
+				<!-- 次のページリンク -->
+				<th:block th:switch="${page}">
+					<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
+					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
+				</th:block>
+			</ul>
 		</div>
 
 
-		<!-- 	マシーングラフ（線） -->
-		<div class="area">
-			<canvas id="machineSetCountLineGraph"></canvas>
-		</div>
-
-
-			<!-- 	マシーングラフ（丸） -->
-		<div class="area">
-			<canvas id="machineSetCountPieGraph"></canvas>
-		</div>
-
-
-<!-- 画像 -->
-
+<!-- 画像比較 -->
+		<h3>Comparison</h3>
+		
+		<div>
+    		一番古い日付でuploadした画像を表示
+    		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
+    		<p>Before</p>
+    		一番新しい日付でuploadした画像を表示
+    		<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}" alt="New Body" >
+    		<p>New Body</p>
+  		</div>
 
 
 	</main>
