@@ -102,9 +102,9 @@ $(document)
 						const machineId_3 = res[2];
 						console.log(machineId_3);
 						const machineId_3Array = machineId_3.map(item => item.machineWeight);
-
+						
 						const machineId_4 = res[3];
-						console.log(machineId_4);
+						console.log("machineId_4" + machineId_4);
 						const machineId_4Array = machineId_4.map(item => item.machineWeight);
 
 						const machineId_5 = res[4];
