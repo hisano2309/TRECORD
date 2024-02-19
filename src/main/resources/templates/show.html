@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>詳細内容閲覧</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
+<link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
 <style>
 img {
 	width: 25%;
@@ -11,8 +18,24 @@ img {
 
 </head>
 <body>
-
-	<h1>トレーニング内容</h1>
+<header>
+		<div class="inner">
+			<h1>
+				<a th:href="@{/ }" class="logo"><img
+					th:src="@{/images/ttl_logo.png}"></a>
+			</h1>
+			<nav class="navigation">
+				<ul role='list'>
+					<li><a th:href="@{/mypage}">マイページ</a></li>
+					<li><a th:href="@{/user/logout}">ログアウト</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+<main>
+		<h2>
+			<span class="font-en">Detail</span><br>トレーニング内容
+		</h2>
 	
 <!-- 	画像表示 -->
 <th:block th:each="image : ${imageList}">
@@ -28,9 +51,10 @@ img {
 	
 	
 
-	<p>
-		<a th:href="@{/mypage}">My Pageへ</a>
-	</p>
-  
+	
+	</main>
+  <footer>
+		<small>Copyright 2024 TRECORD</small>
+	</footer>
 </body>
 </html>

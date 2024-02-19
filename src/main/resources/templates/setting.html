@@ -8,52 +8,57 @@
 	rel="stylesheet" />
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
-<link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/user.css}">
 </head>
 <body>
-<header>
+	<header>
 		<div class="inner">
 			<h1>
-				<a th:href="@{/ }" class="logo"><img th:src="@{images/ttl_logo.png}"></a>
+				<a th:href="@{/ }" class="logo"><img
+					th:src="@{/images/ttl_logo.png}"></a>
 			</h1>
 			<nav class="navigation">
 				<ul role='list'>
 					<li><a th:href="@{/ }">トップに戻る</a></li>
-					<li><a th:href="@{/user/login}">ログイン</a></li>
+					<li><a th:href="@{/mypage}">マイページ</a></li>
 				</ul>
 			</nav>
 		</div>
 	</header>
-	<h1>ユーザー情報変更</h1>
-	<th:block th:object="${user}">
-		<p>
-			ログインID:[[*{loginId}]]
-		</p>
-		<p>
-			パスワード:[[*{loginPass}]]
-		</p>
-		<p>
-			身長:[[*{userHeight}]]
-		</p>
-		<p><img th:if="${user.fileName ne null}"
-			th:src="@{/images/macho_cat.png}" alt="Default Image" /> 
-		<img th:unless="${user.fileName ne null}"
-			th:src="@{/uploads/{name}(name=${user.fileName})}" alt="" />
+	<main>
+	<div class="inner">
+		<h2>
+			<span class="font-en">User Information</span><br>ユーザー情報
+		</h2>
+		<th:block th:object="${user}">
+			<p>ログインID:[[*{loginId}]]</p>
+			<p>パスワード:[[*{loginPass}]]</p>
+			<p>身長:[[*{userHeight}]]</p>
+			<p>
+				<img th:if="${session.user.fileName != null}"
+					th:src="@{/uploads/{name}(name=${session.user.fileName})}" alt="" />
+				<img th:if="${session.user.fileName == null}"
+					th:src="@{/images/macho_cat.png}" alt="Default Image" />
 			</p>
-		
+
+
+			<p>
+				<a th:href="@{/user/edit/{id}(id=*{userId})}">変更</a> <a
+					th:href="@{/user/delete/{id}(id=*{userId})}">削除</a>
+
+			</p>
+		</th:block>
 
 		<p>
-			<a th:href="@{/user/edit/{id}(id=*{userId})}">変更</a>
-			<a th:href="@{/user/delete/{id}(id=*{userId})}">削除</a>
-			
+			<a th:href="@{/mypage}">戻る</a>
 		</p>
-	</th:block>
-	
-		<p><a th:href="@{/mypage}">戻る</a></p>
-		
-<footer>
+		</div>
+	</main>
+
+	<footer>
 		<small>Copyright 2024 TRECORD</small>
 	</footer>
-	</body>
+</body>
 </html>
