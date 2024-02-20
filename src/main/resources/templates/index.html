@@ -8,8 +8,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
 <!-- splide.css cdn -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
-<link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
 </head>
 <body>
 	<header>
@@ -35,6 +35,7 @@
 						<li class="splide__slide"><img th:src="@{images/slide3.jpg}"></li>
 						<li class="splide__slide"><img th:src="@{images/slide4.jpg}"></li>
 						<li class="splide__slide"><img th:src="@{images/slide5.jpg}"></li>
+						<li class="splide__slide"><img th:src="@{images/slide6.jpg}"></li>
 					</ul>
 				</div>
 			</div>
@@ -46,6 +47,7 @@
 						<li class="splide__slide"><img th:src="@{images/slide3.jpg}"></li>
 						<li class="splide__slide"><img th:src="@{images/slide4.jpg}"></li>
 						<li class="splide__slide"><img th:src="@{images/slide5.jpg}"></li>
+						<li class="splide__slide"><img th:src="@{images/slide6.jpg}"></li>
 					</ul>
 				</div>
 			</div>
@@ -73,7 +75,7 @@
 	<script th:inline="javascript">
 		const main = new Splide("#main", {
 			cover : true,
-			heightRatio : 0.4, //高さを幅に対する割合で指定
+			heightRatio : 0.5, //高さを幅に対する割合で指定
 			type : "loop",
 			padding : "calc((100vw - 110rem) /2)",
 			focus : "center", //アクティブなスライドを中央に表示する
