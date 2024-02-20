@@ -8,7 +8,8 @@
 - バックエンド     
     - Java    
     - MySQL     
-- フロントエンド     
+- フロントエンド
+    - HTML
     - CSS     
     - JavaScript(jQuery)    
 - コード管理    
