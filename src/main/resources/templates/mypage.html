@@ -42,58 +42,119 @@ a {
 </head>
 <body>
 	<header>
-	<!-- ここにヘッダーを入れる -->
+		<div class="inner">
+			<h1>
+				<a th:href="@{/ }" class="logo"><img
+					th:src="@{/images/ttl_logo.png}"></a>
+			</h1>
+			<nav class="navigation">
+				<ul role='list'>
+					<li><a th:href="@{/user/logout}">ログアウト</a></li>
+				</ul>
+			</nav>
+		</div>
 	</header>
 	<main>
-		<h1>MY PAGE</h1>
+		<h2>
+			<span class="font-en">MY PAGE</span><br>マイページ
+		</h2>
 
-	<!-- ここにログインIDとアイコンを表示 -->
+		<!-- ここにログインIDとアイコンを表示 -->
 
-<!-- 	設定など -->
-		<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
-		<a th:href="@{/user/logout}">ログアウト</a>
-		
-		
-<!-- 記録する		 -->
+		<!-- 	設定など -->
+		<!-- ログインIDとアイコンを表示 -->
+		<div class="icon" style="display: flex; align-items: center;">
+			<img th:if="${session.user.fileName != null}"
+				th:src="@{/uploads/{name}(name=${session.user.fileName})}" alt="" />
+			<img th:if="${session.user.fileName == null}"
+				th:src="@{/images/macho_cat.png}" alt="Default Image" />
+			<p th:text="${session.user.loginId + 'さん'}"></p>
+		</div>
+
+		<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a> <a
+			th:href="@{/user/logout}">ログアウト</a>
+<!-- 山田さんに確認 -->
+		</th:block>
+
+		<!-- 記録する		 -->
 		<h2>
 			<span class="font-en">RECORD</span><br>記録をする
 		</h2>
-		
+
+		<div class="support-menu">
+			<a th:href="@{/gacha(gachaType='count')}"
+				class="support-menu_btn count">
+				<p>
+					<span>回数</span><br>ガチャを回す
+				</p>
+			</a> <a th:href="@{/gacha(gachaType='weight')}"
+				class="support-menu_btn weight">
+				<p>
+					<span>重量</span><br>ガチャを回す
+				</p>
+			</a>
+		</div>
+		<div class="support-menu">
+			<a th:href="@{/record}" class="support-menu_btn">
+				<p>
+					<span>トレーニング</span><br>を記録
+				</p>
+			</a> <a th:href="@{/bodyCondition}" class="support-menu_btn">
+				<p>
+					<span>体重と画像</span><br>を記録
+				</p>
+			</a>
+		</div>
+
 		<a th:href="@{/bodyCondition}">ボディコンディションを記録</a>
 		<a th:href="@{/record}">トレーニングを記録</a>
-		
+
 <!-- 記録を表示 -->
 		<h2>
-		     <span class="font-en">CHECK</span><br>記録を見る
+			<span class="font-en">CHECK</span><br>記録を見る
 		</h2>
 
-<!-- 	表グラフ -->
+	<!-- 	表グラフ -->
 		<p>体重表示</p>
-			<!-- 	体重・BMI表示 -->
+	<!-- 	体重・BMI表示 -->
 		<th:block th:if="${weightCheckIdOver1 == null}">
 			<p>記録はまだありません。</p>
 		</th:block>
 
-		<th:block th:if="${weightCheckIdOver1 != null}" th:object="${weightBmi}">
+		<th:block th:if="${weightCheckIdOver1 != null}"
+			th:object="${weightBmi}">
 			<table border="1">
-				<tr><th>日付</th><td>[[*{date}]]</td></tr>
-				<tr><th>体重</th><td>[[*{userWeight}]]</td></tr>
-				<tr><th>BMI</th><td>[[*{bmi}]]</td></tr>
-				<tr><th>適正体重</th><td>[[*{healthyWeight}]]</td></tr>
+				<tr>
+					<th>日付</th>
+					<td>[[*{date}]]</td>
+				</tr>
+				<tr>
+					<th>体重</th>
+					<td>[[*{userWeight}]]</td>
+				</tr>
+				<tr>
+					<th>BMI</th>
+					<td>[[*{bmi}]]</td>
+				</tr>
+				<tr>
+					<th>適正体重</th>
+					<td>[[*{healthyWeight}]]</td>
+				</tr>
 			</table>
 		</th:block>
 
-		
+
 
 
 
 	<!-- 	体重グラフ -->
-		<th:block th:if="${weightCheckIdOver2 != null}" th:object="${weightBmi}">
+		<th:block th:if="${weightCheckIdOver2 != null}"
+			th:object="${weightBmi}">
 			<div class="area">
 				<canvas id="weightBmiChart"></canvas>
 			</div>
 		</th:block>
-		
+
 		<p>前回のトレーニング記録</p>
 		<th:block th:if="${machineSetCountCheckIdOver1 == null}">
 			<p>記録はまだありません。</p>
@@ -112,37 +173,38 @@ a {
 		</th:block>
 
 		<th:block th:if="${machineSetCountCheckIdOver2 != null}">
-			<!-- 	マシーングラフ（線） -->
+	<!-- 	マシーングラフ（線） -->
 			<div class="area">
 				<canvas id="machineSetCountLineGraph"></canvas>
 			</div>
-	
-	
-				<!-- 	マシーングラフ（丸） -->
+
+
+	<!-- 	マシーングラフ（丸） -->
 			<div class="area">
 				<canvas id="machineSetCountPieGraph"></canvas>
 			</div>
 		</th:block>
-		
-		
-<!-- カレンダー -->
+
+
+	<!-- カレンダー -->
 		<div class="pictureDate"></div>
 		<form action="show" th:object="${calendar}">
-			<input type="hidden" value="" name="calendarDate" id="calendarDate" /> 
+			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
 			<input type="submit" value="カレンダーの詳細を見る" />
 		</form>
-		
-<!-- 画像一覧 -->
+
+	<!-- 画像一覧 -->
 		<h3>All View</h3>
-		
+
 		<th:block th:each="image : ${imgList}">
-			<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> 
+			<a
+				th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">
 				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
 			</a>
 			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
-	     </th:block>
-	
-			<!-- ページネーション、ページャー -->
+		</th:block>
+
+	<!-- ページネーション、ページャー -->
 		<div th:if="${totalPage >= 2}">
 			<ul>
 				<!-- 前のページリンク -->
@@ -166,17 +228,19 @@ a {
 		</div>
 
 
-<!-- 画像比較 -->
+	<!-- 画像比較 -->
 		<h3>Comparison</h3>
-		
+
 		<div>
-    		一番古い日付でuploadした画像を表示
-    		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
-    		<p>Before</p>
-    		一番新しい日付でuploadした画像を表示
-    		<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}" alt="New Body" >
-    		<p>New Body</p>
-  		</div>
+			一番古い日付でuploadした画像を表示 <img
+				th:src="@{/uploads/{name}(name=${oldestImage.imgName})}"
+				alt="Before">
+			<p>Before</p>
+			一番新しい日付でuploadした画像を表示 <img
+				th:src="@{/uploads/{name}(name=${newestImage.imgName})}"
+				alt="New Body">
+			<p>New Body</p>
+		</div>
 
 
 	</main>
@@ -185,10 +249,14 @@ a {
 	</footer>
 
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js"
-	integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY=" crossorigin="anonymous"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js"
+		integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY="
+		crossorigin="anonymous"></script>
 	<script th:src="@{/js/script.js}"></script>
 
 	<script
