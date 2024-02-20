@@ -1,4 +1,4 @@
-package com.example.app.controller;
+/* package com.example.app.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -181,3 +181,4 @@ public class ImageController {
 	}
 
 }
+*/

@@ -136,6 +136,9 @@ a {
 
 
 		<!-- 	体重グラフ -->
+		<th:block th:if="${weightCheckIdOver2 == null}">
+			<p>記録数が2日以上でグラフ表示します。</p>
+		</th:block>
 		<th:block th:if="${weightCheckIdOver2 != null}"
 			th:object="${weightBmi}">
 			<div class="area">
