@@ -50,7 +50,7 @@
 			machine_set_count.machine_count, machine_set_count.sets
          FROM machine_set_count JOIN machine
          ON machine_set_count.machine_id = machine.machine_id
-         WHERE user_id = #{userId} AND machine_set_count.machine_id = #{machineId};
+         WHERE user_id = #{userId} AND machine_set_count.machine_id = #{machineId} ORDER BY training_id DESC;
 	</select>
 
 <!-- 	<select id="selectChart" resultType="MachineSetCount" parameterType="int"> -->
