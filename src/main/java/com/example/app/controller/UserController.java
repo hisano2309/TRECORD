@@ -58,8 +58,8 @@ private final UserMapper mapper;
 		if(upload.isEmpty() && (user.getFileName() == null || user.getFileName().isEmpty())) {
 			//アップロードが空の場合の処理
 			// デフォルトの画像パスを取得する
-			String defaultImagePath = " ";
-			user.setFileName(defaultImagePath);
+			//String defaultImagePath = " ";
+			user.setFileName(null);
 
 			// ユーザーをデータベースに保存
 			mapper.insert(user);
