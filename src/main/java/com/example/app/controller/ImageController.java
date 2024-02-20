@@ -119,7 +119,7 @@ public class ImageController {
 	public String add(@RequestParam MultipartFile upload, @RequestParam String memo, Model model, HttpSession session)
 			throws IllegalStateException, IOException {
 		if (upload.isEmpty()) {
-			model.addAttribute("msg", "画像が選択されていません");
+			model.addAttribute("msg", "写真を選択してください");
 			return "record";
 
 		} else {
