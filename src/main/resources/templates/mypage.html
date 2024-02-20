@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>My Page</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
+	rel="stylesheet" />
 
+<!-- カレンダー機能リンク -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
+
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" href="css/common.css" />
 <style>
 img {
 	width: 25%;
@@ -26,19 +36,6 @@ a {
 }
 </style>
 
-<link
-	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
-	rel="stylesheet" />
-
-<!-- カレンダー機能リンク -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
-
-<link rel="stylesheet" th:href="@{/css/common.css}">
-<link rel="stylesheet" th:href="@{/css/reset.css}">
-<link rel="stylesheet" href="css/common.css" />
-</head>
-
 </head>
 <body>
 	<header>
@@ -59,9 +56,6 @@ a {
 			<span class="font-en">MY PAGE</span><br>マイページ
 		</h2>
 
-		<!-- ここにログインIDとアイコンを表示 -->
-
-		<!-- 	設定など -->
 		<!-- ログインIDとアイコンを表示 -->
 		<div class="icon" style="display: flex; align-items: center;">
 			<img th:if="${session.user.fileName != null}"
@@ -71,9 +65,7 @@ a {
 			<p th:text="${session.user.loginId + 'さん'}"></p>
 		</div>
 
-		<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a> <a
-			th:href="@{/user/logout}">ログアウト</a>
-<!-- 山田さんに確認 -->
+		<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
 		</th:block>
 
 		<!-- 記録する		 -->
@@ -95,28 +87,24 @@ a {
 			</a>
 		</div>
 		<div class="support-menu">
-			<a th:href="@{/record}" class="support-menu_btn">
+			<a th:href="@{/bodyCondition}" class="support-menu_btn">
+				<p>
+					<span>カラダ</span><br>を記録
+				</p>
+			</a> <a th:href="@{/record}" class="support-menu_btn">
 				<p>
 					<span>トレーニング</span><br>を記録
 				</p>
-			</a> <a th:href="@{/bodyCondition}" class="support-menu_btn">
-				<p>
-					<span>体重と画像</span><br>を記録
-				</p>
 			</a>
 		</div>
-
-		<a th:href="@{/bodyCondition}">ボディコンディションを記録</a>
-		<a th:href="@{/record}">トレーニングを記録</a>
-
-<!-- 記録を表示 -->
+		<!-- 記録を表示 -->
 		<h2>
 			<span class="font-en">CHECK</span><br>記録を見る
 		</h2>
 
-	<!-- 	表グラフ -->
+		<!-- 	表グラフ -->
 		<p>体重表示</p>
-	<!-- 	体重・BMI表示 -->
+		<!-- 	体重・BMI表示 -->
 		<th:block th:if="${weightCheckIdOver1 == null}">
 			<p>記録はまだありません。</p>
 		</th:block>
@@ -147,7 +135,7 @@ a {
 
 
 
-	<!-- 	体重グラフ -->
+		<!-- 	体重グラフ -->
 		<th:block th:if="${weightCheckIdOver2 != null}"
 			th:object="${weightBmi}">
 			<div class="area">
@@ -173,27 +161,27 @@ a {
 		</th:block>
 
 		<th:block th:if="${machineSetCountCheckIdOver2 != null}">
-	<!-- 	マシーングラフ（線） -->
+			<!-- 	マシーングラフ（線） -->
 			<div class="area">
 				<canvas id="machineSetCountLineGraph"></canvas>
 			</div>
 
 
-	<!-- 	マシーングラフ（丸） -->
+			<!-- 	マシーングラフ（丸） -->
 			<div class="area">
 				<canvas id="machineSetCountPieGraph"></canvas>
 			</div>
 		</th:block>
 
 
-	<!-- カレンダー -->
+		<!-- カレンダー -->
 		<div class="pictureDate"></div>
 		<form action="show" th:object="${calendar}">
 			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
 			<input type="submit" value="カレンダーの詳細を見る" />
 		</form>
 
-	<!-- 画像一覧 -->
+		<!-- 画像一覧 -->
 		<h3>All View</h3>
 
 		<th:block th:each="image : ${imgList}">
@@ -204,7 +192,7 @@ a {
 			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
 		</th:block>
 
-	<!-- ページネーション、ページャー -->
+		<!-- ページネーション、ページャー -->
 		<div th:if="${totalPage >= 2}">
 			<ul>
 				<!-- 前のページリンク -->
@@ -228,7 +216,7 @@ a {
 		</div>
 
 
-	<!-- 画像比較 -->
+		<!-- 画像比較 -->
 		<h3>Comparison</h3>
 
 		<div>
