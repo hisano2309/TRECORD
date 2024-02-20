@@ -20,7 +20,7 @@ public interface ImageMapper {
 	Long count();
 
 	// 分割データ
-	List<Image> selectLimited(@Param("offset") int offset, @Param("limit") int limit);
+	List<Image> selectLimited(@Param("offset") int offset, @Param("limit") int limit, @Param("id") int id);
 
 	// 画像の個別取得
 	// Image getImageById(Map<String, Object> param);
@@ -44,8 +44,8 @@ public interface ImageMapper {
 	Image getImageById(Integer id);
 
 	// 一番古い日付でuploadした画像を取得
-	Image getOldestImage();
+	Image getOldestImage(int id);
 
 	// 一番新しい日付でuploadした画像を取得
-	Image getNewestImage();
+	Image getNewestImage(int id);
 }

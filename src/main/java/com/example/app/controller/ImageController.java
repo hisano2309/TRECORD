@@ -37,12 +37,13 @@ public class ImageController {
 	public String list(@RequestParam(name = "page", defaultValue = "1") Integer page, Model model,
 			HttpSession session) {
 		User user = (User) session.getAttribute("user");
+		
+		//System.out.println("mypage->"+user);
 		List<Image> imgList = mapper.getImageByUserId(user.getUserId());
-		System.out.println(imgList);
 		// ページング追加のため以下の記述をコメントアウト
 		// model.addAttribute("imgList", imgList);
 		int offset = NUM_PER_PAGE * (page - 1);
-		model.addAttribute("imgList", mapper.selectLimited(offset, NUM_PER_PAGE));
+		model.addAttribute("imgList", mapper.selectLimited(offset, NUM_PER_PAGE, user.getUserId()));
 
 		// 現在のページを更新
 		model.addAttribute("page", page);
@@ -56,22 +57,24 @@ public class ImageController {
 		model.addAttribute("totalPage", totalPage);
 
 		// 一番古い日付でuploadした画像を取得
-		Image oldestImage = mapper.getOldestImage();
+		Image oldestImage = mapper.getOldestImage(user.getUserId());
 		model.addAttribute("oldestImage", oldestImage);
 
 		// 一番新しい日付でuploadした画像を取得
-		Image newestImage = mapper.getNewestImage();
+		Image newestImage = mapper.getNewestImage(user.getUserId());
 		model.addAttribute("newestImage", newestImage);
+		
+		System.out.println("old->"+oldestImage);
+		System.out.println("new->"+newestImage);
 
 		return "mypage";
 	}
+	
 
 	// 画像の個別取得
-	// "/show/{date}"→アルバムからshow、"/show"→カレンダーからshow
-	@GetMapping({"/show/{date}", "/show"})
-	public String show(@PathVariable(required = false) String date, // アルバムをクリックdate
-			@RequestParam(name = "date2", required = false) String date2, // カレンダーのパスから引っ張ってくるdate
-			HttpSession session, Model model) {
+	@GetMapping({ "/show/{date}", "/show" })
+	public String show(@PathVariable(required = false) String date,
+			@RequestParam(name = "date2", required = false) String date2, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("user");
 		// Mapを作成してパラメータをセットする
 //		Map<String, Object> param = new HashMap<>();
@@ -80,19 +83,19 @@ public class ImageController {
 //		// Mapを引数にしてメソッドを呼び出す
 //		Image image = mapper.getImageById(param);
 //      個別でデータをとる記述
-		List<Image> image  = null;
-		if(date != null) {
-			// "/show/{date}"→アルバムからshow
+		List<Image> image = null;
+		if (date != null) {
 			image = mapper.getImageByDate(user.getUserId(), date);
-		}else {
-			// "/show"→カレンダーからshow
-			image = mapper.getImageByDate
-					(user.getUserId(), date2);
+		} else {
+			image = mapper.getImageByDate(user.getUserId(), date2);
+
 		}
+
 		System.out.println(image);
 		model.addAttribute("imageList", image);
 		return "show";
 	}
+	
 
 	// 削除
 	@GetMapping("/delete/{id}")
@@ -100,6 +103,7 @@ public class ImageController {
 		mapper.delete(id);
 		return "redirect:/mypage";
 	}
+	
 
 	// 記録ページ
 	@GetMapping("/record")
@@ -109,7 +113,7 @@ public class ImageController {
 		System.out.println("record->" + user);
 		return "record";
 	}
-
+	
 	// 新規登録
 	@PostMapping("/record")
 	public String add(@RequestParam MultipartFile upload, @RequestParam String memo, Model model, HttpSession session)
@@ -145,6 +149,7 @@ public class ImageController {
 //		return "recordDone";
 		return "redirect:/mypage";
 	}
+	
 
 //	トレーニング内容個別編集
 	@GetMapping("/edit/{id}")
