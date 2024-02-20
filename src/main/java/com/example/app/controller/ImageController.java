@@ -1,4 +1,4 @@
-/* package com.example.app.controller;
+package com.example.app.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +32,9 @@ public class ImageController {
 	// 1ページあたりの表示件数
 	private static final int NUM_PER_PAGE = 6;
 
+	
+//2024-02-20 ◆変更◆開始
+	
 	// ユーザーの画像一覧取得
 	@GetMapping("/mypage")
 	public String list(@RequestParam(name = "page", defaultValue = "1") Integer page, Model model,
@@ -69,6 +72,8 @@ public class ImageController {
 
 		return "mypage";
 	}
+	
+//2024-02-20 ◆変更◆終了
 	
 
 	// 画像の個別取得
@@ -181,4 +186,3 @@ public class ImageController {
 	}
 
 }
-*/
