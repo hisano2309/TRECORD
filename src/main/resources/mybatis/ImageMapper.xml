@@ -53,13 +53,16 @@
 	</select>
 	<!-- ページ分割 -->
 	<select id="selectLimited" resultType="Image">
-		SELECT * FROM image LIMIT
-		#{offset}, #{limit}
+		SELECT * FROM image 
+		WHERE user_id = #{id}
+		LIMIT
+		#{offset}, #{limit} 
 	</select>
 	
 	<!-- 一番古い日付でuploadした画像を取得 -->
 	<select id="getOldestImage" resultType="Image">
 		SELECT * FROM image
+		WHERE user_id = #{id}
 		ORDER BY date ASC
 		LIMIT 1
 	</select>
@@ -67,6 +70,7 @@
 	<!-- 一番新しい日付でuploadした画像を取得 -->
 	<select id="getNewestImage" resultType="Image">
 		SELECT * FROM image
+		WHERE user_id = #{id}
 		ORDER BY date DESC
 		LIMIT 1
 	</select>
