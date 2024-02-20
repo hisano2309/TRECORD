@@ -103,15 +103,15 @@ a {
 			
 		
 		<h3>Comparison</h3>
-		
-		<div>
+		<div th:if="${imgList.size > 0}">
+			<p>写真が登録されていません</p>
     		<!-- 一番古い日付でuploadした画像を表示 -->
     		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
     		<p>Before</p>
     		<!-- 一番新しい日付でuploadした画像を表示 -->
     		<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}" alt="New Body" >
     		<p>New Body</p>
-  		</div>
+  		</div>	 
 			
 	</main>
 	<footer>
