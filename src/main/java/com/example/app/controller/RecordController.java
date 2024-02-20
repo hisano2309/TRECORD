@@ -56,7 +56,7 @@ public class RecordController {
 		// ページング追加のため以下の記述をコメントアウト
 		// model.addAttribute("imgList", imgList);
 		int offset = NUM_PER_PAGE * (page - 1);
-		model.addAttribute("imgList", mapper.selectLimited(offset, NUM_PER_PAGE));
+		model.addAttribute("imgList", mapper.selectLimited(offset, NUM_PER_PAGE, user.getUserId()));
 
 		// 現在のページを更新
 		model.addAttribute("page", page);
@@ -70,11 +70,11 @@ public class RecordController {
 		model.addAttribute("totalPage", totalPage);
 
 		// 一番古い日付でuploadした画像を取得
-		Image oldestImage = mapper.getOldestImage();
+		Image oldestImage = mapper.getOldestImage(user.getUserId());
 		model.addAttribute("oldestImage", oldestImage);
 
 		// 一番新しい日付でuploadした画像を取得
-		Image newestImage = mapper.getNewestImage();
+		Image newestImage = mapper.getNewestImage(user.getUserId());
 		model.addAttribute("newestImage", newestImage);
 		
 		
