@@ -194,8 +194,8 @@ public class RecordController {
 //		User user = (User) session.getAttribute("user");
 //
 //	// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		WeightBmi dammy = new WeightBmi();
-//		dammy.setUserId(3);
+////		WeightBmi dammy = new WeightBmi();
+////		dammy.setUserId(3);
 //
 //	// 画像の個別取得
 //      // 個別でデータをとる記述
@@ -205,14 +205,14 @@ public class RecordController {
 //
 //		// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //		//	image = mapper.getImageByDate(user.getUserId(), pictureDate);
-//			image = mapper.getImageByDate(dammy.getUserId(), pictureDate);
+//			image = mapper.getImageByDate(user.getUserId(), pictureDate);
 //
 //		}else {
 //	// カレンダーからshow("/show")
 //		// 画像
 //		// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //		//	image = mapper.getImageByDate(user.getUserId(), calendarDate);
-//			image = mapper.getImageByDate(dammy.getUserId(), calendarDate);
+//			image = mapper.getImageByDate(user.getUserId(), calendarDate);
 //
 //		//カレンダーから特定の日の筋トレ記録を取得
 //			// トレーニング記録
@@ -220,7 +220,7 @@ public class RecordController {
 //			LocalDate convertToLocalDate = machineSetCountService.convertToLocalDate(calendarDate, "yyyy-MM-dd");
 //		// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //		//	List<MachineSetCount> getDayData = machineSetCountService.getMachineSetCountDay(convertToLocalDate, user.getUserId());
-//			List<MachineSetCount> getDayData = machineSetCountService.getMachineSetCountDay(convertToLocalDate, dammy.getUserId());
+//			List<MachineSetCount> getDayData = machineSetCountService.getMachineSetCountDay(convertToLocalDate, user.getUserId());
 //			machineSetCount.setDate(convertToLocalDate);
 //
 //			System.out.println("getDayData：" + getDayData);
@@ -270,7 +270,7 @@ public class RecordController {
 		
 	//画像
 		if (upload.isEmpty()) {
-			model.addAttribute("msg", "画像が選択されていません");
+			model.addAttribute("msg", "画像が選択してください");
 			return "record";
 
 		} else {
