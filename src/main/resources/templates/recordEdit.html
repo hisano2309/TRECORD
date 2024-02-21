@@ -15,13 +15,17 @@
 			<p>
 				今日の一言： <input type="text" th:field="*{memo}" />
 			</p>
-			<input type="submit"
-				value="upload" />
+			<input type="submit" value="upload" id="completion" />
 	
 		</form>
 	
 		<p>
 			<a th:href="@{/mypage}">My Pageへ</a>
 		</p>
+		
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script th:src="@{/js/alert.js}"></script>
+	
 </body>
 </html>

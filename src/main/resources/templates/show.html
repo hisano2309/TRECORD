@@ -42,7 +42,7 @@ img {
 		<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
 		<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
 		<p><a th:href="@{/edit/{id}(id=${image.imgId})}">写真編集</a></p>
-		<p><a th:href="@{/delete/{id}(id=${image.imgId})}">写真削除</a></p>
+		<p id="remove"><a th:href="@{/delete/{id}(id=${image.imgId})}">写真削除</a></p>
 	</th:block>
 	
 	
@@ -58,11 +58,15 @@ img {
 			</table>
 	</th:block>	
 	
-	
+	<p><a th:href="@{/mypage}">My Pageへ</a></p>
 	
 	</main>
   <footer>
 		<small>Copyright 2024 TRECORD</small>
 	</footer>
+	
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script th:src="@{/js/alert.js}"></script>
 </body>
 </html>
