@@ -1,6 +1,6 @@
 package com.example.app.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -18,6 +18,6 @@ public class Image {
 	//@Size(max=300)
 	private String memo;
 	
-	private Date date;
+	private LocalDate date;
 
 }

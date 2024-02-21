@@ -299,7 +299,7 @@ public class RecordController {
 			HttpSession session) throws IllegalStateException, IOException, Exception{
 		
 		User user = (User) session.getAttribute("user");
-		
+		System.out.println("weightBmi.getDate()->"+weightBmi.getDate());
 		
 	//画像
 		if (upload.isEmpty()) {
@@ -322,6 +322,8 @@ public class RecordController {
 			image.setUserId(user.getUserId());
 			image.setImgName(imgName);
 			image.setMemo(memo);
+			
+			image.setDate(weightBmi.getDate());
 			upload.transferTo(dest);// フォルダに保存
 			mapper.add(image);// DBに保存
 
