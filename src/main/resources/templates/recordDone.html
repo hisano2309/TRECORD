@@ -3,11 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <title>登録完了</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/reset.css}">
 </head>
 <body>
-	<h1>登録完了</h1>
-
+	<header>
+		<div class="inner">
+			<h1>
+				<a th:href="@{/ }" class="logo"><img
+					th:src="@{/images/ttl_logo.png}"></a>
+			</h1>
+			<nav class="navigation">
+				<ul role='list'>
+					<li><a th:href="@{/mypage}">マイページ</a></li>
+					<li><a th:href="@{/user/logout}">ログアウト</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<h2>
+			<span class="font-en">Well Dane!</span><br>登録完了
+		</h2>
 	<p><a th:href="@{/record}">もう一度登録する</a></p>
-	<p><a th:href="@{/mypage}">マイページへ</a></p>
+	<p class="back_btn"><a th:href="@{/mypage}">戻る</a></p>
+	</main>
+<footer>
+		<small>Copyright 2024 TRECORD</small>
+	</footer>
 </body>
 </html>
