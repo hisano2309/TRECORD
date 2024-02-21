@@ -3,46 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>My Page</title>
-<link
-	href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap"
-	rel="stylesheet" />
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap" />
 <!-- カレンダー機能リンク -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
 <link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/reset.css}">
-<link rel="stylesheet" href="css/common.css" />
-<style>
-img {
-	width: 25%;
-}
-
-ul {
-	width: 70%;
-	display: flex;
-	list-style: none;
-}
-
-a {
-	display: block;
-	text-decoration: none;
-}
-
-/* リンク無効 */
-.noevent {
-	pointer-events: none;
-}
-</style>
-
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
 </head>
 <body>
 	<header>
 		<div class="inner">
 			<h1>
-				<a th:href="@{/ }" class="logo"><img
-					th:src="@{/images/ttl_logo.png}"></a>
+				<a th:href="@{/}" class="logo"><img th:src="@{/images/ttl_logo.png}"></a>
 			</h1>
 			<nav class="navigation">
 				<ul role='list'>
@@ -52,187 +24,188 @@ a {
 		</div>
 	</header>
 	<main>
-		<h2>
-			<span class="font-en">MY PAGE</span><br>マイページ
-		</h2>
+        <div class="inner">
+    		<h2>
+    			<span class="font-en">MY PAGE</span><br>マイページ
+    		</h2>
+    
+    		<!-- ログインIDとアイコンを表示 -->
+    		<div class="info">
+                <div class="user">
+                    <div class="user_icon">
+              			<img th:if="${session.user.fileName != null}" th:src="@{/uploads/{name}(name=${session.user.fileName})}" alt="" />
+              			<img th:if="${session.user.fileName == null}" th:src="@{/images/macho_cat.png}" alt="Default Image" />
+                    </div>
+          			<p><span class="user_name" th:text="${session.user.loginId}"></span>さん</p>
+                </div>
+        		<a class="setting" th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
+    		</div>
+    
+    		<!-- 記録する		 -->
+    		<h2>
+    			<span class="font-en">RECORD</span><br>記録をする
+    		</h2>
+    
+    		<div class="support-menu">
+    			<a th:href="@{/gacha(gachaType='count')}"
+    				class="support-menu_btn count">
+    				<p>
+    					<span>回数</span><br>ガチャを回す
+    				</p>
+    			</a> <a th:href="@{/gacha(gachaType='weight')}"
+    				class="support-menu_btn weight">
+    				<p>
+    					<span>重量</span><br>ガチャを回す
+    				</p>
+    			</a>
+    		</div>
+    		<div class="support-menu">
+    			<a th:href="@{/bodyCondition}" class="support-menu_btn">
+    				<p>
+    					<span>カラダ</span><br>を記録
+    				</p>
+    			</a> <a th:href="@{/record}" class="support-menu_btn">
+    				<p>
+    					<span>トレーニング</span><br>を記録
+    				</p>
+    			</a>
+    		</div>
+    		<!-- 記録を表示 -->
+    		<h2>
+    			<span class="font-en">CHECK</span><br>記録を見る
+    		</h2>
+    
+    		<!-- 	表グラフ -->
+    		<p>体重表示</p>
+    		<!-- 	体重・BMI表示 -->
+    		<th:block th:if="${weightCheckIdOver1 == null}">
+    			<p>記録はまだありません。</p>
+    		</th:block>
+    
+    		<th:block th:if="${weightCheckIdOver1 != null}"
+    			th:object="${weightBmi}">
+    			<table border="1">
+    				<tr>
+    					<th>日付</th>
+    					<td>[[*{date}]]</td>
+    				</tr>
+    				<tr>
+    					<th>体重</th>
+    					<td>[[*{userWeight}]]</td>
+    				</tr>
+    				<tr>
+    					<th>BMI</th>
+    					<td>[[*{bmi}]]</td>
+    				</tr>
+    				<tr>
+    					<th>適正体重</th>
+    					<td>[[*{healthyWeight}]]</td>
+    				</tr>
+    			</table>
+    		</th:block>
+    
+    
+    
+    
+    
+    		<!-- 	体重グラフ -->
+    		<th:block th:if="${weightCheckIdOver2 == null}">
+    			<p>記録数が2日以上でグラフ表示します。</p>
+    		</th:block>
+    		<th:block th:if="${weightCheckIdOver2 != null}"
+    			th:object="${weightBmi}">
+    			<div class="area">
+    				<canvas id="weightBmiChart"></canvas>
+    			</div>
+    		</th:block>
+    
+    		<p>前回のトレーニング記録</p>
+    		<th:block th:if="${machineSetCountCheckIdOver1 == null}">
+    			<p>記録はまだありません。</p>
+    		</th:block>
+    		<th:block th:if="${machineSetCountCheckIdOver1 != null}">
+    			<table border="1">
+    				<tr th:each="machineSetCount : ${beforeCount}">
+    					<th:block th:if="${machineSetCount != null}">
+    						<th>[[${machineSetCount.machineName}]]</th>
+    						<td>[[${machineSetCount.machineWeight}]]kg</td>
+    						<td>[[${machineSetCount.machineCount}]]回</td>
+    						<td>[[${machineSetCount.sets}]]セット</td>
+    					</th:block>
+    				</tr>
+    			</table>
+    		</th:block>
+    
+    		<th:block th:if="${machineSetCountCheckIdOver2 != null}">
+    			<!-- 	マシーングラフ（線） -->
+    			<div class="area">
+    				<canvas id="machineSetCountLineGraph"></canvas>
+    			</div>
+    
+    
+    			<!-- 	マシーングラフ（丸） -->
+    			<div class="area">
+    				<canvas id="machineSetCountPieGraph"></canvas>
+    			</div>
+    		</th:block>
+    
+    
+    		<!-- カレンダー -->
+    		<div class="pictureDate"></div>
+    		<form action="show" th:object="${calendar}">
+    			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
+    			<input type="submit" value="カレンダーの詳細を見る" />
+    		</form>
+    
+    		<!-- 画像一覧 -->
+    		<h3>All View</h3>
+    
+    		<th:block th:each="image : ${imgList}">
+    			<a
+    				th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">
+    				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+    			</a>
+    			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+    		</th:block>
+    
+    		<!-- ページネーション、ページャー -->
+    		<div th:if="${totalPage >= 2}">
+    			<ul>
+    				<!-- 前のページリンク -->
+    				<th:block th:switch="${page}">
+    					<li th:case="1"><a href="" class="noevent">Prev</a></li>
+    					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
+    				</th:block>
+    				<!-- ページ番号 -->
+    				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
+    					<th:block th:switch="${index}">
+    						<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
+    						<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
+    					</th:block>
+    				</th:block>
+    				<!-- 次のページリンク -->
+    				<th:block th:switch="${page}">
+    					<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
+    					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
+    				</th:block>
+    			</ul>
+    		</div>
+    
+    
+    		<!-- 画像比較 -->
+    		<h3>Comparison</h3>
+    
+    		<div th:if="${imgList.size > 0}">
+    			<p>写真が登録されていません</p>
+        		<!-- 一番古い日付でuploadした画像を表示 -->
+        		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
+        		<p>Before</p>
+        		<!-- 一番新しい日付でuploadした画像を表示 -->
+        		<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}" alt="New Body" >
+        		<p>New Body</p>
+      		</div>	 
 
-		<!-- ログインIDとアイコンを表示 -->
-		<div class="icon" style="display: flex; align-items: center;">
-			<img th:if="${session.user.fileName != null}"
-				th:src="@{/uploads/{name}(name=${session.user.fileName})}" alt="" />
-			<img th:if="${session.user.fileName == null}"
-				th:src="@{/images/macho_cat.png}" alt="Default Image" />
-			<p th:text="${session.user.loginId + 'さん'}"></p>
-		</div>
-
-		<a th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
-		</th:block>
-
-		<!-- 記録する		 -->
-		<h2>
-			<span class="font-en">RECORD</span><br>記録をする
-		</h2>
-
-		<div class="support-menu">
-			<a th:href="@{/gacha(gachaType='count')}"
-				class="support-menu_btn count">
-				<p>
-					<span>回数</span><br>ガチャを回す
-				</p>
-			</a> <a th:href="@{/gacha(gachaType='weight')}"
-				class="support-menu_btn weight">
-				<p>
-					<span>重量</span><br>ガチャを回す
-				</p>
-			</a>
-		</div>
-		<div class="support-menu">
-			<a th:href="@{/bodyCondition}" class="support-menu_btn">
-				<p>
-					<span>カラダ</span><br>を記録
-				</p>
-			</a> <a th:href="@{/record}" class="support-menu_btn">
-				<p>
-					<span>トレーニング</span><br>を記録
-				</p>
-			</a>
-		</div>
-		<!-- 記録を表示 -->
-		<h2>
-			<span class="font-en">CHECK</span><br>記録を見る
-		</h2>
-
-		<!-- 	表グラフ -->
-		<p>体重表示</p>
-		<!-- 	体重・BMI表示 -->
-		<th:block th:if="${weightCheckIdOver1 == null}">
-			<p>記録はまだありません。</p>
-		</th:block>
-
-		<th:block th:if="${weightCheckIdOver1 != null}"
-			th:object="${weightBmi}">
-			<table border="1">
-				<tr>
-					<th>日付</th>
-					<td>[[*{date}]]</td>
-				</tr>
-				<tr>
-					<th>体重</th>
-					<td>[[*{userWeight}]]</td>
-				</tr>
-				<tr>
-					<th>BMI</th>
-					<td>[[*{bmi}]]</td>
-				</tr>
-				<tr>
-					<th>適正体重</th>
-					<td>[[*{healthyWeight}]]</td>
-				</tr>
-			</table>
-		</th:block>
-
-
-
-
-
-		<!-- 	体重グラフ -->
-		<th:block th:if="${weightCheckIdOver2 == null}">
-			<p>記録数が2日以上でグラフ表示します。</p>
-		</th:block>
-		<th:block th:if="${weightCheckIdOver2 != null}"
-			th:object="${weightBmi}">
-			<div class="area">
-				<canvas id="weightBmiChart"></canvas>
-			</div>
-		</th:block>
-
-		<p>前回のトレーニング記録</p>
-		<th:block th:if="${machineSetCountCheckIdOver1 == null}">
-			<p>記録はまだありません。</p>
-		</th:block>
-		<th:block th:if="${machineSetCountCheckIdOver1 != null}">
-			<table border="1">
-				<tr th:each="machineSetCount : ${beforeCount}">
-					<th:block th:if="${machineSetCount != null}">
-						<th>[[${machineSetCount.machineName}]]</th>
-						<td>[[${machineSetCount.machineWeight}]]kg</td>
-						<td>[[${machineSetCount.machineCount}]]回</td>
-						<td>[[${machineSetCount.sets}]]セット</td>
-					</th:block>
-				</tr>
-			</table>
-		</th:block>
-
-		<th:block th:if="${machineSetCountCheckIdOver2 != null}">
-			<!-- 	マシーングラフ（線） -->
-			<div class="area">
-				<canvas id="machineSetCountLineGraph"></canvas>
-			</div>
-
-
-			<!-- 	マシーングラフ（丸） -->
-			<div class="area">
-				<canvas id="machineSetCountPieGraph"></canvas>
-			</div>
-		</th:block>
-
-
-		<!-- カレンダー -->
-		<div class="pictureDate"></div>
-		<form action="show" th:object="${calendar}">
-			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
-			<input type="submit" value="カレンダーの詳細を見る" />
-		</form>
-
-		<!-- 画像一覧 -->
-		<h3>All View</h3>
-
-		<th:block th:each="image : ${imgList}">
-			<a
-				th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">
-				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-			</a>
-			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
-		</th:block>
-
-		<!-- ページネーション、ページャー -->
-		<div th:if="${totalPage >= 2}">
-			<ul>
-				<!-- 前のページリンク -->
-				<th:block th:switch="${page}">
-					<li th:case="1"><a href="" class="noevent">Prev</a></li>
-					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
-				</th:block>
-				<!-- ページ番号 -->
-				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
-					<th:block th:switch="${index}">
-						<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
-						<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
-					</th:block>
-				</th:block>
-				<!-- 次のページリンク -->
-				<th:block th:switch="${page}">
-					<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
-					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
-				</th:block>
-			</ul>
-		</div>
-
-
-		<!-- 画像比較 -->
-		<h3>Comparison</h3>
-
-		<div th:if="${imgList.size > 0}">
-			<p>写真が登録されていません</p>
-    		<!-- 一番古い日付でuploadした画像を表示 -->
-    		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
-    		<p>Before</p>
-    		<!-- 一番新しい日付でuploadした画像を表示 -->
-    		<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}" alt="New Body" >
-    		<p>New Body</p>
-  		</div>	 
-
-
+        </div>
 	</main>
 	<footer>
 		<small>Copyright 2024 TRECORD</small>
