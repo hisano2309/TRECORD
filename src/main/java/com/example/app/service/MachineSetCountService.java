@@ -1,6 +1,6 @@
 package com.example.app.service;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import com.example.app.domain.Count;
@@ -27,7 +27,7 @@ public interface MachineSetCountService {
 	List<Machine> getSelectMachine() throws Exception;
 
 	//カレンダーから特定の日の筋トレ記録表示
-	List<MachineSetCount> getMachineSetCountDay(LocalDate day, int userId) throws Exception;
+	List<MachineSetCount> getMachineSetCountDay(String day, int userId) throws Exception;
 
 	//マシン数をカウント
 	int getCountMachine() throws Exception;
@@ -42,7 +42,7 @@ public interface MachineSetCountService {
 	MachineSetCount getSelectBefore(int userId, Integer machineId) throws Exception;
 
 // 文字列からLocalDate型に変換
-	LocalDate convertToLocalDate(String date, String format) throws Exception;
+	Date convertToLocalDate(String date) throws Exception;
 
 
 
