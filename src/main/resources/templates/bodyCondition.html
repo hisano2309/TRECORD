@@ -36,11 +36,18 @@
 				</p>
 		</th:block>
 		
-		<p><input type="submit" th:value="記録する" /></p>
+		<p><input type="submit" th:value="記録する" id="completion" /></p>
 	</form>
+	
+	<p><a th:href="@{/mypage}">My Pageへ</a></p>
 	
 	<footer>
 		<small>Copyright 2024 TRECORD</small>
 	</footer>
+	
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script th:src="@{/js/alert.js}"></script>
+	
 </body>
 </html>
