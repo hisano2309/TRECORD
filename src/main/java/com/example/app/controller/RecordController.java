@@ -258,6 +258,13 @@ public class RecordController {
 		return "redirect:/mypage";
 
 	}
+	
+	// 削除
+	@GetMapping("/delete/{id}")
+	public String delete(@PathVariable Integer id) {
+		mapper.delete(id);
+		return "redirect:/mypage";
+	}
 
 
 // 【ボディコンディションを登録】
