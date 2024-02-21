@@ -45,9 +45,11 @@ header .navigation {
 header .navigation ul {
   display: flex;
   justify-content: flex-end;
+  margin-right: 0;
+  width: 100%;
 }
 header .navigation ul li {
-  margin-right: 20px;
+  margin-left: 20px;
   width: 160px;
   text-align: center;
 }
