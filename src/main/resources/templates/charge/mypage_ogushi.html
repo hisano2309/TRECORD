@@ -70,12 +70,17 @@ a {
 	
 	
 		<h3>All View</h3>
-		
+	<!-- 2024-02-20 ◆変更◆開始 -->
 		<th:block th:each="image : ${imgList}">
-			<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> 
+			<a th:href="@{/show/{date}(date=${#temporals.format(image.date,'yyyy-MM-dd')})}">
+    			<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+    		</a>
+    		<p th:text="${#temporals.format(image.date,'yyyy年MM月dd日')}"></p>
+    <!-- 2024-02-20 ◆変更◆終了 -->
+		<!-- <a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}"> 
 				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
 			</a>
-			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p> -->
 	     </th:block>
 	
 			<!-- ページネーション、ページャー -->
@@ -104,9 +109,9 @@ a {
 		
 		<h3>Comparison</h3>
 		
-<!-- 2024-02-20 ◆変更◆開始 -->
+
 		<div th:if="${imgList.size > 0}">
-			<p>写真が登録されていません</p>
+	<!-- 2024/2/21 ◆変更◆ ここにある「写真が登録されていません」を削除してください -->
     		<!-- 一番古い日付でuploadした画像を表示 -->
     		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
     		<p>Before</p>

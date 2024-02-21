@@ -7,7 +7,9 @@
 <body>
 <th:block th:each="image : ${imageList}">
 	<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-	<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+	<!-- 2024-02-21 ◆変更①◆開始 -->
+	<p th:text="${#temporals.format(image.date,'yyyy年MM月dd日')}"></p>
+	<!-- 2024-02-21 ◆変更①◆終了 -->
 <br />
 	<a th:href="@{/edit/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">編集</a>
 	<a th:href="@{/delete/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">削除</a>

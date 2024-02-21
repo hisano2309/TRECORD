@@ -23,7 +23,7 @@
 		INSERT INTO image
 		VALUES(NULL,
 		#{userId}, #{imgName},
-		#{memo}, now())
+		#{memo}, #{date})
 	</insert>
 
 	<!-- 削除 -->
