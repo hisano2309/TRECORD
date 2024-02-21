@@ -78,6 +78,7 @@
     		<th:block th:if="${weightCheckIdOver1 == null && weightCheckIdOver2 == null && imgList.size <= 0}">
 	    		<p>記録はありません。</p>
     		</th:block>
+    		
     
     		<!-- 	表グラフ -->
     		<!-- 	体重・BMI表示 -->
@@ -140,7 +141,7 @@
     			</table>
     		</th:block>
     
-    		<th:block th:if="${machineSetCountCheckIdOver2 != null}">
+    		<th:block th:if="${machineSetCountCheckIdOver1 != null}">
     			<!-- 	マシーングラフ（線） -->
     			<div class="area">
     				<canvas id="machineSetCountLineGraph"></canvas>
@@ -155,14 +156,15 @@
     
     
     		<!-- カレンダー -->
-    		<div th:if="${imgList.size > 0}">
-	    		<div class="pictureDate"></div>
-	    		<form action="show" th:object="${calendar}">
-	    			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
-	    			<input type="submit" value="カレンダーの詳細を見る" />
-	    		</form>
-    		</th:block>
+    		<div class="pictureDate"></div>
+    		<form action="show" th:object="${calendar}">
+    			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
+    			<p><small>※日付をクリックしてからボタンを押してください</small></p>
+    			<input type="submit" value="カレンダーの詳細を見る" />
+    		</form>
+    	
     		
+    	<div th:if="${imgList.size > 0}">
     		<!-- 画像一覧 -->
     		<h3>All View</h3>
     
