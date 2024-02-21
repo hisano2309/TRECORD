@@ -38,11 +38,11 @@ img {
 		</h2>
 	
 <!-- 	画像表示 -->
-<th:block th:each="image : ${imageList}">
-	<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
-	<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-	<p><a th:href="@{/edit/{id}(id=${image.imgId})}">アルバム編集</a></p>
-<!-- 	<p><a th:href="@{/delete/{id}(id=${image.imgId})}">削除</a></p> -->
+	<th:block th:each="image : ${imageList}">
+		<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+		<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+		<p><a th:href="@{/edit/{id}(id=${image.imgId})}">写真編集</a></p>
+		<p><a th:href="@{/delete/{id}(id=${image.imgId})}">写真削除</a></p>
 	</th:block>
 	
 	
