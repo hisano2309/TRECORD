@@ -1,7 +1,7 @@
 package com.example.app.service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -42,7 +42,7 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 	}
 
 	@Override
-	public List<MachineSetCount> getMachineSetCountDay(LocalDate day, int userId) throws Exception {
+	public List<MachineSetCount> getMachineSetCountDay(String day, int userId) throws Exception {
 		return machineMapper.selectDay(day, userId);
 	}
 
@@ -69,8 +69,10 @@ public class MachineSetCountServiceImpl implements MachineSetCountService{
 	}
 
 	@Override
-	public LocalDate convertToLocalDate(String date, String format) throws Exception {
-		return LocalDate.parse(date, DateTimeFormatter.ofPattern(format));
+	public Date convertToLocalDate(String date) throws Exception {
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		
+		return  fmt.parse(date);
 	}
 
 

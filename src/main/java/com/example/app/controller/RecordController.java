@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -183,55 +184,80 @@ public class RecordController {
 
 
 //// 【トレーニング記録詳細ページ】
-//	// "/show/{date}"→アルバムからshow、"/show"→カレンダーからshow
-//	@GetMapping({"/show/{pictureDate}", "/show"})
-//	public String showDay(
-//			@PathVariable(required = false) String pictureDate, // アルバムをクリックdate
-//			@RequestParam(name = "date2", required = false) String calendarDate, // カレンダーのパスから引っ張ってくるdate
-//			HttpSession session,
-//			Model model) throws Exception {
-//
-//		User user = (User) session.getAttribute("user");
-//
-//	// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-////		WeightBmi dammy = new WeightBmi();
-////		dammy.setUserId(3);
-//
-//	// 画像の個別取得
-//      // 個別でデータをとる記述
-//		List<Image> image  = null;
-//		if(pictureDate != null) {
-//	// アルバムからshow("/show/{pictureDate}")
-//
-//		// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		//	image = mapper.getImageByDate(user.getUserId(), pictureDate);
-//			image = mapper.getImageByDate(user.getUserId(), pictureDate);
-//
-//		}else {
-//	// カレンダーからshow("/show")
-//		// 画像
-//		// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		//	image = mapper.getImageByDate(user.getUserId(), calendarDate);
-//			image = mapper.getImageByDate(user.getUserId(), calendarDate);
-//
-//		//カレンダーから特定の日の筋トレ記録を取得
-//			// トレーニング記録
+	// "/show/{date}"→アルバムからshow、"/show"→カレンダーからshow
+	@GetMapping({"/show/{pictureDate}", "/show"})
+	public String showDay(
+			@PathVariable(required = false) String pictureDate, // アルバムをクリックdate
+			@RequestParam(name = "calendarDate", required = false) String calendarDate, // カレンダーのパスから引っ張ってくるdate
+			HttpSession session,
+			Model model) throws Exception {
+
+		User user = (User) session.getAttribute("user");
+
+	// 画像・記録情報の個別取得
+      // 個別でデータをとる記述
+		List<Image> image  = null;
+		
+		if(pictureDate != null) {
+	// アルバムからshow("/show/{pictureDate}")
+			
+			image = mapper.getImageByDate(user.getUserId(), pictureDate);
+		}else {
+	// カレンダーからshow("/show")
+			System.out.println("1");
+		// 画像
+			image = mapper.getImageByDate(user.getUserId(), calendarDate);
+			System.out.println("2"+image);
+		//カレンダーから特定の日の筋トレ記録を取得
+			// トレーニング記録
 //			MachineSetCount machineSetCount = new MachineSetCount();
-//			LocalDate convertToLocalDate = machineSetCountService.convertToLocalDate(calendarDate, "yyyy-MM-dd");
-//		// !!!!!!!!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		//	List<MachineSetCount> getDayData = machineSetCountService.getMachineSetCountDay(convertToLocalDate, user.getUserId());
-//			List<MachineSetCount> getDayData = machineSetCountService.getMachineSetCountDay(convertToLocalDate, user.getUserId());
-//			machineSetCount.setDate(convertToLocalDate);
-//
-//			System.out.println("getDayData：" + getDayData);
-//			model.addAttribute("machineSetCount", getDayData);
-//		}
-//
-//		System.out.println(image);
-//		model.addAttribute("imageList", image);
-//
-//		return "show";
-//	}
+//			System.out.println("3" + calendarDate);
+//			Date convertToDate = machineSetCountService.convertToLocalDate(calendarDate);
+//			System.out.println("4convertToLocalDate" + convertToDate);
+			
+			// DB検索時はString型とDate型どちらでも良い。返り値はDate型にする必要がある（DBの型とdomainの型はDate）。
+			List<MachineSetCount> getDayData = machineSetCountService.getMachineSetCountDay(calendarDate, user.getUserId());
+//			machineSetCount.setDate(convertToDate);
+
+			System.out.println("getDayData：" + getDayData);
+			model.addAttribute("machineSetCount", getDayData);
+		}
+
+		System.out.println(image);
+		model.addAttribute("imageList", image);
+
+		return "show";
+	}
+	
+//	トレーニング内容個別編集
+	@GetMapping("/edit/{id}")
+	public String editGet(@PathVariable Integer id, Model model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		Image image = mapper.getImageById(id);
+		model.addAttribute("image", image);
+		return "recordEdit";
+	}
+
+	@PostMapping("/edit/{id}")
+	public String edit(@RequestParam MultipartFile upload, @Valid Image image, Errors errors, HttpSession session,
+			@PathVariable Integer id, Model model) throws IllegalStateException, IOException {
+		if (errors.hasErrors()) {
+			System.out.println("errors");
+			model.addAttribute("image", image);
+			return "recordEdit";
+		}
+		String imgName = upload.getOriginalFilename();
+		User user = (User) session.getAttribute("user");
+		image.setUserId(user.getUserId());
+		image.setImgId(id);
+		image.setImgName(imgName);
+	/////// ★★★格納場所取得(各々のフォルダ名に変更して下さい)★★★ ///////
+		File dest = new File("C:/Users/uploads/" + imgName);
+		upload.transferTo(dest);
+		mapper.edit(image);
+		return "redirect:/mypage";
+
+	}
 
 
 // 【ボディコンディションを登録】
@@ -298,10 +324,6 @@ public class RecordController {
 		
 	// 体重
 		weightBmi.setUserId(user.getUserId());
-		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-//		weightBmi.setUserId(1);
-//		User user = (User) session.getAttribute("user");
-//		weightBmi.setUserId(user.getUserId());
 
 	//BMIを計算
 		//BMI ＝ 体重kg ÷ (身長m)2

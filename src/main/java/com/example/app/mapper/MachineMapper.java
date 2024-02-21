@@ -1,6 +1,5 @@
 package com.example.app.mapper;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -32,7 +31,7 @@ public interface MachineMapper {
 
 	//カレンダーから特定の日の筋トレ記録表示
 	List<MachineSetCount> selectDay(
-			@Param("date") LocalDate date,
+			@Param("date") String date,
 			@Param("userId") int userId) throws Exception;
 	
 	//マシン数をカウント

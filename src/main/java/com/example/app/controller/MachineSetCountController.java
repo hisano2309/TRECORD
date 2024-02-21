@@ -104,14 +104,15 @@ public class MachineSetCountController {
 //!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
 		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-02", LocalDate::from);
 
-		MachineSetCount machineSetCount = new MachineSetCount();
-		machineSetCount.setUserId(1);
-		List<MachineSetCount> getDayData = service.getMachineSetCountDay(date, machineSetCount.getUserId());
-		machineSetCount.setDate(date);
-
-		System.out.println("getDayData：" + getDayData);
-
-		model.addAttribute("machineSetCount", getDayData);
+		//RecordControllerでエラーが発生しないようにコメントアウト
+//		MachineSetCount machineSetCount = new MachineSetCount();
+//		machineSetCount.setUserId(1);
+//		List<MachineSetCount> getDayData = service.getMachineSetCountDay(date, machineSetCount.getUserId());
+//		machineSetCount.setDate(date);
+//
+//		System.out.println("getDayData：" + getDayData);
+//
+//		model.addAttribute("machineSetCount", getDayData);
 
 		return "charge/show_aramaki";
 	}
