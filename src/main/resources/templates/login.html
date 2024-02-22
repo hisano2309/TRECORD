@@ -25,20 +25,17 @@
 			</nav>
 		</div>
 	</header>
-	<th:block th:object="${user}">
-		<p th:errors="*{loginId}"></p>
-		<p th:errors="*{loginPass}"></p>
-	</th:block>
-
 	<main>
 	<div class="inner">
 		<h2><span class="font-en">Login</span><br>ログイン</h2>
 		<form action="" method="post" th:object="${user}">
+			<p th:errors="*{loginId}"></p>
 			<p>
 				<span>ログインID:</span><input type="text" th:field="*{loginId}" />
 			</p>
+			<p th:errors="*{loginPass}"></p>
 			<p>
-				<span>パスワード:</span><input type="text" th:field="*{loginPass}" />
+				<span>パスワード:</span><input type="password" th:field="*{loginPass}" />
 			</p>
 			<p>
 				<input type="submit" value="ログイン" />

@@ -9,11 +9,11 @@ public class User {
 	
 	private Integer userId;
 	
-	@NotBlank
+	@NotBlank(message="必須項目です")
 	private String loginId;
 	
-	@NotBlank
-	@Size(min=6, max=20)
+	@NotBlank(message="必須項目です")
+	@Size(min=6, max=20, message="{min}～{max}文字で入力してください")
 	private String loginPass;
 	private Float userHeight;
 	
