@@ -154,16 +154,15 @@
         		<div th:if="${imgList.size > 0}">
     	    		<!-- 画像一覧 -->
     	    		<h3>All View</h3>
-    	    
-    	    		<th:block th:each="image : ${imgList}">
-    	    			<a
-    	    				th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">
-    	    				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-    	    			</a>
-    	    			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
-    	    		</th:block>
-    	    
-    	    		<!-- ページネーション、ページャー -->
+        
+        		<th:block th:each="image : ${imgList}">
+        			<a th:href="@{/show/{date}(date=${#temporals.format(image.date,'yyyy-MM-dd')})}">
+        				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+        			</a>
+        			<p th:text="${#temporals.format(image.date,'yyyy年MM月dd日')}"></p>
+        		</th:block>
+        
+        		<!-- ページネーション、ページャー -->
     	    		<div th:if="${totalPage >= 2}">
     	    			<ul>
     	    				<!-- 前のページリンク -->
