@@ -69,11 +69,16 @@
         		<h2>
         			<span class="font-en">CHECK</span><br>記録を見る
         		</h2>
-        		<th:block th:if="${weightCheckIdOver1 == null} and ${machineSetCountCheckIdOver1 == null}">
-        			<p>記録はまだありません。</p>
+        		<th:block th:if="${weightCheckIdOver1 == null && weightCheckIdOver2 == null && imgList.size <= 0}">
+    	    		<p>記録はありません。</p>
         		</th:block>
-            
+        		
+        		<!-- 	表グラフ -->
         		<!-- 	体重・BMI表示 -->
+<!--     		<th:block th:if="${weightCheckIdOver1 == null}"> -->
+<!--     			<p>記録はまだありません。</p> -->
+<!--     		</th:block> -->
+    
         		<th:block th:if="${weightCheckIdOver1 != null}"
         			th:object="${weightBmi}">
         			<table border="1">
@@ -96,22 +101,22 @@
         			</table>
         		</th:block>
         
-        		<!-- 	体重グラフ -->
-        		<th:block th:if="${weightCheckIdOver2 == null}">
-        			<p>記録数が2日以上でグラフ表示します。</p>
-        		</th:block>
+    		    <!-- 	体重グラフ -->
+<!--     		<th:block th:if="${weightCheckIdOver2 == null}"> -->
+<!--     			<p>記録数が2日以上でグラフ表示します。</p> -->
+<!--     		</th:block> -->
         		<th:block th:if="${weightCheckIdOver2 != null}"
         			th:object="${weightBmi}">
         			<div class="area">
         				<canvas id="weightBmiChart"></canvas>
         			</div>
         		</th:block>
-        
-        		<p>前回のトレーニング記録</p>
-        		<th:block th:if="${machineSetCountCheckIdOver1 == null}">
-        			<p>記録はまだありません。</p>
-        		</th:block>
+    
+<!--     		<th:block th:if="${machineSetCountCheckIdOver1 == null}"> -->
+<!--     			<p>記録はまだありません。</p> -->
+<!--     		</th:block> -->
         		<th:block th:if="${machineSetCountCheckIdOver1 != null}">
+        		<p>前回のトレーニング記録</p>
         			<table border="1">
         				<tr th:each="machineSetCount : ${beforeCount}">
         					<th:block th:if="${machineSetCount != null}">
@@ -137,58 +142,62 @@
         		</th:block>
         
         		<!-- カレンダー -->
-        		<div class="pictureDate"></div>
-        		<form action="show" th:object="${calendar}">
-        			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
-        			<input type="submit" value="カレンダーの詳細を見る" />
-        		</form>
-        
-        		<!-- 画像一覧 -->
-        		<h3>All View</h3>
-        
-        		<th:block th:each="image : ${imgList}">
-        			<a th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">
-        				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-        			</a>
-        			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+        		<th:block th:if="${weightCheckIdOver1 != null || weightCheckIdOver2 != null || imgList.size > 0}">
+    	    		<div class="pictureDate"></div>
+    	    		<form action="show" th:object="${calendar}">
+    	    			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
+    	    			<p><small>※日付をクリックしてからボタンを押してください</small></p>
+    	    			<input type="submit" value="カレンダーの詳細を見る" />
+    	    		</form>
         		</th:block>
-        
-        		<!-- ページネーション、ページャー -->
-        		<div th:if="${totalPage >= 2}">
-        			<ul>
-        				<!-- 前のページリンク -->
-        				<th:block th:switch="${page}">
-        					<li th:case="1"><a href="" class="noevent">Prev</a></li>
-        					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
-        				</th:block>
-        				<!-- ページ番号 -->
-        				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
-        					<th:block th:switch="${index}">
-        						<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
-        						<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
-        					</th:block>
-        				</th:block>
-        				<!-- 次のページリンク -->
-        				<th:block th:switch="${page}">
-        					<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
-        					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
-        				</th:block>
-        			</ul>
+            
+        		<div th:if="${imgList.size > 0}">
+    	    		<!-- 画像一覧 -->
+    	    		<h3>All View</h3>
+    	    
+    	    		<th:block th:each="image : ${imgList}">
+    	    			<a
+    	    				th:href="@{/show/{date}(date=${#dates.format(image.date,'yyyy-MM-dd')})}">
+    	    				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+    	    			</a>
+    	    			<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+    	    		</th:block>
+    	    
+    	    		<!-- ページネーション、ページャー -->
+    	    		<div th:if="${totalPage >= 2}">
+    	    			<ul>
+    	    				<!-- 前のページリンク -->
+    	    				<th:block th:switch="${page}">
+    	    					<li th:case="1"><a href="" class="noevent">Prev</a></li>
+    	    					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
+    	    				</th:block>
+    	    				<!-- ページ番号 -->
+    	    				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
+    	    					<th:block th:switch="${index}">
+    	    						<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
+    	    						<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
+    	    					</th:block>
+    	    				</th:block>
+    	    				<!-- 次のページリンク -->
+    	    				<th:block th:switch="${page}">
+    	    					<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
+    	    					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
+    	    				</th:block>
+    	    			</ul>
+    	    		</div>
         		</div>
         
-        
         		<!-- 画像比較 -->
-        		<h3>Comparison</h3>
-        
         		<div th:if="${imgList.size > 0}">
         			<p>写真が登録されていません</p>
+        			<h3>Comparison</h3>
             		<!-- 一番古い日付でuploadした画像を表示 -->
             		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
             		<p>Before</p>
             		<!-- 一番新しい日付でuploadした画像を表示 -->
             		<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}" alt="New Body" >
             		<p>New Body</p>
-          		</div>
+          		</div>	
             </section>
         </div>
 	</main>
