@@ -11,38 +11,34 @@
 <link rel="stylesheet" th:href="@{/css/mypage.css}">
 </head>
 <body>
-	<header>
-		<div class="inner">
-			<h1>
-				<a th:href="@{/}" class="logo"><img th:src="@{/images/ttl_logo.png}"></a>
-			</h1>
-			<nav class="navigation">
-				<ul role='list'>
-					<li><a th:href="@{/user/logout}">ログアウト</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-	<main>
-        <div class="inner">
-    		<h2>
-    			<span class="font-en">MY PAGE</span><br>マイページ
-    		</h2>
-    		<div class="info">
-                <div class="user">
-                    <div class="user_icon">
-              			<img th:if="${session.user.fileName != null}" th:src="@{/uploads/{name}(name=${session.user.fileName})}" />
-              			<img th:if="${session.user.fileName == null}" th:src="@{/images/macho_cat.png}" alt="Default Image" />
-                    </div>
-          			<p><span class="user_name" th:text="${session.user.loginId}"></span>さん</p>
-                </div>
-        		<a class="setting" th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
-    		</div>
-        
-            <section class="training-suport">
-                <h2>
-                    <span class="font-en">Training Support</span><br>トレーニングサポートコンテンツ
-                </h2>
+<header>
+	<div class="inner">
+		<h1>
+			<a th:href="@{/}" class="logo"><img th:src="@{/images/ttl_logo.png}"></a>
+		</h1>
+		<nav class="navigation">
+			<ul role='list'>
+				<li><a th:href="@{/user/logout}">ログアウト</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+<main>
+      <div class="inner">
+          <section>
+      		<h2>
+      			<span class="font-en">My Page</span><br>マイページ
+      		</h2>
+      		<div class="info">
+                  <div class="user">
+                      <div class="user_icon">
+                			<img th:if="${session.user.fileName != null}" th:src="@{/uploads/{name}(name=${session.user.fileName})}" />
+                			<img th:if="${session.user.fileName == null}" th:src="@{/images/macho_cat.png}" alt="Default Image" />
+                      </div>
+            			<p><span class="user_name" th:text="${session.user.loginId}"></span>さん</p>
+                  </div>
+          		<a class="setting" th:href="@{/user/setting/{id}(id=${session.user.userId})}">設定</a>
+      		</div>
         		<div class="support-menu">
         			<a th:href="@{/gacha(gachaType='count')}" class="support-menu_btn count">
         				<p><span>回数</span><br>ガチャを回す</p>
@@ -51,44 +47,39 @@
         				<p><span>重量</span><br>ガチャを回す</p>
         			</a>
         		</div>
-            </section>
-            <section class="record">
-        		<h2>
-        			<span class="font-en">RECORD</span><br>記録をする
-        		</h2>
-        		<div class="support-menu">
-        			<a th:href="@{/bodyCondition}" class="support-menu_btn">
-        				<p><span>カラダ</span><br>を記録</p>
-        			</a>
-                    <a th:href="@{/record}" class="support-menu_btn">
-        				<p><span>トレーニング</span><br>を記録</p>
-        			</a>
-        		</div>
-            </section>
-            <section class="check">
-        		<h2>
-        			<span class="font-en">CHECK</span><br>記録を見る
-        		</h2>
-        		<th:block th:if="${weightCheckIdOver1 == null && weightCheckIdOver2 == null && imgList.size <= 0}">
-    	    		<p>記録はありません。</p>
-        		</th:block>
-        		
-        		<!-- 	表グラフ -->
-        		<!-- 	体重・BMI表示 -->
-<!--     		<th:block th:if="${weightCheckIdOver1 == null}"> -->
-<!--     			<p>記録はまだありません。</p> -->
-<!--     		</th:block> -->
-    
+          </section>
+          <section class="record">
+      		<h2>
+      			<span class="font-en">Record</span><br>記録をする
+      		</h2>
+      		<div class="support-menu">
+      			<a th:href="@{/bodyCondition}" class="support-menu_btn">
+      				<p><span>カラダ</span><br>を記録</p>
+      			</a>
+                  <a th:href="@{/record}" class="support-menu_btn">
+      				<p><span>トレーニング</span><br>を記録</p>
+      			</a>
+      		</div>
+          </section>
+          <section class="check">
+      		<h2>
+      			<span class="font-en">Check</span><br>記録を見る
+      		</h2>
+      		<th:block th:if="${weightCheckIdOver1 == null && weightCheckIdOver2 == null && imgList.size <= 0}">
+  	    		<p class="no-data_text">記録はありません。</p>
+      		</th:block>
+      		
+            <div class="check-cont weight">
         		<th:block th:if="${weightCheckIdOver1 != null}"
         			th:object="${weightBmi}">
-        			<table border="1">
+        			<table>
         				<tr>
         					<th>日付</th>
         					<td>[[*{date}]]</td>
         				</tr>
         				<tr>
         					<th>体重</th>
-        					<td>[[*{userWeight}]]</td>
+        					<td>[[*{userWeight}]]kg</td>
         				</tr>
         				<tr>
         					<th>BMI</th>
@@ -96,28 +87,29 @@
         				</tr>
         				<tr>
         					<th>適正体重</th>
-        					<td>[[*{healthyWeight}]]</td>
+        					<td>[[*{healthyWeight}]]kg</td>
+        				</tr>
+        				<tr>
+        					<th>美容体重</th>
+        					<td>kg</td>
+        				</tr>
+        				<tr>
+        					<th>標準BMI</th>
+        					<td></td>
         				</tr>
         			</table>
         		</th:block>
-        
-    		    <!-- 	体重グラフ -->
-<!--     		<th:block th:if="${weightCheckIdOver2 == null}"> -->
-<!--     			<p>記録数が2日以上でグラフ表示します。</p> -->
-<!--     		</th:block> -->
         		<th:block th:if="${weightCheckIdOver2 != null}"
         			th:object="${weightBmi}">
         			<div class="area">
         				<canvas id="weightBmiChart"></canvas>
         			</div>
         		</th:block>
-    
-<!--     		<th:block th:if="${machineSetCountCheckIdOver1 == null}"> -->
-<!--     			<p>記録はまだありません。</p> -->
-<!--     		</th:block> -->
-        		<th:block th:if="${machineSetCountCheckIdOver1 != null}">
-        		<p>前回のトレーニング記録</p>
-        			<table border="1">
+             </div>
+             <div class="check-cont machine">
+        		<div th:if="${machineSetCountCheckIdOver1 != null}">
+        	         <h3>前回のトレーニング記録</h3>
+        			<table>
         				<tr th:each="machineSetCount : ${beforeCount}">
         					<th:block th:if="${machineSetCount != null}">
         						<th>[[${machineSetCount.machineName}]]</th>
@@ -127,104 +119,106 @@
         					</th:block>
         				</tr>
         			</table>
-        		</th:block>
-        
-        		<th:block th:if="${machineSetCountCheckIdOver2 != null}">
+        		</div>
+        		<div th:if="${machineSetCountCheckIdOver2 != null}">
         			<!-- 	マシーングラフ（線） -->
         			<div class="area">
         				<canvas id="machineSetCountLineGraph"></canvas>
         			</div>
-        
         			<!-- 	マシーングラフ（丸） -->
         			<div class="area">
         				<canvas id="machineSetCountPieGraph"></canvas>
         			</div>
-        		</th:block>
-        
-        		<!-- カレンダー -->
-        		<th:block th:if="${weightCheckIdOver1 != null || weightCheckIdOver2 != null || imgList.size > 0}">
-    	    		<div class="pictureDate"></div>
-    	    		<form action="show" th:object="${calendar}">
-    	    			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
-    	    			<p><small>※日付をクリックしてからボタンを押してください</small></p>
-    	    			<input type="submit" value="カレンダーの詳細を見る" />
-    	    		</form>
-        		</th:block>
-            
-        		<div th:if="${imgList.size > 0}">
-    	    		<!-- 画像一覧 -->
-    	    		<h3>All View</h3>
-        
-        		<th:block th:each="image : ${imgList}">
-        			<a th:href="@{/show/{date}(date=${#temporals.format(image.date,'yyyy-MM-dd')})}">
-        				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-        			</a>
-        			<p th:text="${#temporals.format(image.date,'yyyy年MM月dd日')}"></p>
-        		</th:block>
-        
-        		<!-- ページネーション、ページャー -->
-    	    		<div th:if="${totalPage >= 2}">
-    	    			<ul>
-    	    				<!-- 前のページリンク -->
-    	    				<th:block th:switch="${page}">
-    	    					<li th:case="1"><a href="" class="noevent">Prev</a></li>
-    	    					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
-    	    				</th:block>
-    	    				<!-- ページ番号 -->
-    	    				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
-    	    					<th:block th:switch="${index}">
-    	    						<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
-    	    						<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
-    	    					</th:block>
-    	    				</th:block>
-    	    				<!-- 次のページリンク -->
-    	    				<th:block th:switch="${page}">
-    	    					<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
-    	    					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
-    	    				</th:block>
-    	    			</ul>
-    	    		</div>
         		</div>
-        
-        		<!-- 画像比較 -->
-        		<div th:if="${imgList.size > 0}">
-        			<p>写真が登録されていません</p>
-        			<h3>Comparison</h3>
-            		<!-- 一番古い日付でuploadした画像を表示 -->
-            		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
-            		<p>Before</p>
-            		<!-- 一番新しい日付でuploadした画像を表示 -->
-            		<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}" alt="New Body" >
-            		<p>New Body</p>
-          		</div>	
-            </section>
-        </div>
-	</main>
-	<footer>
-		<small>Copyright 2024 TRECORD</small>
-	</footer>
+            </div>
+            <div class="check-cont image">
+                <div class="calendar">
+              		<!-- カレンダー -->
+              		<div th:if="${weightCheckIdOver1 != null || weightCheckIdOver2 != null || imgList.size > 0}">
+          	    		<div class="pictureDate"></div>
+          	    		<form action="show" th:object="${calendar}">
+          	    			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
+          	    			<p><small>※日付をクリックしてからボタンを押してください</small></p>
+          	    			<input type="submit" value="カレンダーの詳細を見る" />
+          	    		</form>
+              		</div>
+              		<!-- 画像比較 -->
+             		<div class="comparison" th:if="${imgList.size > 0}">
+              			<h3>Comparison</h3>
+                        <div class="check-cont">
+                            <div class="old">
+                        		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
+                        		<p>Before</p>
+                            </div>
+                            <div class="new">
+                        		<img th:src="@{/uploads/{name}(name=${newestImage.imgName})}" alt="New Body" >
+                        		<p>New Body</p>
+                            </div>
+                        </div>
+              		</div>
+                </div>
+          		<div class="all-view" th:if="${imgList.size > 0}">
+      	    		<!-- 画像一覧 -->
+      	    		<h3>All View</h3>
+        		    <ul role='list' class="img-list">
+                        <li class="img-wrap" th:each="image : ${imgList}">
+        	    			<a th:href="@{/show/{date}(date=${#temporals.format(image.date,'yyyy-MM-dd')})}">
+        	    				<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
+        	    			</a>
+        	    			<p th:text="${#temporals.format(image.date,'yyyy年MM月dd日')}"></p>
+                        </li>
+      	    		</ul>
+      	    		<!-- ページネーション、ページャー -->
+      	    		<div th:if="${totalPage >= 2}">
+      	    			<ul>
+      	    				<!-- 前のページリンク -->
+      	    				<th:block th:switch="${page}">
+      	    					<li th:case="1"><a href="" class="noevent">Prev</a></li>
+      	    					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
+      	    				</th:block>
+      	    				<!-- ページ番号 -->
+      	    				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">
+      	    					<th:block th:switch="${index}">
+      	    						<li th:case="${page}"><a href="" class="noevent">[[${index}]]</a></li>
+      	    						<li th:case="*"><a th:href="@{/mypage(page=${index})}">[[${index}]]</a></li>
+      	    					</th:block>
+      	    				</th:block>
+      	    				<!-- 次のページリンク -->
+      	    				<th:block th:switch="${page}">
+      	    					<li th:case="${totalPage}"><a href="" class="noevent">Next</a></li>
+      	    					<li th:case="*"><a th:href="@{/mypage(page=${page+1})}">Next</a></li>
+      	    				</th:block>
+      	    			</ul>
+      	    		</div>
+          		</div>
+            </div>
+        </section>
+    </div>
+</main>
+<footer>
+	<small>Copyright 2024 TRECORD</small>
+</footer>
 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js"
+	integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY="
+	crossorigin="anonymous"></script>
+<script th:src="@{/js/script.js}"></script>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0/build/chartjs-plugin-labels.min.js"
-		integrity="sha256-6ZoPHXM6Qs2Sv5ev5NvrJ0NCoZuXh1jwt50q3hNj/OY="
-		crossorigin="anonymous"></script>
-	<script th:src="@{/js/script.js}"></script>
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<script>
-       $('.pictureDate').datepicker({
-	   dateFormat: "yy/mm/dd",
-	   onSelect: (pictureDate, inst)=>{
-       $("#calendarDate").val(pictureDate);
-            }
-       });
-     </script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+     $('.pictureDate').datepicker({
+   dateFormat: "yy/mm/dd",
+   onSelect: (pictureDate, inst)=>{
+     $("#calendarDate").val(pictureDate);
+          }
+     });
+</script>
 
 </body>
 </html>

@@ -5,44 +5,108 @@
 	pointer-events: none;
 }
 
+main {
+    position: relative;
+    background: aliceblue;
+    padding-bottom: 50px;
+}
+
 .info, .user {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
+}
+.info {
+	padding: 0 30px;
 }
 .user_icon {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  overflow:hidden;
-  margin-right: 20px;
+	position: relative;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	overflow:hidden;
+	margin-right: 20px;
 }
 .user_icon img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  width: auto;
-  height: 100%;
-  object-fit: cover;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	width: auto;
+	height: 100%;
+	object-fit: cover;
 }
 .user_name {
     font-size: 3rem;
     margin-right: 1rem;
 }
 .setting {
-    padding: 0 5rem;
-    border: 1px solid #333;
+	padding: 0 5rem;
+    border: 1px solid #888;
     border-radius: 30px;
     line-height: 2;
+    background: #fff;
+    color: #333;
+}
+.support-menu {
+    margin-bottom: 0;
 }
 
 section {
-	padding: 50px 0;
+	padding: 0 50px 50px;
 }
 
-.record {
-	background: aliceblue;
+.record, .check {
+    background: #fff;
 }
+.check {
+	margin-top: 50px;
+}
+
+.check .no-data_text {
+	text-align: center;
+	padding: 50px;
+}
+
+.check .check-cont {
+	display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.check table th {
+	text-align: left;
+	line-height: 2.5;
+}
+.check .weight table {
+    width: 20%;
+    align-self: start;
+}
+.check .weight .area {
+    width: 75%;
+}
+.check .calendar {
+	width: 40%;
+	margin-top: 100px;
+}
+.check .allview {
+	width: 60%;
+}
+.check .comparison img {
+    width: 200px;
+}
+.check .check-cont.image h3 {
+    text-align: center;
+    margin-top: 100px;
+}
+.check .img-list {
+	display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.check .img-list .img-wrap {
+	width: 50%;
+}
+
