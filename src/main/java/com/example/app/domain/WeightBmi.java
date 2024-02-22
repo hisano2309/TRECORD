@@ -15,6 +15,7 @@ public class WeightBmi {
 	private double bmi;
 	private double healthyWeight;
 	private double beautyWeight;
+	private double healthyBmi;
 	
 	//再表示用にHTMLのtype="date"の型に合わせる
 	@DateTimeFormat(pattern="yyyy-MM-dd")

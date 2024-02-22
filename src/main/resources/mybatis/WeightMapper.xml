@@ -11,7 +11,7 @@
 <!-- 体重・BMIの登録 -->
 	<insert id="insertWeightBmi">
 		INSERT INTO weight_bmi
-		VALUES(NULL, #{userId}, #{userWeight}, #{bmi}, #{healthyWeight}, #{beautyWeight}, #{date})
+		VALUES(NULL, #{userId}, #{userWeight}, #{bmi}, #{healthyWeight}, #{beautyWeight}, #{healthyBmi}, #{date})
 	</insert>
 
 <!-- 前回の体重・BMI表示 -->

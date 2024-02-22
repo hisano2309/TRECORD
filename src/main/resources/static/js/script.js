@@ -13,8 +13,9 @@ $(document)
 					function(res) {
 						const weightArray = res.map(item => item.userWeight);
 						const bmiArray = res.map(item => item.bmi);
-						const healthyWeightArray = res.map(item => item.healthyWeight)					
+						const healthyWeightArray = res.map(item => item.healthyWeight);				
 						const beautyWeightArray = res.map(item => item.beautyWeight);
+						const healthyBmiArray = res.map(item => item.healthyBmi);
 						const dateArray = res.map(item => item.date);
 
 						console.log(res);
@@ -52,6 +53,12 @@ $(document)
 										 	label: '美容体重',
 										 	data: beautyWeightArray, // constで指定した変数（beautyWeight）
 										 	borderColor: "#FFF100",
+										 	backgroundColor: "#00000000",
+										 	lineTension: 0
+										},{
+										 	label: '標準BMI',
+										 	data: healthyBmiArray, // constで指定した変数（healthyBmi）
+										 	borderColor: "#F6AA00",
 										 	backgroundColor: "#00000000",
 										 	lineTension: 0
 										},],

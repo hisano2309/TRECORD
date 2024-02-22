@@ -346,11 +346,14 @@ public class RecordController {
 		double healthyWeight = (userHeight*userHeight) * 22;
 		//美容体重
 		double beautyWeight = (userHeight*userHeight) * 20;
+		//標準BMI（22）
+		double healthyBmi = 22;
 
 		//小数点第二位で切り捨て
 		weightBmi.setBmi(Math.floor(bmi * 10) / 10);
 		weightBmi.setHealthyWeight(Math.floor(healthyWeight * 10) / 10);
 		weightBmi.setBeautyWeight(Math.floor(beautyWeight * 10) / 10);
+		weightBmi.setHealthyBmi(healthyBmi);
 
 		//日付が同日の場合は登録しない（グラフが重複する）
 	//体重・BMIの登録
