@@ -337,18 +337,20 @@ public class RecordController {
 	//BMIを計算
 		//BMI ＝ 体重kg ÷ (身長m)2
 		//適正体重 ＝ (身長m)2 ×22
-	//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-//		User user = (User) session.getAttribute("user");
-//		double heightCm = user.getUserHeight();  //単位：cm
+
 		double heightCm = 160;  //単位：cm
 
 		double userHeight = heightCm / 100;   //単位：m
 		double bmi = weightBmi.getUserWeight() / (userHeight * userHeight);
+		//適正体重
 		double healthyWeight = (userHeight*userHeight) * 22;
+		//美容体重
+		double beautyWeight = (userHeight*userHeight) * 20;
 
 		//小数点第二位で切り捨て
 		weightBmi.setBmi(Math.floor(bmi * 10) / 10);
 		weightBmi.setHealthyWeight(Math.floor(healthyWeight * 10) / 10);
+		weightBmi.setBeautyWeight(Math.floor(beautyWeight * 10) / 10);
 
 		//日付が同日の場合は登録しない（グラフが重複する）
 	//体重・BMIの登録

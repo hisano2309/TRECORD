@@ -13,7 +13,8 @@ $(document)
 					function(res) {
 						const weightArray = res.map(item => item.userWeight);
 						const bmiArray = res.map(item => item.bmi);
-						const healthyWeightArray = res.map(item => item.healthyWeight)
+						const healthyWeightArray = res.map(item => item.healthyWeight)					
+						const beautyWeightArray = res.map(item => item.beautyWeight);
 						const dateArray = res.map(item => item.date);
 
 						console.log(res);
@@ -47,7 +48,13 @@ $(document)
 											borderColor: "#FF9900",
 											backgroundColor: "#00000000",
 											lineTension: 0
-										}],
+										}, {
+										 	label: '美容体重',
+										 	data: beautyWeightArray, // constで指定した変数（beautyWeight）
+										 	borderColor: "#FFF100",
+										 	backgroundColor: "#00000000",
+										 	lineTension: 0
+										},],
 								},
 
 								// Y軸の上がり幅、下限（初期登録+10kg）、上限（Max値+5kg）を指定
