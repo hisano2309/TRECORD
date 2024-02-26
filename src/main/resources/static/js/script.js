@@ -220,7 +220,7 @@ $(document)
 						const options = {
 							title: {
 								display: true,
-								text: 'マシン使用率'
+								// text: 'マシン使用率'
 							},
 							plugins: {
 								labels: {
