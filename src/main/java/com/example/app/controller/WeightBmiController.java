@@ -50,19 +50,16 @@ public class WeightBmiController {
 
 
 		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-		weightBmi.setUserId(1);
-//		User user = (User) session.getAttribute("user");
-//		weightBmi.setUserId(user.getUserId());
+		// weightBmi.setUserId(1);
+		User user = (User) session.getAttribute("user");
+		weightBmi.setUserId(user.getUserId());
 
 
 		//BMIを計算
 			//BMI ＝ 体重kg ÷ (身長m)2
 			//適正体重 ＝ (身長m)2 ×22
 
-		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
 		double heightCm = 160;
-//		double heightCm = user.getUserHeight();   //単位：cm
-
 		double userHeight = heightCm / 100;   //単位：m
 		double bmi = weightBmi.getUserWeight() / (userHeight * userHeight);
 		double healthyWeight = (userHeight*userHeight) * 22;
@@ -78,13 +75,6 @@ public class WeightBmiController {
 
 		model.addAttribute("weightBmi", weightBmi);
 
-//		System.out.println("weightBmiの中身" + weightBmi.getWeightId());
-//		System.out.println("weightBmiの中身" + weightBmi.getUserId());
-//		System.out.println("weightBmiの中身" + weightBmi.getUserWeight());
-//		System.out.println("weightBmiの中身" + weightBmi.getBmi());
-//		System.out.println("weightBmiの中身" + weightBmi.getHealthyWeight());
-//		System.out.println("weightBmiの中身" + weightBmi.getDate());
-
 		return "weightRegisterDone";
 	}
 
@@ -99,17 +89,7 @@ public class WeightBmiController {
 	//表形式で体重・BMI表示
 		WeightBmi weightBmi = new WeightBmi();
 
-		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-//		weightBmi.setUserId(1);
-		//リアルデータ//
 		User user = (User) session.getAttribute("user");
-
-		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!　→→→引数のdateを不要とする
-//		LocalDate date = DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2024-02-05", LocalDate::from);
-//		weightBmi.setDate(date);
-//		service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate());
-//		System.out.println(service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
-//		model.addAttribute("weightBmi", service.getSelectBeforeWeightbmi(weightBmi.getUserId(), weightBmi.getDate()));
 
 		weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId());
 		System.out.println(weightBmiService.getSelectBeforeWeightbmi(weightBmi.getUserId()));
