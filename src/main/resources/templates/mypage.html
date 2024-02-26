@@ -54,10 +54,10 @@
       		</h2>
       		<div class="support-menu">
       			<a th:href="@{/bodyCondition}" class="support-menu_btn">
-      				<p><span>カラダ</span><br>を記録</p>
+      				<p>カラダ記録</p>
       			</a>
                   <a th:href="@{/record}" class="support-menu_btn">
-      				<p><span>トレーニング</span><br>を記録</p>
+      				<p>トレーニング記録</p>
       			</a>
       		</div>
           </section>
@@ -72,32 +72,36 @@
             <div class="check-cont weight">
         		<th:block th:if="${weightCheckIdOver1 != null}"
         			th:object="${weightBmi}">
-        			<table>
-        				<tr>
-        					<th>日付</th>
-        					<td>[[*{date}]]</td>
-        				</tr>
-        				<tr>
-        					<th>体重</th>
-        					<td>[[*{userWeight}]]kg</td>
-        				</tr>
-        				<tr>
-        					<th>BMI</th>
-        					<td>[[*{bmi}]]</td>
-        				</tr>
-        				<tr>
-        					<th>適正体重</th>
-        					<td>[[*{healthyWeight}]]kg</td>
-        				</tr>
-        				<tr>
-        					<th>美容体重</th>
-        					<td>kg</td>
-        				</tr>
-        				<tr>
-        					<th>標準BMI</th>
-        					<td></td>
-        				</tr>
-        			</table>
+                    <div class="weight-table">
+        			     <table>
+            				<tr>
+            					<th>日付</th>
+            					<td>[[*{date}]]</td>
+            				</tr>
+            				<tr>
+            					<th>体重</th>
+            					<td>[[*{userWeight}]]kg</td>
+            				</tr>
+            				<tr>
+            					<th>BMI</th>
+            					<td>[[*{bmi}]]</td>
+            				</tr>
+                        </table>
+                        <table>
+            				<tr>
+            					<th>適正体重</th>
+            					<td>[[*{healthyWeight}]]kg</td>
+            				</tr>
+            				<tr>
+            					<th>美容体重</th>
+            					<td>[[*{beautyWeight}]]kg</td>
+            				</tr>
+            				<tr>
+            					<th>標準BMI</th>
+            					<td></td>
+            				</tr>
+                        </table>
+                    </div>
         		</th:block>
         		<th:block th:if="${weightCheckIdOver2 != null}"
         			th:object="${weightBmi}">
@@ -145,7 +149,7 @@
               		<!-- 画像比較 -->
              		<div class="comparison" th:if="${imgList.size > 0}">
               			<h3>Comparison</h3>
-                        <div class="check-cont">
+                        <div class="check-cont comparison">
                             <div class="old">
                         		<img th:src="@{/uploads/{name}(name=${oldestImage.imgName})}" alt="Before" >
                         		<p>Before</p>
@@ -157,7 +161,7 @@
                         </div>
               		</div>
                 </div>
-          		<div class="all-view" th:if="${imgList.size > 0}">
+          		<div class="allview" th:if="${imgList.size > 0}">
       	    		<!-- 画像一覧 -->
       	    		<h3>All View</h3>
         		    <ul role='list' class="img-list">
@@ -170,11 +174,11 @@
       	    		</ul>
       	    		<!-- ページネーション、ページャー -->
       	    		<div th:if="${totalPage >= 2}">
-      	    			<ul>
+      	    			<ul class="pager">
       	    				<!-- 前のページリンク -->
       	    				<th:block th:switch="${page}">
-      	    					<li th:case="1"><a href="" class="noevent">Prev</a></li>
-      	    					<li th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
+      	    					<li class="prev" th:case="1"><a href="" class="noevent">Prev</a></li>
+      	    					<li class="prev" th:case="*"><a th:href="@{/mypage(page=${page-1})}">Prev</a></li>
       	    				</th:block>
       	    				<!-- ページ番号 -->
       	    				<th:block th:each="index:${#numbers.sequence(1,totalPage)}">

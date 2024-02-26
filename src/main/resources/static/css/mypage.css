@@ -1,10 +1,5 @@
 @charset "UTF-8";
 
-/* ページャーリンク無効 */
-.noevent {
-	pointer-events: none;
-}
-
 main {
     position: relative;
     background: aliceblue;
@@ -50,44 +45,105 @@ main {
     background: #fff;
     color: #333;
 }
-.support-menu {
-    margin-bottom: 0;
-}
 
 section {
 	padding: 0 50px 50px;
+}
+.record .support-menu {
+    margin-bottom: 0;
+}
+.record .support-menu_btn {
+    background: #5ab4bd;
+}
+.record .support-menu_btn p {
+    font-size: 3.5rem;
 }
 
 .record, .check {
     background: #fff;
 }
+
 .check {
 	margin-top: 50px;
 }
-
+.check h3 {
+    font-size: 2.5rem;
+}
 .check .no-data_text {
 	text-align: center;
 	padding: 50px;
 }
-
 .check .check-cont {
 	display: flex;
     justify-content: space-between;
     margin-top: 50px;
 }
+.check .check-cont .comparison {
+    margin-top: 15px;
+}
 .check table th {
 	text-align: left;
-	line-height: 2.5;
+	line-height: 2;
 }
-.check .weight table {
+.check .weight-table {
     width: 20%;
     align-self: start;
 }
+.check .weight table {
+	padding: 15px 0;
+}
+.check .weight table:last-child {
+	border-top: 1px dashed #333;
+}
+
 .check .weight .area {
     width: 75%;
 }
+.check .machine h3 {
+	padding: 2rem 0;
+}
+.check .machine table td {
+	text-align: right;
+	padding: 10px;
+}
+
+.graph {
+	width: 50%;
+	margin: 0 0 0 auto;
+	box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
+}
+.tab {
+    display: none;
+}
+#content1, #content2 {
+    display: none;
+}
+#tab1:checked ~ .content #content1,
+#tab2:checked ~ .content #content2 {
+    display: block;
+}
+.tab-label {
+	width: calc(100%/2);
+	height: 50px;
+	border-bottom: 3px solid #5ab4bd;
+	background-color: #d9d9d9;
+	line-height: 50px;
+	font-size: 16px;
+	text-align: center;
+	color: #565656;
+	display: block;
+	float: left;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+.tab:checked + .tab-label {
+    background: var(--main-color);
+}
+
+    
 .check .calendar {
-	width: 40%;
+	width: 35%;
 	margin-top: 100px;
 }
 .check .allview {
@@ -98,15 +154,38 @@ section {
 }
 .check .check-cont.image h3 {
     text-align: center;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 .check .img-list {
 	display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    padding: 0;
 }
-
 .check .img-list .img-wrap {
-	width: 50%;
+	width: calc(50% - 5px);
+    margin-bottom: 5px;
+}
+.check .pager {
+	display: flex;
+	justify-content: center;
+	list-style: none;
+}
+.check .pager a {
+	display: block;
+	padding: 0 0.5rem;
+	text-decoration: underline;
+}
+.check .pager .noevent {
+	pointer-events: none;
+	font-weight: bold;
+    font-size: 120%;
+    line-height: 1.3;
+    text-decoration: none;
+    color: var(--text-color);
+}
+.check .pager .prev .noevent {
+	font-weight: unset;
+    font-size: 100%;
 }
 
