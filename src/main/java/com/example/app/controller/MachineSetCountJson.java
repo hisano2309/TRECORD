@@ -23,15 +23,10 @@ public class MachineSetCountJson {
 	@GetMapping("/MachineSetCountLineGraph")
 	public List<List<MachineSetCount>> line(HttpSession session) throws Exception{
 
-		// !!!!!!!!!!!!!!!!!!!!!!!　リアルデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		User user = (User) session.getAttribute("user");
 		MachineSetCount machineSetCount = new MachineSetCount();
 		machineSetCount.setUserId(user.getUserId());
 		System.out.println("MachineSetCountLineGraph_user.getUserId()" + user.getUserId());
-
-		// !!!!!!!!!!!!!!!!!!!!!!!　ダミーデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		MachineSetCount machineSetCount = new MachineSetCount();
-//		machineSetCount.setUserId(1);
 
 
 		machineSetCount.setMachineId(1);
@@ -63,15 +58,10 @@ public class MachineSetCountJson {
 	@GetMapping("/MachineSetCountPieGraph")
 	public List<Count> pie(HttpSession session) throws Exception{
 
-		// !!!!!!!!!!!!!!!!!!!!!!!　リアルデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		User user = (User) session.getAttribute("user");
 		MachineSetCount machineSetCount = new MachineSetCount();
 		machineSetCount.setUserId(user.getUserId());
 		System.out.println("MachineSetCountPieGraph_user.getUserId()" + user.getUserId());
-
-		// !!!!!!!!!!!!!!!!!!!!!!!　ダミーデータ　!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		MachineSetCount machineSetCount = new MachineSetCount();
-//		machineSetCount.setUserId(1);
 
 		List<Count> count = service.getSelectPieGraph(machineSetCount.getUserId());
 		System.out.println("MachineSetCountPieGraph_machineSetCount.getUserId()" + machineSetCount.getUserId());
