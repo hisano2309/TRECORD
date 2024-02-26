@@ -86,7 +86,7 @@
     - カレンダー表示
 
 
-### スケジュール管理
+### 進捗管理
 ![trecord1-2](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/e306f608-bb9a-48b7-bda8-f2bcf8155ad8)
 
 ### 画面設計
