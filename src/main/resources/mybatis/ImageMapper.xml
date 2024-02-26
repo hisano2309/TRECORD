@@ -55,6 +55,7 @@
 	<select id="selectLimited" resultType="Image">
 		SELECT * FROM image 
 		WHERE user_id = #{id}
+		ORDER BY date DESC
 		LIMIT
 		#{offset}, #{limit} 
 	</select>
