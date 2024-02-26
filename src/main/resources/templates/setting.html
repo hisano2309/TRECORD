@@ -36,7 +36,7 @@
 			<p>ログインID:[[*{loginId}]]</p>
 			<p>パスワード:[[*{loginPass}]]</p>
 			<p>身長:[[*{userHeight}]]</p>
-			<p>
+			<p class="user-image">
 				<img th:if="${session.user.fileName != null}"
 					th:src="@{/uploads/{name}(name=${session.user.fileName})}" alt="" />
 				<img th:if="${session.user.fileName == null}"
@@ -45,14 +45,14 @@
 
 
 			<p>
-				<a th:href="@{/user/edit/{id}(id=*{userId})}">変更</a> <a
-					th:href="@{/user/delete/{id}(id=*{userId})}">削除</a>
+				<a class="setting" th:href="@{/user/edit/{id}(id=*{userId})}">変更</a>
+				<a class="setting" th:href="@{/user/delete/{id}(id=*{userId})}">削除</a>
 
 			</p>
 		</th:block>
 
 		<p>
-			<a th:href="@{/mypage}">戻る</a>
+			<a class="setting" th:href="@{/mypage}">マイページへ</a>
 		</p>
 		</div>
 	</main>

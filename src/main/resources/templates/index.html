@@ -18,7 +18,11 @@
 				<a th:href="@{/}" class="logo"><img th:src="@{images/ttl_logo.png}"></a>
 			</h1>
 			<nav class="navigation">
-				<ul role='list'>
+				<ul role='list' th:if="${session.user != null}">
+					<li><a th:href="@{/mypage}">マイページ</a></li>
+					<li><a th:href="@{/user/logout}">ログアウト</a></li>
+				</ul>
+				<ul role='list' th:unless="${session.user != null}">
 					<li><a th:href="@{/user/login}">ログイン</a></li>
 					<li><a th:href="@{/user/register}">新規会員登録</a></li>
 				</ul>

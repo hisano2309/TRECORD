@@ -45,20 +45,23 @@
 			</p>
 			</th:block>	
 		
-			<th:block th:object="${image}">
-			<p>画像を選択してください</p>
-		
-				<input type="file" name="upload" />
+				<th:block th:object="${image}">
+					<p>画像を選択してください</p>
 
-				<p>[[${msg}]]</p>
+					<input type="file" name="upload" />
+
+					<p>[[${msg}]]</p>
+
+					<p>
+						今日の一言： <input type="text" th:field="*{memo}" />
+					</p>
+				</th:block>
 
 				<p>
-					今日の一言： <input type="text" th:field="*{memo}" />
+					<input type="submit" th:value="記録する" id="completion" />
 				</p>
-			</th:block>
-		
-			<p><input type="submit" th:value="記録する" id="completion" /></p>
 		</form>
+		<p><a class="setting" th:href="@{/mypage}">マイページへ</a></p>
 		</div>
 	</main>
 	<footer>
@@ -68,6 +71,5 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script th:src="@{/js/alert.js}"></script>
-	
 </body>
 </html>
