@@ -10,9 +10,12 @@
 	href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
 <link rel="stylesheet" th:href="@{/css/reset.css}">
 <link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/user.css}">
 <style>
 img {
 	width: 25%;
+	display: block; /* 画像をブロック要素として扱う */
+    margin: 0 auto; /* 左右の余白を自動で調整して中央に配置 */
 }
 </style>
 
@@ -33,16 +36,21 @@ img {
 		</div>
 	</header>
 <main>
+<div class="inner">
 		<h2>
-			<span class="font-en">Detail</span><br>トレーニング内容
+			<span class="font-en">Detail</span><br>詳　細
 		</h2>
 	
 <!-- 	画像表示 -->
 	<th:block th:each="image : ${imageList}">
-		<p th:text="${#dates.format(image.date,'yyyy年MM月dd日')}"></p>
+		<p th:text="${#temporals.format(image.date,'yyyy年MM月dd日')}"></p>
+		<p>
 		<img th:src="@{/uploads/{name}(name=${image.imgName})}" alt="" />
-		<p><a th:href="@{/edit/{id}(id=${image.imgId})}">写真編集</a></p>
-		<p id="remove"><a th:href="@{/delete/{id}(id=${image.imgId})}">写真削除</a></p>
+		</p>
+		<p>
+			<a  class="setting" th:href="@{/edit/{id}(id=${image.imgId})}">写真編集</a>
+			<a  class="setting" id="remove" th:href="@{/delete/{id}(id=${image.imgId})}">写真削除</a>
+		</p>
 	</th:block>
 	
 	
@@ -56,10 +64,11 @@ img {
 				<tr><th>1セットあたりの回数</th><td>[[*{machineCount}]] 回</td></tr>
 				<tr><th>セット数</th><td>[[*{sets}]] セット</td></tr>
 			</table>
+			<br />
 	</th:block>	
 	
-	<p><a th:href="@{/mypage}">My Pageへ</a></p>
-	
+	<p><a class="setting" th:href="@{/mypage}">マイページへ</a></p>
+	</div>
 	</main>
   <footer>
 		<small>Copyright 2024 TRECORD</small>

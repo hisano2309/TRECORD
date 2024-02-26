@@ -1,4 +1,9 @@
 @charset "UTF-8";
+main {
+	position: relative;
+  font-family: Helvetica, Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Sans-Serif;
+  text-align: center;
+}
 
 h2 {
         text-align: center;
@@ -27,4 +32,20 @@ p input {
 
 img {
 	max-width: 300px;
+}
+
+.setting {
+    padding: 0 5rem;
+    border: 1px solid #333;
+    border-radius: 30px;
+    line-height: 2;
+}
+
+.user-image img {
+    display: block; /* 画像をブロック要素として扱う */
+    margin: 0 auto; /* 左右の余白を自動で調整して中央に配置 */
+}
+
+table {
+	margin: 0 auto; /* 左右中央に配置 */
 }
