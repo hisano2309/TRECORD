@@ -47,9 +47,6 @@ public class RecordController {
 			HttpSession session) throws Exception {
 		User user = (User) session.getAttribute("user");
 		System.out.println("user.getUserId()" + user.getUserId());
-		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-//		WeightBmi weightBmi = new WeightBmi();
-//		weightBmi.setUserId(1);
 
 	// 画像一覧
 		List<Image> imgList = mapper.getImageByUserId(user.getUserId());
@@ -140,8 +137,6 @@ public class RecordController {
 		//ユーザーID
 		machineSetCount.setUserId(user.getUserId());
 		System.out.println("user.getUserId()" + (user.getUserId()));
-		//!!!!!!!!!!!ダミーデータ!!!!!!!!!!!!!!!!!!!!!!!!
-		// weightBmi.setUserId(1);
 
 		//日付
 		LocalDate now = LocalDate.now();
