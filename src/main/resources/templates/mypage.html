@@ -104,7 +104,7 @@
                         </table>
                     </div>
         		</th:block>
-        		<th:block th:if="${weightCheckIdOver2 != null}"
+        		<th:block th:if="${weightCheckIdOver1 != null}"
         			th:object="${weightBmi}">
         			<div class="area">
         				<canvas id="weightBmiChart"></canvas>
@@ -125,7 +125,7 @@
         				</tr>
         			</table>
         		</div>
-                <div class="graph" th:if="${machineSetCountCheckIdOver2 != null}">
+                <div class="graph" th:if="${machineSetCountCheckIdOver1 != null}">
                     <input type="radio" id="tab1" class="tab" name="graphTab" checked>
                     <label for="tab1" class="tab-label">トレーニング内容</label>
                     <input type="radio" id="tab2" class="tab" name="graphTab">
@@ -146,7 +146,7 @@
             <div class="check-cont image">
                 <div class="calendar">
               		<!-- カレンダー -->
-              		<div th:if="${weightCheckIdOver1 != null || weightCheckIdOver2 != null || imgList.size > 0}">
+              		<div th:if="${weightCheckIdOver1 != null || machineSetCountCheckIdOver1 != null || imgList.size > 0}">
           	    		<div class="pictureDate"></div>
           	    		<form action="show" th:object="${calendar}">
           	    			<input type="hidden" value="" name="calendarDate" id="calendarDate" />
