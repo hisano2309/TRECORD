@@ -120,16 +120,23 @@
         				</tr>
         			</table>
         		</div>
-        		<div th:if="${machineSetCountCheckIdOver2 != null}">
-        			<!-- 	マシーングラフ（線） -->
-        			<div class="area">
-        				<canvas id="machineSetCountLineGraph"></canvas>
-        			</div>
-        			<!-- 	マシーングラフ（丸） -->
-        			<div class="area">
-        				<canvas id="machineSetCountPieGraph"></canvas>
-        			</div>
-        		</div>
+                <div class="graph" th:if="${machineSetCountCheckIdOver2 != null}">
+                    <input type="radio" id="tab1" class="tab" name="graphTab" checked>
+                    <label for="tab1" class="tab-label">トレーニング内容</label>
+                    <input type="radio" id="tab2" class="tab" name="graphTab">
+                    <label for="tab2" class="tab-label">マシン使用率</label>
+                    <div class="content">
+                        <!-- 	マシーングラフ（線） -->
+                        <div class="area" id="content1">
+                            <canvas id="machineSetCountLineGraph"></canvas>
+                        </div>
+                
+                        <!-- 	マシーングラフ（丸） -->
+                        <div class="area" id="content2">
+                            <canvas id="machineSetCountPieGraph"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="check-cont image">
                 <div class="calendar">

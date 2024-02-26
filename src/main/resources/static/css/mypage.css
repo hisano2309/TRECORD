@@ -86,6 +86,50 @@ section {
 .check .weight .area {
     width: 75%;
 }
+.check .machine h3 {
+	padding: 2rem 0;
+}
+
+.check .machine table td {
+	text-align: right;
+	padding: 10px;
+}
+
+    .graph {
+		width: 50%;
+		margin: 0 0 0 auto;
+		box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
+	}
+    .tab {
+        display: none;
+    }
+    #content1, #content2 {
+        display: none;
+    }
+    #tab1:checked ~ .content #content1,
+    #tab2:checked ~ .content #content2 {
+        display: block;
+    }
+    .tab-label {
+	  width: calc(100%/2);
+	  height: 50px;
+	  border-bottom: 3px solid #5ab4bd;
+	  background-color: #d9d9d9;
+	  line-height: 50px;
+	  font-size: 16px;
+	  text-align: center;
+	  color: #565656;
+	  display: block;
+	  float: left;
+	  text-align: center;
+	  font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .tab:checked + .tab-label {
+        background: var(--main-color);
+    }
+
+    
 .check .calendar {
 	width: 40%;
 	margin-top: 100px;
