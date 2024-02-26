@@ -145,37 +145,37 @@ $(document)
 									labels: dateArray, //constで指定した変数（date）
 									datasets: [
 										{
-											label: 'bench press',
+											label: 'ベンチプレス',
 											data: machineId_1Array, //constで指定した変数（machineId_1Array）
 											borderColor: "#FF4B00",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										}, {
-											label: 'chest Press',
+											label: 'チェストプレス',
 											data: machineId_2Array, //constで指定した変数（machineId_2Array）
 											borderColor: "#005AFF",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										}, {
-											label: 'abdominal crunch',
+											label: 'アブドミナルクランチ',
 											data: machineId_3Array, //constで指定した変数（machineId_3Array）
 											borderColor: "#03AF7A",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										},{
-											label: 'lat pull down',
+											label: 'ラットプルダウン',
 											data: machineId_4Array, //constで指定した変数（machineId_4Array）
 											borderColor: "#4DC4FF",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										},{
-											label: 'leg press',
+											label: 'レッグプレス',
 											data: machineId_5Array, //constで指定した変数（machineId_5Array）
 											borderColor: "#F6AA00",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										},{
-											label: 'exercise bike',
+											label: 'エクササイズバイク',
 											data: machineId_6Array, //constで指定した変数（machineId_6Array）
 											borderColor: "#FFF100",
 											backgroundColor: "#00000000",
