@@ -95,7 +95,7 @@
 ![trecord3-2](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/bc593255-7912-498d-ab08-e1e37ae0c8b7)
 
 ### データ設計
-![trecord4](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/cc4d62b9-c225-4a1b-98f2-e1a281a55b88)
+![trecord4-2](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/e8177271-8561-429e-a2a4-0e33d4f96de5)
 
 ### ワイヤーフレーム
 ![ワイヤーフレーム_TOP](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/7cf1cf7b-7384-4ace-a7c1-1ecf749fd05e)
