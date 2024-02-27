@@ -53,10 +53,26 @@ section {
     margin-bottom: 0;
 }
 .record .support-menu_btn {
-    background: #5ab4bd;
+    background: var(--sub-color);
+    padding: 40px;
 }
 .record .support-menu_btn p {
     font-size: 3.5rem;
+    text-shadow:1px 1px 0 var(--sub-color), -1px -1px 0 var(--sub-color),
+              -1px 1px 0 var(--sub-color), 1px -1px 0 var(--sub-color),
+              0px 1px 0 var(--sub-color),  0-1px 0 var(--sub-color),
+              -1px 0 0 var(--sub-color), 1px 0 0 var(--sub-color);
+}
+.record .support-menu_btn.body::before {
+  background-image: url(../images/menu-icon4.png);
+  opacity: 0.6;
+  top: -7%;
+}
+.record .support-menu_btn.training::before {
+  background-image: url(../images/menu-icon5.png);
+  background-size: 40%;
+  opacity: 0.6;
+  top: 3%;
 }
 
 .record, .check {
@@ -125,7 +141,7 @@ section {
 .tab-label {
 	width: calc(100%/2);
 	height: 50px;
-	border-bottom: 3px solid #5ab4bd;
+	border-bottom: 3px solid var(--sub-color);;
 	background-color: #d9d9d9;
 	line-height: 50px;
 	font-size: 16px;

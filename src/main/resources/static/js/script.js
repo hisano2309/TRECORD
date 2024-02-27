@@ -46,19 +46,19 @@ $(document)
 										}, {
 											label: '適正体重',
 											data: healthyWeightArray, // constで指定した変数（healthyWeight）
-											borderColor: "#FF9900",
+											borderColor: "#edbebe",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										}, {
 										 	label: '美容体重',
 										 	data: beautyWeightArray, // constで指定した変数（beautyWeight）
-										 	borderColor: "#FFF100",
+										 	borderColor: "#edbeed",
 										 	backgroundColor: "#00000000",
 										 	lineTension: 0
 										},{
 										 	label: '標準BMI',
 										 	data: healthyBmiArray, // constで指定した変数（healthyBmi）
-										 	borderColor: "#F6AA00",
+										 	borderColor: "#bcd8eb",
 										 	backgroundColor: "#00000000",
 										 	lineTension: 0
 										},],
@@ -147,37 +147,37 @@ $(document)
 										{
 											label: 'ベンチプレス',
 											data: machineId_1Array, //constで指定した変数（machineId_1Array）
-											borderColor: "#FF4B00",
+											borderColor: "#f781cc",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										}, {
 											label: 'チェストプレス',
 											data: machineId_2Array, //constで指定した変数（machineId_2Array）
-											borderColor: "#005AFF",
+											borderColor: "#f7ac81",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										}, {
 											label: 'アブドミナルクランチ',
 											data: machineId_3Array, //constで指定した変数（machineId_3Array）
-											borderColor: "#03AF7A",
+											borderColor: "#c1f763",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										},{
 											label: 'ラットプルダウン',
 											data: machineId_4Array, //constで指定した変数（machineId_4Array）
-											borderColor: "#4DC4FF",
+											borderColor: "#81f7ac",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										},{
 											label: 'レッグプレス',
 											data: machineId_5Array, //constで指定した変数（machineId_5Array）
-											borderColor: "#F6AA00",
+											borderColor: "#80cbf7",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										},{
 											label: 'エクササイズバイク',
 											data: machineId_6Array, //constで指定した変数（machineId_6Array）
-											borderColor: "#FFF100",
+											borderColor: "#ac81f7",
 											backgroundColor: "#00000000",
 											lineTension: 0
 										}],
@@ -241,7 +241,7 @@ $(document)
 									labels: [machineNameArray[0], machineNameArray[1], machineNameArray[2], machineNameArray[3], machineNameArray[4], machineNameArray[5]],
 									datasets: [
 										{
-											backgroundColor: ["#FBBD8E", "#F067A6", "#FDD2B9", "#DE7C6B", "#CD4187", "#F9C1CF"],
+											backgroundColor: ["#f781cc", "#f7ac81", "#c1f763", "#81f7ac", "#80cbf7", "#ac81f7"],
 											data: countArray, //constで指定した変数（machineId_1Array）
 										}],
 								},

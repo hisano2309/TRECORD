@@ -4,6 +4,7 @@ html {
 }
 :root {
   --main-color: #80cbf7;
+  --sub-color: #57cfcb;
   --accent-color: #fdd178;
   --text-color: #333;
   --main-gradation: linear-gradient(90deg, rgb(174 255 206), rgb(160 224 255));
