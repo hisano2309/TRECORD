@@ -92,7 +92,8 @@
 ### 画面設計
 ![trecord2-2](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/6c02ff70-c45b-4fdc-9245-e21b808dae09)
 
-![trecord3-2](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/bc593255-7912-498d-ab08-e1e37ae0c8b7)
+![trecord3-2](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/b9ea5ae3-ddc8-4595-83e3-98abb1d4f1b2)
+
 
 ### データ設計
 ![trecord4-2](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/e8177271-8561-429e-a2a4-0e33d4f96de5)
