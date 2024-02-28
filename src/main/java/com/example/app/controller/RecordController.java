@@ -246,8 +246,9 @@ public class RecordController {
 		image.setUserId(user.getUserId());
 		image.setImgId(id);
 		image.setImgName(imgName);
-	/////// ★★★格納場所取得(各々のフォルダ名に変更して下さい)★★★ ///////
-		File dest = new File("C:/Users/uploads/" + imgName);
+		//TODO ★★★ ファイルパスを編集する ★★★
+		//File dest = new File("C:/Users/zd3M02/uploads/" + imgName);
+		 File dest = new File("/home/trainee/uploads/" + imgName); //公開サーバー
 		upload.transferTo(dest);
 		mapper.edit(image);
 		return "redirect:/mypage";
@@ -310,9 +311,9 @@ public class RecordController {
 			System.out.println(upload.getOriginalFilename());
 			// ファイル名取得
 			String imgName = upload.getOriginalFilename();
-	/////// ★★★格納場所取得(各々のフォルダ名に変更して下さい)★★★ ///////
-			File dest = new File("C:/Users/uploads/" + imgName);
-			// File dest = new File("C:/uploads/" + imgName);
+			//TODO ★★★ ファイルパスを編集する ★★★
+			//File dest = new File("C:/Users/zd3M02/uploads/" + imgName);
+			 File dest = new File("/home/trainee/uploads/" + imgName); //公開サーバー
 			Image image = new Image();
 			image.setUserId(user.getUserId());
 			image.setImgName(imgName);

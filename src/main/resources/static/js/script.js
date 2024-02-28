@@ -5,7 +5,8 @@ $(document)
 		function() {
 			$.ajax({
 				type: 'GET',
-				url: 'http://localhost:8080/weightBmiJson',
+				// url: 'http://localhost:8080/weightBmiJson',
+				url: 'http://java.apps.rok.jp:22081/weightBmiJson',
 				dataType: 'json'
 			})
 				.done(
@@ -91,7 +92,8 @@ $(document)
 		function() {
 			$.ajax({
 				type: 'GET',
-				url: 'http://localhost:8080/MachineSetCountLineGraph',
+				// url: 'http://localhost:8080/MachineSetCountLineGraph',
+				url: 'http://java.apps.rok.jp:22081/MachineSetCountLineGraph',
 				dataType: 'json'
 			})
 				.done(
@@ -208,7 +210,8 @@ $(document)
 		function() {
 			$.ajax({
 				type: 'GET',
-				url: 'http://localhost:8080/MachineSetCountPieGraph',
+				// url: 'http://localhost:8080/MachineSetCountPieGraph',
+				url: 'http://java.apps.rok.jp:22081/MachineSetCountPieGraph',
 				dataType: 'json'
 			})
 				.done(

@@ -75,8 +75,10 @@ private final UserMapper mapper;
 			
 			// ファイル名取得
 			String fileName = upload.getOriginalFilename();
+			//TODO ★★★ ファイルパスを編集する ★★★
 			// 格納場所取得(各々のフォルダ名に変更して下さい)
-			File dest = new File("C:/Users/uploads/" + fileName);
+			//File dest = new File("C:/Users/zd3M02/uploads/" + fileName);
+			 File dest = new File("/home/trainee/uploads/" + fileName); //公開サーバー
 			
 		user.setFileName(fileName);
 		upload.transferTo(dest); //フォルダに保存
@@ -105,7 +107,7 @@ private final UserMapper mapper;
 			return "login";
 		
 		}
-		System.out.println(user);
+		System.out.println("loginUser->"+user);
 		// ログインIDからDBへ問い合わせ
 		User foundUser = mapper.findByLoginId(user.getLoginId());
 		System.out.println("foundUser->"+foundUser);
@@ -196,8 +198,10 @@ private final UserMapper mapper;
 	        // 画像がアップロードされた場合の処理
 	    	String fileName = upload.getOriginalFilename();
 			user.setFileName(fileName);
+			//TODO ★★★ ファイルパスを編集する ★★★
 			//(各々のフォルダ名に変更して下さい)
-			File dest = new File("C:/Users/uploads/" + fileName);
+			//File dest = new File("C:/Users/zd3M02/uploads/" + fileName);
+			 File dest = new File("/home/trainee/uploads/" + fileName); //公開サーバー
 			upload.transferTo(dest);
 	    } else {
 	        // 画像がアップロードされなかった場合の処理
