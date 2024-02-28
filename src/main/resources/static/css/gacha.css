@@ -23,11 +23,6 @@
 	border-radius: 20px;
 }
 
-.result img {
-	width: 8vw;
-	vertical-align: sub;
-}
-
 .back_btn a {
     background: var(--main-color);
     display: block;
@@ -47,6 +42,21 @@
 
 .result .comment {
 	font-size: 4vw;
+}
+
+.result .result-cat {
+    position: absolute;
+    top: 42%;
+    right: 5%;
+    width: 27%;
+}
+
+.result .result-fight {
+    position: absolute;
+    top: 24%;
+    right: 10%;
+    width: 12%;
+    transform: rotate(-24deg);
 }
 
 
@@ -190,10 +200,10 @@ body {
     (-webkit-mask-image: radial-gradient(white, white))
     or
     (mask-image: radial-gradient(white, white))
-  )
-  and (not (-ms-ime-align: auto)) {
-  .line-container {
-    /* 中心をくり抜く */
+)
+and (not (-ms-ime-align: auto)) {
+.line-container {
+/* 中心をくり抜く */
 mask-image: radial-gradient( transparent 0%, transparent 4%, white 30%, white );
   }
   .line-container:before {

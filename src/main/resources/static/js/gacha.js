@@ -7,6 +7,7 @@ const capsuleWhite = document.querySelector('.capsule_white');
 const lightup = document.querySelector('.gacha .lightup');
 const shutter = document.querySelector('.shutter');
 const door = document.querySelector('.door');
+const fight = document.querySelector('.result-fight');
 
 // アニメーションの定義
 const animations = {
@@ -49,6 +50,16 @@ const animations = {
   ],
   gachaHidden: [
     { display: 'none' }
+  ],
+  fight: [
+    { transform: 'translate(-10%, 40%) rotate(-24deg)', opacity: 0 },
+    { transform: 'translate(10%, 0%) rotate(-24deg)', opacity: 1 },
+    { transform: 'translate(-10%, 0%) rotate(-24deg)', opacity: 1 },
+    { transform: 'translate(10%, 0%) rotate(-24deg)', opacity: 1 },
+    { transform: 'translate(-10%, 0%) rotate(-24deg)', opacity: 1 },
+    { transform: 'translate(10%, 0%) rotate(-24deg)', opacity: 1 },
+    { transform: 'translate(-10%, 0%) rotate(-24deg)', opacity: 1 },
+    { transform: 'translate(10%, 0%) rotate(-24deg)', opacity: 1 }
   ]
 };
 
@@ -60,6 +71,7 @@ capsule.animate(animations.capsule, { duration: 3800, delay: 2200, fill: 'both' 
 capsuleWhite.animate(animations.capsuleOpen, { duration: 500, delay: 4500, fill: 'both' });
 lightup.animate(animations.lightup, { duration: 900, delay: 5400, fill: 'both' });
 shutter.animate(animations.shutter, { duration: 1000, delay: 6200 });
+fight.animate(animations.fight, { duration: 1000, delay: 7200, fill: 'both' });
 
 // アニメーションの適用
 const lightupAnimation = lightup.animate(animations.lightup, { duration: 900, delay: 5400, fill: 'both' });

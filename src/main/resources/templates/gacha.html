@@ -58,6 +58,8 @@
     <div class="result">
       <p><span class="number">+[[${number}]]</span> <span th:text="${unit}"></span></p>
       <p th:text="${comment}" class="comment"></p>
+      <img class="result-cat" src="images/macho_cat2.png">
+      <img class="result-fight" src="images/fight.png">
     </div>
     <p class="back_btn" th:if="${session.user != null}"><a th:href="@{/mypage}">戻る</a></p>
     <p class="back_btn" th:unless="${session.user != null}"><a th:href="@{/ }">戻る</a></p>
