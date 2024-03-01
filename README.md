@@ -90,7 +90,8 @@
 
 ### 画面設計
 ![trecord2-2](https://github.com/Erina-Aramaki/TRECORD/assets/75921588/6c02ff70-c45b-4fdc-9245-e21b808dae09)
-![image](https://github.com/hisano2309/TRECORD/assets/150416585/5f0e3b46-0ce7-4afb-9316-10737c295fd9)
+![image](https://github.com/hisano2309/TRECORD/assets/150416585/17ff3961-c392-486f-8b6c-f10e043b9191)
+
 
 
 ### データ設計
