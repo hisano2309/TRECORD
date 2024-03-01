@@ -17,10 +17,10 @@
     - GitHub
 
 ### 言語使用率
-- Java 54.7%
-- HTML 27.4%
-- CSS 6.9%
-- JavaScript 11.0%
+- Java 42.9%
+- HTML 38.7%
+- JavaScript 9.6%
+- CSS 8.8%
 
 ### 制作者（五十音順）
 - 荒牧（担当：体重・BMI・トレーニング記録）
